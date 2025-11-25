@@ -1,148 +1,1009 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NESBA</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>خطة تطوير NAHR وتحليل المنافسين</title>
+
+  <!-- خط عربي جميل -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- مكتبة أنيميشن animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- مكتبة أنيميشن عند السكروول AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+
   <style>
     :root {
-      --primary-bg: #ffffff;
-      --accent-dark: #0d1b2a;   /* Navy */
-      --accent-gold: #d4af37;   /* Gold */
-      --btn-bg: #0d1b2a;        /* Default navy */
-      --btn-hover: #d4af37;     /* Hover gold */
-      --btn-text: #fff;
+      --primary: #004aad;
+      --primary-light: #e6f0ff;
+      --primary-dark: #003b8a;
+      --accent: #ffb320;
+      --accent-light: #ffd27a;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border-radius-lg: 16px;
+      --border-radius-sm: 10px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --shadow-medium: 0 15px 35px rgba(15, 23, 42, 0.12);
+      --gradient-primary: linear-gradient(135deg, #004aad 0%, #2563eb 100%);
+      --gradient-accent: linear-gradient(135deg, #ffb320 0%, #ffd700 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ضبط مقاس A4 للطباعة */
+    @page {
+      size: A4;
+      margin: 0;
     }
 
     body {
-      margin: 0;
-      font-family: "Tahoma", Arial, sans-serif;
-      background: var(--primary-bg);
-      color: var(--accent-dark);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    /* Animated background */
-    .background {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.15);
-      animation: float 10s infinite ease-in-out;
-    }
-    .circle:nth-child(1) {
-      width: 200px; height: 200px; top: 10%; left: -50px;
-    }
-    .circle:nth-child(2) {
-      width: 150px; height: 150px; bottom: 20%; right: -60px;
-      animation-duration: 12s;
-    }
-    .circle:nth-child(3) {
-      width: 300px; height: 300px; top: 50%; left: 40%;
-      animation-duration: 15s;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-    }
-
-    .container {
-      max-width: 420px;
-      width: 100%;
-    }
-
-    header img {
-      width: 140px;
-      margin-bottom: 10px;
-    }
-    header h1 {
-      margin: 0;
-      color: var(--accent-dark);
-      font-size: 2rem;
-    }
-    header p {
-      margin: 5px 0 20px;
-      color: #555;
-    }
-
-    .buttons {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
+      align-items: center;
+      gap: 24px;
+      min-height: 100vh;
+      padding: 24px;
     }
-    .btn {
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: var(--shadow-medium);
+      padding: 25mm 25mm;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+
+    /* خلفية ديكورية متطورة */
+    .page::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: -80mm;
+      inset-block-start: -80mm;
+      width: 200mm;
+      height: 200mm;
+      background:
+        radial-gradient(circle at 30% 30%, #2563eb15, transparent 60%),
+        radial-gradient(circle at 70% 20%, #ffb32010, transparent 50%),
+        radial-gradient(circle at 20% 70%, #004aad10, transparent 50%);
+      z-index: -1;
+    }
+
+    .page::after {
+      content: "";
+      position: absolute;
+      inset-inline-end: -90mm;
+      inset-block-end: -90mm;
+      width: 220mm;
+      height: 220mm;
+      background:
+        radial-gradient(circle at 70% 70%, #ffb32015, transparent 60%),
+        radial-gradient(circle at 30% 80%, #2563eb10, transparent 50%),
+        radial-gradient(circle at 80% 30%, #004aad10, transparent 50%);
+      z-index: -1;
+    }
+
+    .decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gradient-accent);
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .decoration:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      width: 80px;
+      height: 80px;
+    }
+
+    .decoration:nth-child(2) {
+      bottom: 15%;
+      right: 8%;
+      width: 60px;
+      height: 60px;
+    }
+
+    .decoration:nth-child(3) {
+      top: 25%;
+      right: 15%;
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+    }
+
+    .decoration:nth-child(4) {
+      bottom: 30%;
+      left: 12%;
+      width: 50px;
+      height: 50px;
+    }
+
+    .decoration:nth-child(5) {
+      top: 60%;
+      left: 20%;
+      width: 30px;
+      height: 30px;
+      background: var(--gradient-primary);
+    }
+
+    /* الهيدر */
+    .header-container {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+    }
+
+    .logo-center {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      padding: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 15px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--btn-text);
-      background-color: var(--btn-bg);
-      text-decoration: none;
-      border-radius: 12px;
-      transition: transform 0.2s, background-color 0.3s;
-    }
-    .btn i {
-      font-size: 1.4rem;
-    }
-    .btn:hover {
-      background-color: var(--btn-hover);
-      transform: scale(1.05);
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    footer {
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: #777;
+    .logo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
+    }
+
+    .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .main-title {
+      margin-bottom: 15px;
+    }
+
+    .main-title h1 {
+      font-size: 32px;
+      margin: 0 0 8px;
+      color: var(--text-main);
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .main-title .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: var(--primary-light);
+      border-radius: 30px;
+      display: inline-block;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 10px 5px;
+      border-radius: 12px;
+      background: #f8fafc;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      background: var(--primary-light);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .feature-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      background: var(--primary-light);
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0, 74, 173, 0.1);
+    }
+
+    .pill span.dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    h2.section-title {
+      font-size: 20px;
+      margin: 12px 0 18px;
+      position: relative;
+      padding-inline-start: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    h2.section-title::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--gradient-primary);
+    }
+
+    h3.sub-title {
+      font-size: 17px;
+      margin: 16px 0 10px;
+      color: var(--primary);
+      font-weight: 600;
+      position: relative;
+      padding-inline-start: 12px;
+    }
+
+    h3.sub-title::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+      color: var(--text-main);
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    ul {
+      margin: 0 0 12px;
+      padding-inline-start: 22px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    ul li::marker {
+      color: var(--accent);
+      font-size: 1.2em;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius-lg);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #f1f5f9;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: -50px;
+      inset-block-start: -50px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at 30% 30%, #2563eb10, transparent 65%);
+      z-index: -1;
+    }
+
+    .card-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-label::before {
+      content: "";
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .section-block {
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      height: 1px;
+      margin: 24px 0;
+      background: linear-gradient(to left, transparent, #d1d5db, transparent);
+    }
+
+    .highlight-box {
+      background: var(--primary-light);
+      border-radius: var(--border-radius-sm);
+      padding: 16px 18px;
+      margin: 18px 0;
+      border-right: 4px solid var(--accent);
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-weight: 600;
+      color: var(--primary-dark);
+      font-size: 16px;
+    }
+
+    .mini-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .mini-header-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 18px;
+    }
+
+    .mini-header-tag {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .keyword-group-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    /* استجابة بسيطة للشاشات الأصغر */
+    @media (max-width: 900px) {
+      body {
+        padding: 10px;
+      }
+      .page {
+        width: 100%;
+        min-height: auto;
+        padding: 20px 16px;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* إعدادات للطباعة */
+    @media print {
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 20mm 15mm;
+      }
+      .card:hover,
+      .logo:hover,
+      .feature-item:hover {
+        transform: none;
+        box-shadow: var(--shadow-soft);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="background">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-  </div>
 
-  <div class="container">
-    <header>
-      <img src="https://www.nesbaaplication.com/assets/images/logo/logo.png" alt="NESBA Logo">
-      <h1>NESBA APP</h1>
-      <p>Your Educational Platform</p>
+  <!-- الصفحة الأولى: الهيدر + تحليل المنافسين + الكلمات المفتاحية -->
+  <div class="page animate__animated animate__fadeIn">
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    <!-- الهيدر -->
+    <header class="header-container">
+      <div class="logo-center">
+        <div class="logo">
+          <!-- ضع اللوجو الخاص بـ NAHR في هذا المسار -->
+          <img src="./logo.png" alt="NAHR Logo">
+        </div>
+      </div>
+
+      <div class="main-title">
+        <h1>خطة تطوير رقمية واستراتيجية نمو</h1>
+        <div class="subtitle">تحليل سوق شامل واستراتيجية متكاملة للتوسع الرقمي</div>
+      </div>
+
+      <div class="tagline">
+        تحليل المنافسين وخطة تطوير شاملة للسوق المصري، الخليجي والأوروبي
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <div class="feature-text">تحليل سوق</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-text">تحليل منافسين</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🚀</div>
+          <div class="feature-text">خطة SEO</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌍</div>
+          <div class="feature-text">توسع خليجي</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💻</div>
+          <div class="feature-text">حضور رقمي متقدم</div>
+        </div>
+      </div>
     </header>
 
-    <div class="buttons">
-      <a class="btn" href="https://nesbaaplication.com/" target="_blank">
-        <i class="fa-solid fa-globe"></i> Visit Website
-      </a>
-      <a class="btn" href="https://play.google.com/store/apps/details?id=com.nahr.nessba" target="_blank">
-        <i class="fa-brands fa-google-play"></i> Google Play
-      </a>
-      <a class="btn" href="https://apps.apple.com/us/app/nessba/id6749504445" target="_blank">
-        <i class="fa-brands fa-apple"></i> App Store
-      </a>
-    </div>
+    <!-- القسم الأول: التحليل الشامل للسوق والمنافسين -->
+    <section data-aos="fade-up">
+      <div class="pill">
+        <span class="dot"></span>
+        <span>أولًا: التحليل الشامل للسوق والمنافسين</span>
+      </div>
+      <h2 class="section-title">١) تحليل المنافس الرئيسي: Qeematech</h2>
 
-    <footer>
-      © 2025 Nahr Development
-    </footer>
+      <div class="grid-2">
+        <!-- نقاط القوة -->
+        <div class="card">
+          <div class="card-label">نقاط القوة عند المنافس</div>
+          <ul>
+            <li>سيطرة قوية على كلمة <strong>"شركات تصميم تطبيقات"</strong> من خلال صفحة مخصصة للكلمة مع عنوان ورابط موجه مباشرة للكلمة المستهدفة.</li>
+            <li>محتوى طويل وكثيف يغطي التعريف، الخطوات، الأهمية، الأسئلة الشائعة، الأسعار، والمميزات بطريقة تعليمية بسيطة.</li>
+            <li>هيكل مقالة ثابت ومنظم يعتمد على أسلوب <strong>تعليم العميل + جذب العميل</strong> في نفس الوقت.</li>
+            <li>وجود ذكر للشركة في أكثر من مقال يتكلم عن "أفضل شركات تصميم تطبيقات"، وده بيرفع قوتهم في الصورة الذهنية عند العميل.</li>
+            <li>دعوات فعل واضحة من خلال أزرار طلب عرض سعر، والتواصل المباشر، والواتساب.</li>
+          </ul>
+        </div>
+
+        <!-- نقاط الضعف -->
+        <div class="card">
+          <div class="card-label">نقاط الضعف عند المنافس (دي اللي هنشتغل عليها)</div>
+          <ul>
+            <li>محتوى عام ومش متخصص في قطاع بعينه، مفيش تركيز على التجارة الإلكترونية أو أي قطاع رأسي واضح.</li>
+            <li>غياب دراسات حالة قوية بأرقام واضحة؛ مفيش قبل وبعد، ولا نسب نمو، ولا قصص نجاح تفصيلية.</li>
+            <li>أسلوب قديم في التعامل مع تحسين محركات البحث، والمحتوى نفسه مش محدث بما يكفي لمواكبة ٢٠٢٥–٢٠٢٦.</li>
+            <li>عدم التركيز الكافي على المتاجر الإلكترونية والتكامل مع منصات الدفع والشحن، رغم إن ده محور أساسي في الخليج وأوروبا.</li>
+            <li>ضعف المحتوى الإنجليزي مقارنة بالمحتوى العربي، وده بيحد من قدرة البراند على التوسع الدولي.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- خريطة المنافسين بأسماء حقيقية -->
+      <div class="section-block card" data-aos="fade-up" data-aos-delay="60">
+        <h3 class="sub-title">٢) خريطة المنافسين في مصر والخليج وتحليل تمركز NAHR</h3>
+
+        <p><strong>أ) منافسون رئيسيون في مصر (أمثلة عملية):</strong></p>
+        <ul>
+          <li>
+            <strong>قيمة تك (Qeematech)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> براند معروف في تصميم المواقع والتطبيقات، محتوى طويل يستهدف "شركات تصميم تطبيقات"، خبرة معلنة تتجاوز ١٠ سنوات، وتنوّع في الخدمات (مواقع – متاجر – تطبيقات – تسويق).</li>
+              <li><strong>نقاط ضعف:</strong> خطاب عام وغير متخصص في قطاع واحد، تركيز أقل على التجارة الإلكترونية كتخصص رئيسي، الاعتماد على مقالات "أفضل شركات" بدل إبراز نتائج وأرقام ملموسة.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>الإسكندرية للبرمجيات (AlexForProg)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> خبرة طويلة في برمجة تطبيقات الموبايل والمواقع، وجود معرض أعمال، والتركيز على حلول للشركات الناشئة.</li>
+              <li><strong>نقاط ضعف:</strong> التمركز التسويقي عام كـ "شركة برمجيات"، المحتوى تقني أكثر من كونه موجه لصاحب القرار، وضعف في إبراز تخصص واضح في المتاجر الإلكترونية.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>تك فيلدج (Tech Village)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> محتوى تعليمي عن خطوات تصميم التطبيقات وتكلفة الإنشاء، واعتماد على مقالات تستهدف كلمات مثل "أفضل شركات تصميم تطبيقات الجوال".</li>
+              <li><strong>نقاط ضعف:</strong> الاعتماد الكبير على المحتوى النظري، قلة عرض دراسات حالة حقيقية، وضعف في إبراز حلول تجارة إلكترونية متكاملة.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>كود ٩٥ (Code95)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> تركيز على الجودة التقنية وتجربة المستخدم، الحديث عن أنظمة قابلة للتطوير ودعم مستمر.</li>
+              <li><strong>نقاط ضعف:</strong> التمركز أقرب لشركة برمجة عامة مش شريك تجارة إلكترونية، وعدم إبراز قوي لخبرة في أسواق الخليج.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>ستورك إي جي (Storak EG)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> ظهور في مقالات مراجعات كـ "واحدة من شركات تصميم التطبيقات"، التركيز على الالتزام بالوقت والميزانية، واستهداف أصحاب المشاريع الصغيرة والمتوسطة.</li>
+              <li><strong>نقاط ضعف:</strong> الاعتماد على الترويج الذاتي أكثر من النتائج، قلة عرض مشاريع تجارة إلكترونية كبيرة أو علامات تجارية معروفة بأرقام واضحة.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><strong>ب) منافسون رئيسيون في الخليج (السعودية والإمارات – أمثلة):</strong></p>
+        <ul>
+          <li>
+            <strong>جيكسر (Geexar) – السعودية</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> محتوى قوي عن "شركات تصميم وبرمجة تطبيقات بالسعودية"، تركيز على حلول كاملة (أندرويد – آيفون – أنظمة ويب)، ورسالة سعودية محلية واضحة.</li>
+              <li><strong>نقاط ضعف:</strong> أسعار أعلى من الشركات المصرية، التركيز الأكبر على السوق السعودي فقط، وعدم إبراز حلول تجارة إلكترونية عابرة للحدود بنفس القوة.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>ريـر ويب (Rare Web) – السعودية</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> تركيز قوي على تصميم وتجربة المستخدم UX/UI، ورسائل تسويقية مرتبطة بـ "أفضل تجربة للمستخدم في التطبيقات".</li>
+              <li><strong>نقاط ضعف:</strong> التركيز الأكبر على الشكل والتجربة، مع إبراز أقل لمنظومة تجارة إلكترونية كاملة (استراتيجية مبيعات – تكامل مع أنظمة – تحليلات عميقة).</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>إعلانات سلا (Adsela) – السعودية</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> وكالة تسويق رقمية تضيف خدمة برمجة التطبيقات، ولديها فهم لسلوك المستهلك السعودي.</li>
+              <li><strong>نقاط ضعف:</strong> تطبيقات الموبايل ليست النشاط الأساسي، وغالبًا يتم تنفيذها عن طريق شركاء خارجيين، مما يقلل من عمق الخبرة التقنية.</li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>شركات تطوير تطبيقات في دبي (عدة براندات متوسطة)</strong>
+            <ul>
+              <li><strong>نقاط قوة:</strong> واجهات احترافية، محتوى إنجليزي قوي، وتركيز على الشركات العالمية الموجودة في الإمارات.</li>
+              <li><strong>نقاط ضعف:</strong> تكلفة مرتفعة بالنسبة للعملاء في المنطقة، وتركيز أقل على حلول تناسب أصحاب المشاريع الصغيرة والمتوسطة في الوطن العربي.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><strong>ج) تمركز NAHR وسط المشهد التنافسي:</strong></p>
+        <ul>
+          <li><strong>تخصص واضح:</strong> NAHR تظهر كشركة متخصصة في المتاجر الإلكترونية والتطبيقات المرتبطة بها، مش "شركة برمجة عامة"، وده يمكّننا نتحرك في السوق بعنوان واضح: شريك نمو للتجارة الإلكترونية.</li>
+          <li><strong>مزج مميز بين الجودة والسعر:</strong> جودة تنفيذ قريبة من الشركات الخليجية مع تكلفة أقرب للسوق المصري، وده بيخلق عرض قيمة قوي لعملاء الخليج وأوروبا.</li>
+          <li><strong>قدرة على تقديم نتائج بأرقام:</strong> من خلال تحويل المشاريع السابقة إلى دراسات حالة فيها:
+            <ul>
+              <li>نسب زيادة المبيعات.</li>
+              <li>تحسن في نسبة التحويل.</li>
+              <li>زيادة في معدل تكرار الشراء.</li>
+            </ul>
+          </li>
+          <li><strong>مرونة في استهداف أسواق متعددة:</strong> محتوى بالعربي للسوق المصري والخليجي، وبالإنجليزي للسوق الأوروبي، مع صفحة "من نحن" واضحة تسهّل ظهورنا في نماذج الذكاء الاصطناعي.</li>
+        </ul>
+      </div>
+
+      <!-- الكلمات المفتاحية -->
+      <div class="section-block card" data-aos="fade-up" data-aos-delay="120">
+        <h3 class="sub-title">٣) الكلمات المفتاحية التي سنستهدفها في المرحلة الأولى</h3>
+        <p>هنقسم الكلمات المفتاحية إلى مجموعات حسب الأولوية، عشان نضمن نتائج أسرع وتوسّع تدريجي:</p>
+
+        <div class="keyword-group">
+          <div class="keyword-group-title">المجموعة ٠: كلمات البراند (Brand)</div>
+          <ul>
+            <li>NAHR</li>
+            <li>NAHR Solutions</li>
+            <li>NAHR Development</li>
+            <li>شركة NAHR للبرمجيات</li>
+          </ul>
+        </div>
+
+        <div class="keyword-group">
+          <div class="keyword-group-title">المجموعة ١: كلمات أساسية للسوق المصري (أولوية قصوى)</div>
+          <ul>
+            <li>شركات تصميم تطبيقات</li>
+            <li>شركة تصميم تطبيقات</li>
+            <li>شركة برمجة تطبيقات موبايل</li>
+            <li>شركات برمجة تطبيقات في مصر</li>
+            <li>تصميم تطبيق متجر إلكتروني</li>
+            <li>شركة تصميم متجر إلكتروني</li>
+            <li>شركة برمجة متاجر إلكترونية</li>
+          </ul>
+        </div>
+
+        <div class="keyword-group">
+          <div class="keyword-group-title">المجموعة ٢: كلمات السوق الخليجي (السعودية/الإمارات)</div>
+          <ul>
+            <li>شركة تصميم تطبيقات في السعودية</li>
+            <li>شركة برمجة تطبيقات في السعودية</li>
+            <li>شركة تصميم متجر إلكتروني في السعودية</li>
+            <li>شركة تصميم متجر إلكتروني في الإمارات</li>
+            <li>شركة برمجة تطبيقات في الرياض</li>
+            <li>شركة برمجة تطبيقات في جدة</li>
+            <li>شركة برمجة تطبيقات في دبي</li>
+          </ul>
+        </div>
+
+        <div class="keyword-group">
+          <div class="keyword-group-title">المجموعة ٣: كلمات محتوى معلوماتي (Content / Blog)</div>
+          <ul>
+            <li>تكلفة تصميم تطبيق</li>
+            <li>تكلفة تصميم تطبيق في السعودية</li>
+            <li>تكلفة تصميم تطبيق متجر إلكتروني</li>
+            <li>خطوات تصميم تطبيق موبايل</li>
+            <li>أفضل شركة تصميم تطبيقات في مصر</li>
+            <li>أفضل شركة برمجة تطبيقات في السعودية</li>
+          </ul>
+        </div>
+
+        <p class="muted">في المرحلة الأولى هنركّز على المجموعة ١ + جزء من المجموعة ٣ داخل مصر، مع إطلاق صفحات مخصصة للمجموعة ٢ عشان نبدأ نتحرك بدري في الخليج حتى لو المنافسة أعلى.</p>
+      </div>
+    </section>
   </div>
+
+  <!-- الصفحة الثانية: خطة التطوير + خطة SEO -->
+  <div class="page">
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    <section data-aos="fade-up">
+      <div class="mini-header">
+        <div class="mini-header-title">خطة التطوير الشاملة لشركة NAHR</div>
+        <div class="mini-header-tag">المرحلة التنفيذية الأولى</div>
+      </div>
+
+      <div class="pill">
+        <span class="dot"></span>
+        <span>ثانيًا: خطة التطوير الشاملة لشركة NAHR</span>
+      </div>
+
+      <div class="highlight-box">
+        <p>"إحنا في NAHR داخلين مرحلة مختلفة تمامًا من التطوير والتوسع، والمرحلة دي هنعمل فيها الآتي:"</p>
+      </div>
+
+      <!-- ١) تطوير البنية الرقمية -->
+      <div class="section-block card" data-aos="fade-up" data-aos-delay="80">
+        <h2 class="section-title">١) تطوير البنية الرقمية للموقع بالكامل</h2>
+        <p>أنا هشتغل مع الفريق على ٣ محاور أساسية في بنية الموقع:</p>
+
+        <h3 class="sub-title">أ) إعادة بناء الموقع بتصميم جديد وسريع</h3>
+        <ul>
+          <li>تسريع تحميل الصفحات لتحقيق تجربة مثالية للمستخدم.</li>
+          <li>أداء أعلى وواجهات بسيطة وواضحة.</li>
+          <li>تجربة مستخدم <span class="muted">UX (User Experience)</span> واضحة مع مسار تحويل <span class="muted">Conversion</span> مدروس من أول زيارة لحد طلب الخدمة.</li>
+        </ul>
+
+        <h3 class="sub-title">ب) إنشاء صفحات خدمات بمحتوى قوي</h3>
+        <ul>
+          <li>صفحة تصميم التطبيقات.</li>
+          <li>صفحة تصميم تطبيقات التجارة الإلكترونية.</li>
+          <li>صفحة المتاجر الإلكترونية.</li>
+          <li>صفحة <span class="muted">Software Solutions (حلول برمجية)</span>.</li>
+          <li>صفحة خاصة بأوروبا والخليج.</li>
+        </ul>
+
+        <h3 class="sub-title">ج) صفحة مخصصة للسيطرة على كلمة "شركات تصميم تطبيقات"</h3>
+        <ul>
+          <li>هتكون أقوى من صفحات المنافسين لأنها مبنية على شغل فعلي وليس كلام تسويقي فقط.</li>
+          <li>تتضمن دراسات حالة واضحة.</li>
+          <li>توضح الفرق بينّا وبين المنافسين.</li>
+          <li>تقدّم خطة تسعير مبدئية شفافة.</li>
+          <li>تحتوي على أسئلة وأجوبة حقيقية.</li>
+          <li>محتوى طويل <span class="muted">SEO Optimized (محسّن لمحركات البحث)</span>.</li>
+        </ul>
+      </div>
+
+      <!-- خطة SEO -->
+      <div class="section-block card" data-aos="fade-up" data-aos-delay="120">
+        <h2 class="section-title">٢) خطة SEO احترافية طويلة المدى</h2>
+        <p>أنا هشتغل على ٤ محاور رئيسية في <span class="muted">SEO (تحسين محركات البحث)</span>:</p>
+
+        <h3 class="sub-title">المحور الأول: Technical SEO (الجزء التقني) – مع المبرمج</h3>
+        <ul>
+          <li>تحسين <span class="muted">Core Web Vitals</span> (مؤشرات أداء الموقع من جوجل).</li>
+          <li>تحسين سرعة الموقع على كل الأجهزة.</li>
+          <li>ضبط البنية الخاصة بالـ <span class="muted">Sitemap (خريطة الموقع)</span>.</li>
+          <li>تفعيل الـ <span class="muted">Schema (بيانات منظمة)</span> لأنواع:
+            <ul>
+              <li>منظمة الشركة.</li>
+              <li>الخدمات.</li>
+              <li>الأسئلة الشائعة.</li>
+              <li>المقالات.</li>
+            </ul>
+          </li>
+          <li>ضبط <span class="muted">hreflang</span> لتحديد اللغة والمنطقة المستهدفة لكل صفحة في جوجل.</li>
+        </ul>
+
+        <h3 class="sub-title">المحور الثاني: On-Page SEO (تحسين الصفحات من الداخل)</h3>
+        <ul>
+          <li>كتابة محتوى طويل وقوي لكل صفحة خدمة وصفحات الهبوط.</li>
+          <li>إضافة كلمات مفتاحية رئيسية وثانوية لكل صفحة.</li>
+          <li>توزيع الكلمات بطريقة ذكية وطبيعية داخل المحتوى.</li>
+          <li>تحسين العناوين الرئيسية والفرعية والـ <span class="muted">Meta Descriptions</span>.</li>
+          <li>تحسين الروابط الداخلية <span class="muted">Internal Linking</span> لبناء قوة بين الصفحات.</li>
+        </ul>
+
+        <h3 class="sub-title">المحور الثالث: Content SEO (خطة المحتوى)</h3>
+        <p>هنتحرك بخطة محتوى مستمرة:</p>
+        <ul>
+          <li><strong>١) مقالات شهرية عربية وإنجليزية</strong> حول موضوعات مثل:
+            <ul>
+              <li>تكلفة تصميم تطبيق.</li>
+              <li>إزاي تختار شركة برمجة؟</li>
+              <li>مستقبل التجارة الإلكترونية.</li>
+              <li>مشاكل تطبيقات المتاجر الإلكترونية وحلولها.</li>
+              <li>خطوات إطلاق تطبيق ناجح.</li>
+              <li>مقالات موجهة للسعودية والإمارات.</li>
+            </ul>
+          </li>
+          <li><strong>٢) Case Studies قوية</strong> تعرض:
+            <ul>
+              <li>قبل المشروع.</li>
+              <li>بعد المشروع.</li>
+              <li>النتائج والأرقام.</li>
+              <li>الصور والإنجازات.</li>
+            </ul>
+          </li>
+          <li><strong>٣) أدلة شاملة Guides</strong> مثل:
+            <ul>
+              <li>"دليل إطلاق تطبيق متجر إلكتروني من الصفر".</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3 class="sub-title">المحور الرابع: Off-Page SEO (باك لينكس وبناء السلطة)</h3>
+        <ul>
+          <li>بناء روابط خارجية من:
+            <ul>
+              <li>مواقع تقنية.</li>
+              <li>مواقع خليجية.</li>
+              <li>منصات أعمال.</li>
+              <li>مقالات ضيافة <span class="muted">Guest Posts</span>.</li>
+            </ul>
+          </li>
+          <li>تحديث صفحاتنا على المنصات:
+            <ul>
+              <li>Clutch.</li>
+              <li>GoodFirms.</li>
+              <li>Crunchbase.</li>
+              <li>Google Business.</li>
+              <li>CIT.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ٣) استراتيجية الخليج وأوروبا -->
+      <div class="section-block card" data-aos="fade-up">
+        <h2 class="section-title">٣) استراتيجية قوية للظهور في الخليج وأوروبا</h2>
+
+        <h3 class="sub-title">١) صفحات موجهة مباشرة للسعودية والإمارات</h3>
+        <ul>
+          <li>صفحة "شركة تصميم تطبيقات في السعودية".</li>
+          <li>صفحة "شركة تصميم متجر إلكتروني في الإمارات".</li>
+          <li>خدمات <span class="muted">Ecommerce Solutions for GCC</span> (حلول تجارة إلكترونية لدول الخليج).</li>
+        </ul>
+
+        <h3 class="sub-title">٢) صفحات مكتوبة بالإنجليزي للسوق الأوروبي</h3>
+        <ul>
+          <li><span class="muted">Software Development Services</span> (خدمات تطوير برمجيات).</li>
+          <li><span class="muted">Ecommerce App Development</span> (تطوير تطبيقات تجارة إلكترونية).</li>
+          <li><span class="muted">Mobile App Development Company in Europe</span> (شركة تطوير تطبيقات موبايل للسوق الأوروبي).</li>
+        </ul>
+
+        <h3 class="sub-title">٣) محتوى مخصص حسب الدولة</h3>
+        <p>أمثلة لمحتوى مخصص:</p>
+        <ul>
+          <li>"تكلفة تصميم تطبيق في السعودية 2025".</li>
+          <li>"Ecommerce Trends in Europe" (اتجاهات التجارة الإلكترونية في أوروبا).</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- الصفحة الثالثة: AI SEO + LinkedIn + ويكيبيديا + البراند -->
+  <div class="page">
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    <!-- ٤) استراتيجية AI SEO -->
+    <section data-aos="fade-up">
+      <div class="mini-header">
+        <div class="mini-header-title">تعزيز الظهور في الذكاء الاصطناعي والمنصات المهنية</div>
+        <div class="mini-header-tag">مرحلة بناء الثقة الرقمية</div>
+      </div>
+
+      <div class="section-block card">
+        <h2 class="section-title">٤) استراتيجية الظهور داخل نماذج الذكاء الاصطناعي (AI SEO)</h2>
+        <p>دي من أهم النقاط لأن مستقبل البحث هيكون معتمد على الذكاء الاصطناعي:</p>
+
+        <h3 class="sub-title">١) تحسين كل محتوى الموقع ليتناسب مع الذكاء الاصطناعي</h3>
+        <ul>
+          <li>كتابة محتوى بلغة مباشرة وواضحة.</li>
+          <li>إضافة أسئلة وأجوبة كثيرة داخل الصفحات.</li>
+          <li>تقسيم المحتوى لفقرات قصيرة وسهلة الفهم.</li>
+          <li>استخدام عناوين قوية وواضحة.</li>
+          <li>استخدام كلمات مفتاحية طبيعية داخل النص.</li>
+        </ul>
+
+        <h3 class="sub-title">٢) إضافة Schema لأن الذكاء الاصطناعي يعتمد عليها</h3>
+        <p>هندعم الصفحات ببيانات منظمة علشان نماذج الذكاء الاصطناعي تقدر تقرأ وتقتبس من المحتوى بسهولة.</p>
+
+        <h3 class="sub-title">٣) الظهور على منصات قوية لها وزن عند الذكاء الاصطناعي</h3>
+        <p>مثل:</p>
+        <ul>
+          <li>Clutch.</li>
+          <li>GoodFirms.</li>
+          <li>Google Business.</li>
+          <li>Crunchbase.</li>
+        </ul>
+
+        <h3 class="sub-title">٤) إنشاء صفحة "من نحن" قوية بصيغة سهلة الاقتباس</h3>
+        <p>هنكتب صفحة "من نحن" بأسلوب واضح ومركز، علشان منصات زي ChatGPT وGemini تقدر تقتبس منها مباشرة عند الإجابة عن أسئلة تخص NAHR.</p>
+      </div>
+    </section>
+
+    <!-- ٥) استراتيجية LinkedIn -->
+    <section data-aos="fade-up">
+      <div class="section-block card">
+        <h2 class="section-title">٥) استراتيجية LinkedIn (لينكدإن)</h2>
+        <p>أنا هشتغل على تطوير حضور الشركة على لينكدإن بالشكل التالي:</p>
+
+        <h3 class="sub-title">١) تطوير صفحة الشركة بالكامل</h3>
+        <ul>
+          <li>تصميم <span class="muted">Cover</span> مناسب يعكس هوية NAHR.</li>
+          <li>كتابة وصف احترافي يوضح التخصص والخبرة.</li>
+          <li>إضافة الخدمات الأساسية في البروفايل.</li>
+          <li>إضافة الإنجازات الرئيسية.</li>
+          <li>عرض الأعمال السابقة بشكل منظم.</li>
+        </ul>
+
+        <h3 class="sub-title">٢) خطة محتوى أسبوعية</h3>
+        <ul>
+          <li>نشر محتوى تعليمي واستراتيجي عن التطبيقات والمتاجر الإلكترونية.</li>
+          <li>مشاركة قصص نجاح <span class="muted">Case Studies</span>.</li>
+          <li>إبراز الفريق وخبراته.</li>
+        </ul>
+
+        <h3 class="sub-title">٣) كتابة مقالات شهرية على LinkedIn Articles</h3>
+        <p>مقالات متعمقة باللغة العربية والإنجليزية تعزز من صورة NAHR كشريك تقني واستشاري في مجال التطبيقات والتجارة الإلكترونية.</p>
+      </div>
+    </section>
+
+    <!-- ٦) ويكيبيديا -->
+    <section data-aos="fade-up">
+      <div class="section-block card">
+        <h2 class="section-title">٦) إنشاء صفحة ويكيبيديا (Wikipedia)</h2>
+        <ul>
+          <li>تجهيز صفحة تعريف بالشركة بأسلوب موسوعي ومحايد.</li>
+          <li>إنشاء مصادر خارجية مثل مقالات ومقابلات <span class="muted">(Articles, Interviews)</span> تدعم قبول الصفحة.</li>
+          <li>صياغة المحتوى بطريقة متوافقة مع شروط وسياسات ويكيبيديا.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ٧) تحسين البراند -->
+    <section data-aos="fade-up">
+      <div class="section-block card">
+        <h2 class="section-title">٧) تحسين شكل الشركة كـ Brand قوي دوليًا</h2>
+        <p>أنا هشتغل مع الفريق على تقوية الصورة الذهنية لـ NAHR كعلامة تجارية رقمية عالمية من خلال:</p>
+        <ul>
+          <li>تصميم بروشور احترافي للشركة يعرض الخدمات والأعمال.</li>
+          <li>بناء <span class="muted">Company Profile</span> قوي يمكن استخدامه في العروض والمناقصات.</li>
+          <li>عرض الأعمال بصيغة <span class="muted">Showcase</span> جذابة وسهلة التصفح.</li>
+          <li>إنتاج فيديو تعريفي بالشركة والخدمات الرئيسية وأهم قصص النجاح.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- سكربت AOS للأنيميشن عند السكروول -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 700,
+      offset: 40,
+      once: true
+    });
+  </script>
 </body>
 </html>

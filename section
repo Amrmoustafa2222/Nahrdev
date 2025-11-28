@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>هيكل صفحة الهبوط – NAHR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Cairo font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --bg-soft: #f9fafb;
+      --card-bg: #ffffff;
+      --card-border: #e5e7eb;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.06);
+      --accent-strong: #1d4ed8;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-soft: #6b7280;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.04);
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0, #f5f5f7 38%, #eef2ff 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header.header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 0.9),
+        transparent
+      );
+      border-bottom: 1px solid rgba(209, 213, 219, 0.75);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px 10px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 20%, #2563eb, #1d4ed8 45%, #1e40af 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.45);
+    }
+
+    .brand-text-main {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .view-tag {
+      font-size: 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .view-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #22c55e, #16a34a);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .view-tag-strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    main.main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 20px 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .layout-stacked {
+      display: none;
+    }
+
+    /* Sidebar (sections nav) */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+    }
+
+    .sidebar-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      padding: 14px 14px 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .sidebar-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #111827;
+    }
+
+    .sidebar-title span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent-strong);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      border: 1px solid rgba(37, 99, 235, 0.22);
+    }
+
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .section-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-height: min(420px, 65vh);
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5f5 transparent;
+    }
+
+    .section-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .section-nav::-webkit-scrollbar-thumb {
+      background-color: #cbd5f5;
+      border-radius: 999px;
+    }
+
+    .section-nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast), border var(--transition-fast);
+      border: 1px solid transparent;
+    }
+
+    .section-nav-item a .badge {
+      font-size: 10px;
+      min-width: 20px;
+      text-align: center;
+      padding: 2px 0;
+      border-radius: var(--radius-pill);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      color: #111827;
+    }
+
+    .section-nav-item a .label {
+      flex: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .section-nav-item a .tag {
+      font-size: 10px;
+      opacity: 0.9;
+      border-radius: var(--radius-pill);
+      padding: 2px 6px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #f9fafb;
+      color: var(--text-soft);
+    }
+
+    .section-nav-item a:hover {
+      background: linear-gradient(to left, rgba(219, 234, 254, 0.9), #ffffff);
+      color: #111827;
+      transform: translateY(-1px);
+      border-color: rgba(191, 219, 254, 0.9);
+    }
+
+    .section-nav-item a.active {
+      background: linear-gradient(to left, #2563eb, #1d4ed8);
+      color: #f9fafb;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Main content (sections) */
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .page-intro {
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 14px;
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid rgba(191, 219, 254, 0.9);
+      box-shadow: 0 18px 38px rgba(59, 130, 246, 0.12);
+    }
+
+    .page-intro-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #0f172a;
+    }
+
+    .page-intro-title span {
+      font-size: 11px;
+      color: var(--accent-strong);
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      background: var(--accent-soft);
+    }
+
+    .page-intro-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .page-intro-sub strong {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .page-intro-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      padding: 4px 9px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill i {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .section-card {
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 12px 14px 10px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0;
+      background: radial-gradient(circle at top, rgba(219, 234, 254, 0.5), transparent 60%);
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .section-card:hover::before {
+      opacity: 0.6;
+    }
+
+    .section-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .section-index {
+      min-width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f9fafb;
+      color: #111827;
+    }
+
+    .section-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #111827;
+    }
+
+    .section-title-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      align-items: center;
+    }
+
+    .section-title-main span.en {
+      font-weight: 500;
+      font-size: 11px;
+      color: var(--text-soft);
+      opacity: 0.95;
+    }
+
+    .section-purpose-tag {
+      font-size: 11px;
+      color: var(--accent-strong);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      white-space: nowrap;
+    }
+
+    .section-why {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .section-why strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .section-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .badge-small {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: var(--radius-pill);
+      background: #f9fafb;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .toggle-details {
+      font-size: 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      padding: 4px 9px;
+      background: #ffffff;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+    }
+
+    .toggle-details span.icon {
+      transform: translateY(1px);
+      font-size: 13px;
+    }
+
+    .toggle-details:hover {
+      background: #2563eb;
+      border-color: #1d4ed8;
+      color: #ffffff;
+      transform: translateY(-0.5px);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.35);
+    }
+
+    .section-body {
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px dashed rgba(209, 213, 219, 0.95);
+      padding: 9px 10px 8px;
+      background: #f9fafb;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      max-height: 1000px;
+      overflow: hidden;
+      transition: max-height 0.22s ease-out, opacity 0.18s ease-out, padding 0.2s ease-out,
+        border-color 0.2s ease-out;
+      opacity: 1;
+    }
+
+    .section-card.collapsed .section-body {
+      max-height: 0;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-color: transparent;
+    }
+
+    .section-body h4 {
+      margin: 0 0 4px;
+      font-size: 12px;
+      color: #111827;
+    }
+
+    .section-body p {
+      margin: 0 0 6px;
+    }
+
+    .section-body .field-label {
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 2px;
+      font-size: 12px;
+    }
+
+    .section-body .field {
+      border-radius: 10px;
+      padding: 6px 8px;
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      background: #ffffff;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+
+    .section-body .field.en {
+      direction: ltr;
+      text-align: left;
+      font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      font-size: 12px;
+    }
+
+    .section-body .field.inline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .section-body .tag-pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 9px;
+      border: 1px solid rgba(209, 213, 219, 1);
+      background: #f9fafb;
+      font-size: 11px;
+      color: #111827;
+    }
+
+    .section-body .bullets {
+      padding-right: 16px;
+      margin: 2px 0 6px;
+    }
+
+    .section-body .bullets li {
+      margin-bottom: 4px;
+    }
+
+    .section-body .bullets strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      main.main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .layout-stacked {
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .stacked-scroll {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: thin;
+      }
+
+      .stacked-scroll::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      .stacked-scroll::-webkit-scrollbar-thumb {
+        background-color: #cbd5f5;
+        border-radius: 999px;
+      }
+
+      .stacked-item {
+        flex: 0 0 auto;
+        font-size: 11px;
+        border-radius: 999px;
+        padding: 4px 9px;
+        border: 1px solid rgba(148, 163, 184, 0.9);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--text-soft);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .stacked-item.active {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #f9fafb;
+        box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.65);
+      }
+
+      .section-card {
+        padding: 11px 12px 9px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding-inline: 14px;
+      }
+
+      main.main {
+        padding-inline: 14px;
+      }
+
+      .page-intro {
+        padding-inline: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <div>
+            <div class="brand-text-main">هيكل صفحة الهبوط – NAHR</div>
+            <div class="brand-text-sub">ترتيب السكاشن المقترح قبل التصميم والتطوير</div>
+          </div>
+        </div>
+        <div class="view-tag">
+          <span class="view-tag-dot"></span>
+          <span>وضع العرض:</span>
+          <span class="view-tag-strong">هيكل سكاشن / Landing Flow</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Sidebar (desktop) -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">
+            Step-by-Step Funnel
+            <span>من أول انطباع حتى CTA</span>
+          </div>
+          <div class="sidebar-subtitle">
+            ترتيب السكاشن المنطقي من أول انطباع حتى الإقناع وطلب التواصل.
+          </div>
+          <ul class="section-nav">
+            <li class="section-nav-item">
+              <a href="#section-1">
+                <span class="badge">1</span>
+                <span class="label">Hero – العنوان الرئيسي</span>
+                <span class="tag">الانطباع الأول</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-2">
+                <span class="badge">2</span>
+                <span class="label">لمحة عن NAHR</span>
+                <span class="tag">تعريف سريع</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-3">
+                <span class="badge">3</span>
+                <span class="label">الخدمات الأساسية</span>
+                <span class="tag">What We Do</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-4">
+                <span class="badge">4</span>
+                <span class="label">التركيز على Ecommerce</span>
+                <span class="tag">تخصص</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-5">
+                <span class="badge">5</span>
+                <span class="label">لماذا يختارنا العملاء؟</span>
+                <span class="tag">Why NAHR</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-6">
+                <span class="badge">6</span>
+                <span class="label">نماذج أعمال سريعة</span>
+                <span class="tag">Proof</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-7">
+                <span class="badge">7</span>
+                <span class="label">خطوات العمل</span>
+                <span class="tag">Process</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-8">
+                <span class="badge">8</span>
+                <span class="label">الفريق الأساسي</span>
+                <span class="tag">Team</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-9">
+                <span class="badge">9</span>
+                <span class="label">الأسئلة الشائعة</span>
+                <span class="tag">FAQ</span>
+              </a>
+            </li>
+            <li class="section-nav-item">
+              <a href="#section-10">
+                <span class="badge">10</span>
+                <span class="label">الدعوة النهائية للإجراء</span>
+                <span class="tag">Final CTA</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main sections -->
+      <section class="sections">
+        <div class="page-intro">
+          <div class="page-intro-title">
+            هيكل صفحة هبوط موجه لعملاء التجارة الإلكترونية
+            <span>Discovery Deck</span>
+          </div>
+          <div class="page-intro-sub">
+            الكروت اللي تحت دي مش التصميم النهائي، لكنها <strong>خارطة السكاشن</strong> بالترتيب المنطقي للفُنِل:
+            من أول من نحن؟ لحد CTA الأخير.
+          </div>
+          <div class="page-intro-meta">
+            <div class="pill">
+              <i>➀</i> القراءة: <strong>من أعلى لأسفل</strong> علشان تشوف رحلة الزائر
+            </div>
+            <div class="pill">
+              <i>➁</i> كل كرت = Section في صفحة الهبوط الفعلية
+            </div>
+            <div class="pill">
+              <i>➂</i> ممكن نعدّل الترتيب أو المحتوى بسهولة بعد المراجعة
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile chips nav -->
+        <div class="layout-stacked">
+          <div class="stacked-scroll">
+            <button class="stacked-item" data-target="#section-1">
+              <span>1</span> Hero
+            </button>
+            <button class="stacked-item" data-target="#section-2">
+              <span>2</span> Snapshot
+            </button>
+            <button class="stacked-item" data-target="#section-3">
+              <span>3</span> Services
+            </button>
+            <button class="stacked-item" data-target="#section-4">
+              <span>4</span> Ecommerce Focus
+            </button>
+            <button class="stacked-item" data-target="#section-5">
+              <span>5</span> Why NAHR
+            </button>
+            <button class="stacked-item" data-target="#section-6">
+              <span>6</span> Case Studies
+            </button>
+            <button class="stacked-item" data-target="#section-7">
+              <span>7</span> Process
+            </button>
+            <button class="stacked-item" data-target="#section-8">
+              <span>8</span> Team
+            </button>
+            <button class="stacked-item" data-target="#section-9">
+              <span>9</span> FAQ
+            </button>
+            <button class="stacked-item" data-target="#section-10">
+              <span>10</span> Final CTA
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <article class="section-card" id="section-1">
+          <div class="section-card-header">
+            <div class="section-index">1</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ١: الـ Hero Section</span>
+                  <span class="en">Hero – Above the Fold</span>
+                </div>
+                <span class="section-purpose-tag">انطباع أول + SEO</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> لأنه أول جزء بيشوفه الزائر، فلازم يعرف في ثانيتين:
+                &quot;إحنا مين؟ بنقدم إيه؟ وليه إحنا من أفضل شركات التطبيقات؟&quot; مع زرع الكلمة الأساسية
+                للتجارة الإلكترونية في العنوان.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان رئيسي، ساب تايتل، سطر إنجليزي، CTA مزدوج</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <h4>المحتوى المقترح داخل الـ Hero:</h4>
+
+            <div class="field-group">
+              <div class="field-label">H1 (العنوان الرئيسي):</div>
+              <div class="field">
+                NAHR – من أفضل شركات تطوير التطبيقات والمتاجر الإلكترونية للشركات الطامحة إلى النمو
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">Subheading (وصف داعم):</div>
+              <div class="field">
+                تبحث العديد من الشركات عن أفضل شركة تطبيقات تستطيع تطوير متجر إلكتروني أو تطبيق موبايل يساهم في
+                زيادة المبيعات وتحسين تجربة المستخدم. في NAHR نعمل كشريك تقني يركّز على تحقيق النمو، وليس مجرد تسليم
+                كود.
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">English line:</div>
+              <div class="field en">
+                Ecommerce-Focused App &amp; Store Development Company
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">English Subheading:</div>
+              <div class="field en">
+                We design and build ecommerce apps and stores that focus on sales, not just code delivery.
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">CTA Buttons:</div>
+              <div class="field inline-tags">
+                <span class="tag-pill">احجز استشارة مجانية</span>
+                <span class="tag-pill">اطّلع على نماذج من أعمالنا</span>
+              </div>
+            </div>
+
+            <p class="note">
+              تصميميًا، الـ Hero هيبقى فيه مساحة بصرية قوية + صورة/Mockup توضح تطبيق أو متجر، مع إبراز CTA الأول بشكل
+              أساسي والثاني كخيار ثانوي.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 2 -->
+        <article class="section-card" id="section-2">
+          <div class="section-card-header">
+            <div class="section-index">2</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٢: لمحة مختصرة عن NAHR – Snapshot</span>
+                  <span class="en">Brand Snapshot</span>
+                </div>
+                <span class="section-purpose-tag">تعريف سريع</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> بعد ما الزائر يشوف الـ Hero، محتاج نبذة مركزة عن الشركة بدون
+                تفاصيل كثيرة، علشان يتشجع يكمل بدل ما يخرج ويدوّر على شركة تانية.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + فقرة تعريفية قصيرة</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">NAHR في سطور</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النص التعريفي:</div>
+              <div class="field">
+                NAHR شركة برمجيات متخصصة في تطوير تطبيقات الموبايل والمتاجر الإلكترونية. نعمل على تحويل الأفكار إلى
+                منتجات تقنية جاهزة للنمو والتوسع، ونقدّم خدماتنا لعملاء في مصر والسعودية والإمارات وأوروبا.
+                نعتمد منهجيات دقيقة في التحليل، والتخطيط، والتصميم، والتطوير، لنضمن نتائج تجارية واضحة عبر كل مشروع.
+              </div>
+            </div>
+
+            <p class="note">
+              ممكن نضيف تحت النص سطر صغير يوضح عدد المشاريع أو الدول بشكل بصري (أيقونات أو أرقام) بدون الدخول في تفاصيل
+              كاملة.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 3 -->
+        <article class="section-card" id="section-3">
+          <div class="section-card-header">
+            <div class="section-index">3</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٣: الخدمات الأساسية – What We Do</span>
+                  <span class="en">Core Services</span>
+                </div>
+                <span class="section-purpose-tag">توضيح الخدمات</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> الزائر بعد المقدمة عايز يعرف: هل عندكم الخدمة اللي بيدوّر عليها
+                فعلاً؟ وجود هذا القسم يقلل جدًا من الـ Bounce Rate لأنه يجاوب بسرعة على &quot;إيه اللي بتقدموه؟&quot;.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + مقدمة + ٤ كروت خدمات</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">ماذا نقدّم في NAHR؟</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">مقدمة قصيرة:</div>
+              <div class="field">
+                نقدّم أربع خدمات رئيسية تدعم التحول الرقمي ونمو الأعمال في قطاع التطبيقات والمتاجر الإلكترونية:
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">الخدمات (تُعرض في شكل كروت أو Grid):</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>
+                    <strong>1) تطوير تطبيقات الموبايل – Mobile App Development</strong><br />
+                    تصميم وتطوير تطبيقات iOS وAndroid بواجهات حديثة وتجربة استخدام متقنة تركّز على سهولة التصفح وسرعة
+                    الأداء.
+                  </li>
+                  <li>
+                    <strong>2) تطوير المتاجر الإلكترونية – Ecommerce Store Development</strong><br />
+                    بناء متاجر إلكترونية احترافية متكاملة مع بوابات الدفع، وأنظمة الشحن، ولوحات التحليل، بما يضمن جاهزية
+                    المتجر للنمو منذ اليوم الأول.
+                  </li>
+                  <li>
+                    <strong>3) تطوير تطبيقات المتاجر الإلكترونية – Ecommerce App Development</strong><br />
+                    تطوير تطبيقات متوافقة مع المتجر الإلكتروني، توفر تجربة شراء سلسة، وتزيد من معدلات الطلب والتكرار
+                    الشرائي.
+                  </li>
+                  <li>
+                    <strong>4) حلول برمجية مخصّصة – Custom Software Solutions</strong><br />
+                    إنشاء حلول مخصّصة ونظم داخلية مثل ERP، وCRM، ولوحات التحكم، مصممة بما يتوافق مع طبيعة كل نشاط
+                    تجاري.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              بصريًا: ٤ كروت متساوية مع أيقونة لكل خدمة، وتحت كل كرت CTA صغير مثل &quot;اكتشف التفاصيل&quot; أو
+              &quot;ملف تعريف الخدمة&quot;.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 4 -->
+        <article class="section-card" id="section-4">
+          <div class="section-card-header">
+            <div class="section-index">4</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٤: التركيز على التجارة الإلكترونية – Ecommerce Focus</span>
+                  <span class="en">Ecommerce-Focused Stack</span>
+                </div>
+                <span class="section-purpose-tag">إثبات التخصص</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> علشان نثبت إنكم مش شركة برمجيات عامة، لكن متخصصين في التجارة
+                الإلكترونية، وده عامل حاسم في قرار أصحاب المتاجر عند اختيار شريك تقني.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + نص تمهيدي + نقاط تكامل</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">حلول متكاملة مصمّمة لدعم نمو التجارة الإلكترونية</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النص التمهيدي:</div>
+              <div class="field">
+                تعتمد NAHR على بنية تقنية متكاملة تضم جميع الأدوات اللازمة لتشغيل متجر إلكتروني ناجح، من نظم الدفع إلى
+                إدارة الطلبات والتحليلات المتقدمة.
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النقاط الرئيسية:</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>
+                    التكامل مع بوابات الدفع: Paymob، Hyperpay، Tabby، Tamara وغيرها.
+                  </li>
+                  <li>
+                    التكامل مع شركات الشحن: Aramex، DHL، SMSA، وغيرها.
+                  </li>
+                  <li>
+                    لوحات تحكم توضح حركة المبيعات، وسلوك المستخدمين، والمنتجات الأعلى أداءً.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">جملة استراتيجية داخل النص:</div>
+              <div class="field">
+                هذا المستوى من التكامل جعل العديد من عملائنا يعتبرون NAHR من أفضل شركات التطبيقات المتخصصة في حلول
+                التجارة الإلكترونية في المنطقة.
+              </div>
+            </div>
+
+            <p class="note">
+              تصميميًا: ممكن استخدام Icon Strip يوضح الشعارات (Paymob، Hyperpay...) مع Diagram بسيط لمسار الطلب
+              (Order → Payment → Shipping → Analytics).
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 5 -->
+        <article class="section-card" id="section-5">
+          <div class="section-card-header">
+            <div class="section-index">5</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٥: لماذا يختارنا العملاء؟ – Why NAHR</span>
+                  <span class="en">Value Proposition</span>
+                </div>
+                <span class="section-purpose-tag">إجابة سؤال: لماذا أنتم؟</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> يرد على السؤال الطبيعي: &quot;ليه نختاركم أنتم؟&quot; ويقلل
+                التردد قبل التواصل أو طلب عرض سعر.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: نص تمهيدي + نقاط قيمة مضافة</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">لماذا ترى العديد من الشركات أن NAHR من أفضل شركات التطبيقات؟</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النص التمهيدي:</div>
+              <div class="field">
+                اختيار شريك تقني لمشروعك خطوة حاسمة، ولذلك نحرص على تقديم قيم واضحة تميّز أسلوب عملنا:
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النقاط المميِّزة:</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>تنفيذ سريع مع التزام كامل بالمعايير التقنية والجودة.</li>
+                  <li>تصميم وتجربة استخدام مبنيان خصيصًا لزيادة التحويل والمبيعات.</li>
+                  <li>فريق متخصص في التطبيقات والتجارة الإلكترونية.</li>
+                  <li>خبرة في أسواق متعددة تمكّننا من فهم اختلاف المستخدمين واحتياجاتهم.</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              يفضَّل عرض هذه النقاط في Layout بصري (Icons + Short Titles) لتسهيل المسح السريع (Scanning) على صاحب
+              المشروع.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 6 -->
+        <article class="section-card" id="section-6">
+          <div class="section-card-header">
+            <div class="section-index">6</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٦: نماذج أعمال سريعة – Mini Case Studies</span>
+                  <span class="en">Quick Proof</span>
+                </div>
+                <span class="section-purpose-tag">إثبات نتائج</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> قبل ما العميل يكمل الصفحة، لازم يشوف دليل سريع إن فيه نتائج
+                حقيقية، علشان نثبت المصداقية بدون ما نضطر يزور صفحة البورتفوليو كاملة.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: ٣ كروت Case Study مصغرة</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">نماذج مختصرة من أعمالنا</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">الكروت الثلاثة:</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>
+                    <strong>1) متجر إلكتروني لعلامة تجارية</strong><br />
+                    <strong>التحدي:</strong> ارتفاع الزيارات مقابل ضعف المبيعات.<br />
+                    <strong>الحل:</strong> تحسين تجربة الشراء وإعادة تصميم مسار الطلب وربطه بالدفع والشحن.<br />
+                    <strong>النتيجة:</strong> ارتفاع ملحوظ في المبيعات خلال الأسابيع الأولى.
+                  </li>
+                  <li>
+                    <strong>2) تطبيق طلبات</strong><br />
+                    <strong>التحدي:</strong> طول مدة تنفيذ الطلب وضعف التجربة.<br />
+                    <strong>الحل:</strong> إعادة بناء مسار الطلب وربطه بنظام إدارة أسرع.<br />
+                    <strong>النتيجة:</strong> انخفاض زمن تنفيذ الطلب بنسبة مؤثرة.
+                  </li>
+                  <li>
+                    <strong>3) منتج SaaS</strong><br />
+                    <strong>التحدي:</strong> انخفاض الاحتفاظ بالمستخدمين.<br />
+                    <strong>الحل:</strong> تحسين تجربة الانضمام والاستخدام الأول.<br />
+                    <strong>النتيجة:</strong> زيادة معدل الاحتفاظ خلال الشهر الأول.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              يمكن لاحقًا ربط كل Case Study برابط &quot;اقرأ التفاصيل&quot; لصفحة دراسة حالة كاملة لو موجودة.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 7 -->
+        <article class="section-card" id="section-7">
+          <div class="section-card-header">
+            <div class="section-index">7</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٧: خطوات العمل – Process</span>
+                  <span class="en">Execution Process</span>
+                </div>
+                <span class="section-purpose-tag">طمأنة العميل</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> علشان نطمن العميل إن الأمور مش عشوائية، وفيه خطة واضحة من أول
+                دقيقة، وده مهم جدًا لأصحاب المشاريع غير التقنيين.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + ٦ مراحل مرتبة</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">كيف نعمل؟</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">المراحل (Timeline):</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>التحليل والاكتشاف</li>
+                  <li>التخطيط وتحديد الخواص</li>
+                  <li>تصميم تجربة الاستخدام والواجهات</li>
+                  <li>التطوير</li>
+                  <li>الاختبارات</li>
+                  <li>الإطلاق والمتابعة</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              تصميميًا: تُعرض كمخطط زمني (Timeline) أفقي أو عمودي مع أيقونة لكل مرحلة، ليوضح للمستخدم رحلته من أول
+              الاجتماع وحتى الإطلاق.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 8 -->
+        <article class="section-card" id="section-8">
+          <div class="section-card-header">
+            <div class="section-index">8</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٨: الفريق الأساسي – Core Team</span>
+                  <span class="en">Core Team</span>
+                </div>
+                <span class="section-purpose-tag">رفع الثقة</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> لأن العميل لازم يفهم إن المشروع مش &quot;مجهود شخص واحد&quot;،
+                بل فريق متكامل، وده يرفع الثقة في القدرة على التسليم والمتابعة.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + نص تمهيدي + Breakdown فريق</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">الفريق الذي يقف خلف التنفيذ</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النص التمهيدي:</div>
+              <div class="field">
+                يقف خلف NAHR فريق تقني متكامل يعمل بتناغم من مرحلة الفكرة وحتى الإطلاق، ويضم الاختصاصات الآتية:
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">الأرقام (Team Breakdown):</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>3 مهندسين Backend / APIs</li>
+                  <li>2 مطوّري موبايل</li>
+                  <li>2 متخصصي واجهة وتجربة استخدام</li>
+                  <li>1 إدارة منتج واستراتيجية</li>
+                  <li>1 محتوى وتحسين محركات البحث</li>
+                  <li>1 جودة وDevOps</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              يفضَّل عرض الأرقام في Cards صغيرة أو Grid، مع إمكانية إضافة صور (حقيقية أو Placeholder) للفريق لاحقًا.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 9 -->
+        <article class="section-card" id="section-9">
+          <div class="section-card-header">
+            <div class="section-index">9</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ٩: الأسئلة الشائعة – FAQ</span>
+                  <span class="en">FAQ Block</span>
+                </div>
+                <span class="section-purpose-tag">رفع الاعتراضات</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> لأن الأسئلة دي لو ماجاوبناش عليها، العميل غالبًا مش هيكمّل تواصل.
+                الـ FAQ يزيل الاعتراضات قبل ما تحصل.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان + قائمة أسئلة شائعة</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">أسئلة يتكرر طرحها من أصحاب المشاريع</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">أمثلة للأسئلة:</div>
+              <div class="field">
+                <ul class="bullets">
+                  <li>ما التكلفة التقريبية لتطوير تطبيق؟</li>
+                  <li>ما مدة تنفيذ مشروع التطبيق أو المتجر؟</li>
+                  <li>هل تعملون في السعودية والإمارات؟</li>
+                  <li>ما الذي يحدث بعد الإطلاق؟</li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="note">
+              التنفيذ الفعلي يكون في صورة Accordion (سؤال/إجابة). هنا في الهيكل نكتفي بعرض الأسئلة المقترحة.
+            </p>
+          </div>
+        </article>
+
+        <!-- Section 10 -->
+        <article class="section-card" id="section-10">
+          <div class="section-card-header">
+            <div class="section-index">10</div>
+            <div class="section-meta">
+              <div class="section-title">
+                <div class="section-title-main">
+                  <span>القسم ١٠: الدعوة إلى الإجراء – Final CTA</span>
+                  <span class="en">Final Conversion</span>
+                </div>
+                <span class="section-purpose-tag">إغلاق الفُنِل</span>
+              </div>
+              <div class="section-why">
+                <strong>لماذا نضيف هذا القسم؟</strong> هذا هو &quot;إغلاق الفُنِل&quot; — بعد الإقناع، لازم دعوة واضحة
+                للتواصل الفوري. من غيره، الصفحة تضيع فرص Leads مباشرة.
+              </div>
+              <div class="section-controls">
+                <span class="badge-small">يشمل: عنوان مقنع + نص + CTA مزدوج</span>
+                <button class="toggle-details">
+                  <span class="icon">⌄</span>
+                  تفاصيل المحتوى
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="field-group">
+              <div class="field-label">العنوان:</div>
+              <div class="field">ابدأ مشروعك الآن مع إحدى أفضل شركات تطوير التطبيقات</div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">النص:</div>
+              <div class="field">
+                شاركنا فكرة مشروعك وميزانيتك التقديرية، وسنقدّم لك تحليلًا مجانيًا وخطوات واضحة تمكّنك من بدء التنفيذ
+                بثقة.
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">الأزرار (CTA):</div>
+              <div class="field inline-tags">
+                <span class="tag-pill">احصل على تحليل مشروعك مجانًا</span>
+                <span class="tag-pill">تواصل عبر واتساب مباشرة</span>
+              </div>
+            </div>
+
+            <p class="note">
+              Design Tip: هنا بنهتم إن CTA واضح جدًا، مع إمكانية تكرار زر الواتساب في الهيدر (Sticky) لزيادة فرص
+              التواصل.
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scroll for sidebar links
+    document.querySelectorAll(".section-nav-item a").forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var targetId = this.getAttribute("href");
+        var target = document.querySelector(targetId);
+        if (target) {
+          var offset = 90; // header height approx
+          var rect = target.getBoundingClientRect();
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var top = rect.top + scrollTop - offset;
+
+          window.scrollTo({
+            top: top,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Smooth scroll for mobile chips
+    document.querySelectorAll(".stacked-item").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var targetId = this.getAttribute("data-target");
+        var target = document.querySelector(targetId);
+        if (target) {
+          var offset = 80;
+          var rect = target.getBoundingClientRect();
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var top = rect.top + scrollTop - offset;
+
+          window.scrollTo({
+            top: top,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Toggle details (accordion style)
+    document.querySelectorAll(".section-card").forEach(function (card) {
+      var btn = card.querySelector(".toggle-details");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        var collapsed = card.classList.toggle("collapsed");
+        var icon = btn.querySelector(".icon");
+        if (icon) {
+          icon.textContent = collapsed ? "›" : "⌄";
+        }
+      });
+    });
+
+    // Highlight active section in sidebar + mobile chips on scroll
+    var sectionCards = Array.prototype.slice.call(
+      document.querySelectorAll(".section-card")
+    );
+
+    function handleScrollSpy() {
+      var scrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      var offset = 120;
+
+      var currentId = null;
+      for (var i = 0; i < sectionCards.length; i++) {
+        var rect = sectionCards[i].getBoundingClientRect();
+        var top = rect.top + scrollPosition - offset;
+        if (scrollPosition >= top) {
+          currentId = sectionCards[i].id;
+        }
+      }
+
+      if (currentId) {
+        // Sidebar
+        document
+          .querySelectorAll(".section-nav-item a")
+          .forEach(function (link) {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === "#" + currentId
+            );
+          });
+        // Mobile chips
+        document.querySelectorAll(".stacked-item").forEach(function (chip) {
+          chip.classList.toggle(
+            "active",
+            chip.getAttribute("data-target") === "#" + currentId
+          );
+        });
+      }
+    }
+
+    window.addEventListener("scroll", handleScrollSpy);
+    window.addEventListener("load", handleScrollSpy);
+  </script>
+</body>
+</html>

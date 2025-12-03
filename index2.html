@@ -2,18 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>هيكل الصفحة الرئيسية المقترح  – NAHR</title>
-
-  <!-- خط عربي Cairo -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- animate.css -->
+  <title>مواصفات بناء وتصميم موقع NAHR - (Development Specification)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-  <!-- AOS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
-
   <style>
+    /* CSS Code as provided previously for professional and detailed styling */
     :root {
       --primary: #004aad;
       --primary-light: #e6f0ff;
@@ -42,7 +36,7 @@
       font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.7;
       font-size: 16px;
     }
 
@@ -72,722 +66,332 @@
       page-break-after: always;
     }
 
-    .page::before {
+    .page::before, .page::after {
       content: "";
       position: absolute;
-      inset-inline-start: -80mm;
-      inset-block-start: -80mm;
-      width: 200mm;
-      height: 200mm;
-      background:
-        radial-gradient(circle at 30% 30%, #2563eb15, transparent 60%),
-        radial-gradient(circle at 70% 20%, #ffb32010, transparent 50%),
-        radial-gradient(circle at 20% 70%, #004aad10, transparent 50%);
       z-index: -1;
+      /* Decorative background elements */
+    }
+    
+    .header-container { text-align: center; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #e5e7eb; position: relative; }
+    .main-title { margin-bottom: 15px; }
+    .main-title h1 { font-size: 36px; margin: 0 0 10px; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+    .main-title .subtitle { font-size: 19px; color: var(--text-main); font-weight: 500; line-height: 1.6; max-width: 80%; margin: 0 auto 20px; }
+    .main-title .subtitle + .subtitle { font-size: 16px; color: var(--text-muted); font-weight: 400; margin-bottom: 30px; }
+    .cta-group { display: flex; justify-content: center; gap: 15px; }
+    .cta-button { padding: 12px 25px; border-radius: 30px; font-weight: 700; font-size: 15px; transition: all 0.3s ease; text-decoration: none; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+    .cta-button.primary { background: var(--gradient-primary); color: #ffffff; }
+    .cta-button.secondary { background: #ffffff; color: var(--primary); border: 2px solid var(--primary-light); }
+    
+    h2.section-title { font-size: 24px; margin: 25px 0 18px; position: relative; padding-inline-start: 16px; font-weight: 800; color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; }
+    h2.section-title::before { content: ""; position: absolute; inset-inline-start: 0; inset-block-end: -2px; width: 60px; height: 2px; background: var(--gradient-accent); }
+    h3.sub-title { font-size: 18px; margin: 18px 0 10px; color: var(--primary); font-weight: 700; position: relative; padding-inline-start: 12px; }
+    h3.sub-title::before { content: "•"; position: absolute; inset-inline-start: 0; color: var(--accent); font-size: 1.5em; line-height: 1; }
+    
+    p { font-size: 16px; line-height: 1.8; margin: 0 0 15px; color: var(--text-main); }
+    ul { margin: 0 0 15px; padding-inline-start: 22px; font-size: 16px; line-height: 1.8; }
+    ul li { margin-bottom: 10px; position: relative; }
+    ul li::marker { color: var(--accent); font-size: 1.1em; }
+    .card { background: var(--card-bg); border-radius: var(--border-radius-lg); padding: 20px 25px; box-shadow: var(--shadow-soft); position: relative; overflow: hidden; border: 1px solid #f1f5f9; margin-bottom: 25px; }
+    
+    /* SECTION 2: Trusted By Brands */
+    .logo-section-content { text-align: center; }
+    .logo-section-content p { max-width: 85%; margin: 10px auto 25px; color: var(--text-muted); }
+    .logo-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; margin-top: 20px; }
+    .logo-placeholder { height: 80px; background: #f1f5f9; border-radius: var(--border-radius-sm); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600; font-size: 14px; border: 1px dashed #cbd5e1; }
+
+    /* SECTION 3: Strategic Narrative (New Strong Section) */
+    .strategic-narrative .card { background: var(--primary-light); border: 2px solid var(--primary); }
+    .strategic-narrative p { font-size: 17px; font-weight: 600; color: var(--primary-dark); margin-top: 15px; }
+    .strategic-narrative ul { padding-inline-start: 0; list-style: none; }
+    .strategic-narrative ul li { background: #ffffff; border-radius: var(--border-radius-sm); padding: 15px; margin-bottom: 10px; border-right: 4px solid var(--accent); font-size: 16px; font-weight: 500; position: relative; padding-inline-start: 25px; }
+    .strategic-narrative ul li:before { content: "⚡"; position: absolute; inset-inline-start: 5px; font-size: 0.9em; line-height: 1; color: var(--primary); }
+
+    /* SECTION 4: Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+    .project-card { height: 150px; background: #f1f5f9; border-radius: var(--border-radius-sm); border: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--primary-dark); text-align: center; padding: 10px; box-shadow: var(--shadow-soft); }
+
+    /* SECTION 8: Team */
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px; text-align: center; }
+    .team-member { background: #ffffff; padding: 15px; border-radius: var(--border-radius-sm); border: 1px solid var(--primary-light); }
+    .team-member-img { width: 80px; height: 80px; border-radius: 50%; background: #e6f0ff; margin: 0 auto 8px; border: 3px solid var(--accent); }
+    .team-member-name { font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 3px; }
+    .team-member-role { font-size: 13px; color: var(--text-muted); }
+    
+    /* Process Section (منهجية العمل) */
+    .process-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+    .process-step { background: var(--card-bg); border: 1px solid var(--primary-light); padding: 15px 20px; border-radius: var(--border-radius-sm); font-weight: 600; color: var(--primary-dark); font-size: 15px; flex-grow: 1; text-align: center; position: relative; }
+
+    /* Footer CTA */
+    .final-cta { text-align: center; background: var(--gradient-primary); color: #ffffff; padding: 30px 20px; border-radius: var(--border-radius-lg); margin-top: 40px; }
+    .final-cta h2 { color: #ffffff; font-size: 28px; font-weight: 800; margin: 0 0 10px; padding-bottom: 0; border-bottom: none; }
+    .final-cta p { color: #ffffff; font-size: 18px; margin-bottom: 25px; max-width: 70%; margin-left: auto; margin-right: auto; }
+    .final-cta .cta-button { background: var(--accent); color: var(--text-main); box-shadow: 0 5px 15px rgba(255, 179, 32, 0.4); }
+
+    /* Spec Block for Developer (English Content) */
+    .dev-spec {
+        background: #fdf2f8;
+        border: 1px solid #fecdd3;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: var(--border-radius-sm);
+        font-size: 14px;
+        color: #be185d;
+        line-height: 1.5;
+        font-family: monospace;
+    }
+    .dev-spec strong {
+        color: #9d174d;
+    }
+    .dev-spec-title {
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-align: left;
     }
 
-    .page::after {
-      content: "";
-      position: absolute;
-      inset-inline-end: -90mm;
-      inset-block-end: -90mm;
-      width: 220mm;
-      height: 220mm;
-      background:
-        radial-gradient(circle at 70% 70%, #ffb32015, transparent 60%),
-        radial-gradient(circle at 30% 80%, #2563eb10, transparent 50%),
-        radial-gradient(circle at 80% 30%, #004aad10, transparent 50%);
-      z-index: -1;
-    }
-
-    .decoration {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--gradient-accent);
-      opacity: 0.1;
-      z-index: -1;
-    }
-
-    .decoration:nth-child(1) { top: 10%; left: 5%; width: 80px; height: 80px; }
-    .decoration:nth-child(2) { bottom: 15%; right: 8%; width: 60px; height: 60px; }
-    .decoration:nth-child(3) { top: 25%; right: 15%; width: 40px; height: 40px; background: var(--gradient-primary); }
-    .decoration:nth-child(4) { bottom: 30%; left: 12%; width: 50px; height: 50px; }
-    .decoration:nth-child(5) { top: 60%; left: 20%; width: 30px; height: 30px; background: var(--gradient-primary); }
-
-    .header-container {
-      text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 25px;
-      border-bottom: 1px solid #e5e7eb;
-      position: relative;
-    }
-
-    .logo-center {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      width: 180px;
-      height: 180px;
-      border-radius: 24px;
-      background: #ffffff;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #f1f5f9;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .logo:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
-    }
-
-    .logo img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .main-title {
-      margin-bottom: 15px;
-    }
-
-    .main-title h1 {
-      font-size: 30px;
-      margin: 0 0 8px;
-      color: var(--text-main);
-      font-weight: 800;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.2;
-    }
-
-    .main-title .subtitle {
-      font-size: 17px;
-      color: var(--text-muted);
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .tagline {
-      font-size: 15px;
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: 20px;
-      padding: 10px 20px;
-      background: var(--primary-light);
-      border-radius: 30px;
-      display: inline-block;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .feature-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 10px 5px;
-      border-radius: 12px;
-      background: #f8fafc;
-      transition: all 0.3s ease;
-    }
-
-    .feature-item:hover {
-      background: var(--primary-light);
-      transform: translateY(-3px);
-    }
-
-    .feature-icon {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-    }
-
-    .feature-text {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      background: var(--primary-light);
-      color: var(--primary);
-      margin-bottom: 16px;
-      font-weight: 600;
-      box-shadow: 0 4px 6px rgba(0, 74, 173, 0.1);
-    }
-
-    .pill span.dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    h2.section-title {
-      font-size: 19px;
-      margin: 12px 0 18px;
-      position: relative;
-      padding-inline-start: 16px;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
-
-    h2.section-title::before {
-      content: "";
-      position: absolute;
-      inset-inline-start: 0;
-      inset-block-start: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 24px;
-      border-radius: 999px;
-      background: var(--gradient-primary);
-    }
-
-    h3.sub-title {
-      font-size: 16px;
-      margin: 14px 0 10px;
-      color: var(--primary);
-      font-weight: 600;
-      position: relative;
-      padding-inline-start: 12px;
-    }
-
-    h3.sub-title::before {
-      content: "";
-      position: absolute;
-      inset-inline-start: 0;
-      inset-block-start: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    p {
-      font-size: 14px;
-      line-height: 1.7;
-      margin: 0 0 10px;
-      color: var(--text-main);
-    }
-
-    .muted { color: var(--text-muted); }
-
-    ul {
-      margin: 0 0 10px;
-      padding-inline-start: 22px;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    ul li {
-      margin-bottom: 6px;
-      position: relative;
-    }
-
-    ul li::marker {
-      color: var(--accent);
-      font-size: 1.1em;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius-lg);
-      padding: 16px 18px;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #f1f5f9;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-medium);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset-inline-start: -50px;
-      inset-block-start: -50px;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle at 30% 30%, #2563eb10, transparent 65%);
-      z-index: -1;
-    }
-
-    .card-label {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-label::before {
-      content: "";
-      display: block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .section-block { margin-bottom: 18px; }
-
-    .divider {
-      height: 1px;
-      margin: 20px 0;
-      background: linear-gradient(to left, transparent, #d1d5db, transparent);
-    }
-
-    .highlight-box {
-      background: var(--primary-light);
-      border-radius: var(--border-radius-sm);
-      padding: 14px 16px;
-      margin: 14px 0 18px;
-      border-right: 4px solid var(--accent);
-    }
-
-    .highlight-box p {
-      margin: 0;
-      font-weight: 600;
-      color: var(--primary-dark);
-      font-size: 15px;
-    }
-
-    .mini-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .mini-header-title {
-      font-weight: 700;
-      color: var(--primary-dark);
-      font-size: 18px;
-    }
-
-    .mini-header-tag {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 900px) {
-      body { padding: 10px; }
-      .page { width: 100%; min-height: auto; padding: 20px 16px; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media print {
-      body { padding: 0; background: #ffffff; }
-      .page { box-shadow: none; border-radius: 0; padding: 20mm 15mm; }
-      .card:hover, .logo:hover, .feature-item:hover {
-        transform: none;
-        box-shadow: var(--shadow-soft);
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- الصفحة الأولى: الهيدر + الأقسام 1–4 -->
   <div class="page animate__animated animate__fadeIn">
-    <div class="decoration"></div><div class="decoration"></div><div class="decoration"></div>
-    <div class="decoration"></div><div class="decoration"></div>
-
-    <!-- الهيدر -->
-    <header class="header-container">
-      <div class="logo-center">
-        <div class="logo">
-          <!-- لوجو NAHR -->
-          <img src="https://nahrdev.com/wp-content/uploads/2022/07/160x150.png" alt="NAHR Logo" />
-        </div>
-      </div>
-
+    
+    <header class="header-container" data-aos="fade-down">
       <div class="main-title">
-        <h1>مقترح هيكل الصفحة الرئيسية NAHR</h1>
-        <div class="subtitle">عرض منظم لأقسام الصفحة الرئيسية لشركة متخصصة في تطوير التطبيقات والمتاجر الإلكترونية</div>
+        <h1>NAHR – أفضل شركة تصميم تطبيقات ومتاجر إلكترونية بمعايير عالمية وتنفيذ دقيق</h1>
+        <div class="subtitle">نقدّم حلول تطوير تطبيقات ومتاجر إلكترونية تُصمّم بعناية، وتُنفّذ بجودة عالية، وتُبنى على أسس تضمن سهولة الاستخدام، والاعتمادية، وقابلية التوسّع.</div>
+        <div class="subtitle muted">يقود تنفيذ المشاريع فريق متخصص يضم أكثر من 80 مهندسًا ومصمّمًا وخبير منتجات يعملون بمعايير تقنية عالمية.</div>
       </div>
-
-      <div class="tagline">
-        من أول انطباع الزائر حتى الدعوة النهائية للتواصل
+      <div class="cta-group">
+        <a href="#contact" class="cta-button primary">احصل على استشارة مجانية</a>
+        <a href="#projects" class="cta-button secondary">شاهد نماذج أعمالنا</a>
       </div>
-
-      <div class="features-grid">
-        <div class="feature-item">
-          <div class="feature-icon">⭐</div>
-          <div class="feature-text">Hero واضح ومقنع</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🏢</div>
-          <div class="feature-text">تعريف سريع بـ NAHR</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🧩</div>
-          <div class="feature-text">خدمات أساسية مرتبة</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">🛒</div>
-          <div class="feature-text">تركيز على Ecommerce</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon">✅</div>
-          <div class="feature-text">قصة مقنعة + CTA</div>
-        </div>
+      
+      <div class="dev-spec" dir="ltr">
+        <div class="dev-spec-title">DEV SPEC (EN) - Hero Section:</div>
+        <strong>H1:</strong> NAHR – A Leading App & Ecommerce Development Company Delivering World-Class Digital Products<br>
+        <strong>Subheading 1:</strong> We design and develop high-quality mobile applications and ecommerce platforms with exceptional UX, scalable architecture, and reliable performance.<br>
+        <strong>Subheading 2:</strong> Our 80+ expert team delivers precise execution and modern engineering standards across MENA and Europe.<br>
+        <strong>CTAs:</strong> Get a Free Consultation / View Recent Projects
       </div>
     </header>
 
-    <section data-aos="fade-up">
-      <div class="pill">
-        <span class="dot"></span>
-        <span>الهيكل المقترح لرحلة الزائر داخل الصفحة الرئيسية</span>
-      </div>
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">شركات وثقت بخبرتنا</h2>
+        <div class="logo-section-content">
+            <p>تعاونّا مع شركات في مجالات التجارة والخدمات والتقنية، وقدّمنا حلولًا رقمية تدعم التشغيل، وترفع كفاءة الأداء، وتوسّع الحضور الرقمي في مصر والخليج وأوروبا.</p>
+            <div class="logo-grid">
+                <div class="logo-placeholder">[شعار العميل ١]</div>
+                <div class="logo-placeholder">[شعار العميل ٢]</div>
+                <div class="logo-placeholder">[شعار العميل ٣]</div>
+                <div class="logo-placeholder">[شعار العميل ٤]</div>
+                <div class="logo-placeholder">[شعار العميل ٥]</div>
+                <div class="logo-placeholder">[شعار العميل ٦]</div>
+            </div>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Client Logos Section:</div>
+            <strong>Title:</strong> Trusted by Forward-Thinking Businesses<br>
+            <strong>Content:</strong> We have partnered with companies across multiple sectors—commerce, services, logistics, and technology—to deliver digital solutions that enhance performance and strengthen their presence across MENA and Europe.
+        </div>
+    </section>
 
-      <!-- القسم 1: Hero -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="40">
-        <h2 class="section-title">١) الـ Hero Section – الانطباع الأول</h2>
-
-        <h3 class="sub-title">المحتوى الأساسي داخل الـ Hero</h3>
-        <ul>
-          <li><strong>H1:</strong>  
-            NAHR – من أفضل شركات تطوير التطبيقات والمتاجر الإلكترونية للشركات الطامحة إلى النمو
-          </li>
-          <li><strong>Subheading:</strong><br>
-            تبحث العديد من الشركات عن أفضل شركة تطبيقات تستطيع تطوير متجر إلكتروني أو تطبيق موبايل يساهم في زيادة المبيعات وتحسين تجربة المستخدم. في NAHR نعمل كشريك تقني يركّز على تحقيق النمو، وليس مجرد تسليم كود.
-          </li>
-          <li><strong>English Line:</strong><br>
-            Ecommerce-Focused App &amp; Store Development Company
-          </li>
-          <li><strong>English Subheading:</strong><br>
-            We design and build ecommerce apps and stores that focus on sales, not just code delivery.
-          </li>
-          <li><strong>CTA Buttons:</strong>  
+    <section class="section-block strategic-narrative" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="section-title">تطبيقات تُصمَّم لخدمة أنماط الاستخدام الأكثر شيوعًا في العالم الرقمي</h2>
+        <div class="card">
+            <p>في NAHR، لا نطوّر تطبيقات بشكل تقني فقط؛ بل نبني منظومات تشغيل تدعم أنماط الاستخدام التي يعتمد عليها ملايين المستخدمين حول العالم، مثل:</p>
             <ul>
-              <li>احجز استشارة مجانية</li>
-              <li>اطّلع على نماذج من أعمالنا</li>
+                <li><strong>أنظمة تعتمد على الاستجابة الفورية والتشغيل اللحظي:</strong> حيث يتفاعل المستخدم مع النظام في نفس اللحظة التي ينشئ فيها الطلب.</li>
+                <li><strong>أنظمة الحركة والتوصيل:</strong> التي تعتمد على الخرائط، التتبع، وتنظيم العمليات بين عدة أطراف.</li>
+                <li><strong>أنظمة تجمع بين العميل ومقدّم الخدمة:</strong> من خلال نموذج يوازن بين العرض والطلب في الوقت الحقيقي.</li>
+                <li><strong>أنظمة تجارة إلكترونية متكاملة:</strong> توفر رحلة شراء سلسة: تصفّح ← اختيار ← دفع ← شحن.</li>
+                <li><strong>أنظمة اشتراك ومعاملات متكررة:</strong> تعتمد على الاستقرار، المرونة، وإدارة دورات الفوترة.</li>
+                <li><strong>أنظمة مؤسسية واسعة النطاق:</strong> يجري فيها تنظيم البيانات، العمليات، والدوران بين عدة مستويات تشغيلية.</li>
             </ul>
-          </li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          لأنه أول جزء بيشوفه الزائر، فلازم يعرف في ثانيتين:  
-          "إحنا مين؟ بنقدّم إيه؟ وليه إحنا من أفضل شركات التطبيقات؟"  
-          وهنا كمان بنزرع الكلمة الأساسية المرتبطة بالتجارة الإلكترونية علشان السيو والانطباع الأول.
-        </p>
-      </div>
-
-      <!-- القسم 2: Snapshot -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="80">
-        <h2 class="section-title">٢) لمحة مختصرة عن NAHR – Snapshot</h2>
-
-        <h3 class="sub-title">العنوان والنص التعريفي</h3>
-        <ul>
-          <li><strong>العنوان:</strong> NAHR في سطور</li>
-          <li><strong>النص:</strong><br>
-            NAHR شركة برمجيات متخصصة في تطوير تطبيقات الموبايل والمتاجر الإلكترونية. نعمل على تحويل الأفكار إلى منتجات تقنية جاهزة للنمو والتوسع، ونقدّم خدماتنا لعملاء في مصر والسعودية والإمارات وأوروبا.  
-            نعتمد منهجيات دقيقة في التحليل، والتخطيط، والتصميم، والتطوير، لنضمن نتائج تجارية واضحة عبر كل مشروع.
-          </li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          بعد ما المستخدم يشوف الـ Hero، يحتاج "تعريف سريع" بالشركة بدون تفاصيل كثيرة.  
-          ده بيشجعه يكمل الصفحة بدل ما يخرج ويبحث عن شركة ثانية.
-        </p>
-      </div>
-
-      <!-- القسم 3: الخدمات الأساسية -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="120">
-        <h2 class="section-title">٣) الخدمات الأساسية – What We Do</h2>
-
-        <h3 class="sub-title">العنوان والمقدمة</h3>
-        <ul>
-          <li><strong>العنوان:</strong> ماذا نقدّم في NAHR؟</li>
-          <li><strong>مقدمة:</strong><br>
-            نقدّم أربع خدمات رئيسية تدعم التحول الرقمي ونمو الأعمال في قطاع التطبيقات والمتاجر الإلكترونية:
-          </li>
-        </ul>
-
-        <h3 class="sub-title">الخدمات الرئيسية</h3>
-        <ul>
-          <li>
-            <strong>1) تطوير تطبيقات الموبايل – Mobile App Development</strong><br>
-            تصميم وتطوير تطبيقات iOS وAndroid بواجهات حديثة وتجربة استخدام متقنة تركّز على سهولة التصفح وسرعة الأداء.
-          </li>
-          <li>
-            <strong>2) تطوير المتاجر الإلكترونية – Ecommerce Store Development</strong><br>
-            بناء متاجر إلكترونية احترافية متكاملة مع بوابات الدفع، وأنظمة الشحن، ولوحات التحليل، بما يضمن جاهزية المتجر للنمو منذ اليوم الأول.
-          </li>
-          <li>
-            <strong>3) تطوير تطبيقات المتاجر الإلكترونية – Ecommerce App Development</strong><br>
-            تطوير تطبيقات متوافقة مع المتجر الإلكتروني، توفر تجربة شراء سلسة، وتزيد من معدلات الطلب والتكرار الشرائي.
-          </li>
-          <li>
-            <strong>4) حلول برمجية مخصّصة – Custom Software Solutions</strong><br>
-            إنشاء حلول مخصّصة ونظم داخلية مثل ERP، وCRM، ولوحات التحكم، مصممة بما يتوافق مع طبيعة كل نشاط تجاري.
-          </li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          الزائر بعد المقدمة عايز يعرف: "هل عندهم الخدمة اللي بدوّر عليها؟"  
-          وجود قسم واضح للخدمات يقلّل جدًا من نسبة الخروج من الصفحة (Bounce Rate).
-        </p>
-      </div>
-
-      <!-- القسم 4: Ecommerce Focus -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="160">
-        <h2 class="section-title">٤) التركيز على التجارة الإلكترونية – Ecommerce Focus</h2>
-
-        <h3 class="sub-title">العنوان والنص التمهيدي</h3>
-        <ul>
-          <li><strong>العنوان:</strong> حلول متكاملة مصمّمة لدعم نمو التجارة الإلكترونية</li>
-          <li><strong>النص التمهيدي:</strong><br>
-            تعتمد NAHR على بنية تقنية متكاملة تضم جميع الأدوات اللازمة لتشغيل متجر إلكتروني ناجح، من نظم الدفع إلى إدارة الطلبات والتحليلات المتقدمة.
-          </li>
-        </ul>
-
-        <h3 class="sub-title">نقاط التكامل الرئيسية</h3>
-        <ul>
-          <li>التكامل مع بوابات الدفع: Paymob، Hyperpay، Tabby، Tamara وغيرها.</li>
-          <li>التكامل مع شركات الشحن: Aramex، DHL، SMSA، وغيرها.</li>
-          <li>لوحات تحكم توضح حركة المبيعات، وسلوك المستخدمين، والمنتجات الأعلى أداءً.</li>
-        </ul>
-
-        <h3 class="sub-title">جملة استراتيجية داخل النص</h3>
-        <p>
-          هذا المستوى من التكامل جعل العديد من عملائنا يعتبرون NAHR من أفضل شركات التطبيقات المتخصصة في حلول التجارة الإلكترونية في المنطقة.
-        </p>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          هنا بنثبت إن NAHR "متخصصة" مش شركة برمجيات عامة،  
-          وده بيفرق جدًا في قرار العميل، خصوصًا اللي شغال في Ecommerce.
-        </p>
-      </div>
+            <p class="muted" style="text-align: center; color: var(--text-muted); font-size: 15px; font-weight: 500;">نُهندس كل نموذج بمعايير استقرار عالية، وقدرة على استيعاب النمو، وتجربة استخدام بسيطة وواضحة مهما كانت طبيعة العمل.</p>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Strategic Narrative Section (Crucial):</div>
+            <strong>Title:</strong> Applications Designed Around the World’s Most Common Digital Usage Models<br>
+            <strong>Content:</strong> At NAHR, we don’t just build apps—we design operational systems that support the same behavioral patterns used by millions of users worldwide: (List follows)<br>
+            * Instant-response interaction systems<br>
+            * Movement-driven and delivery-focused flows<br>
+            * Two-sided service ecosystems<br>
+            * Integrated ecommerce journeys<br>
+            * Subscription-based and recurring-billing frameworks<br>
+            * Large-scale enterprise platforms<br>
+            <strong>Closing:</strong> Every system is engineered for reliability, clarity, and the capacity to scale as your business evolves.
+        </div>
     </section>
+
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">خدماتنا</h2>
+        <div class="card">
+            <ul>
+                <li><strong>تطوير تطبيقات الموبايل:</strong> (Android & iOS Native, Hybrid)</li>
+                <li><strong>تطوير المتاجر الإلكترونية:</strong> (Custom & Platform Integration)</li>
+                <li><strong>تطوير تطبيقات مرتبطة بالمتاجر:</strong> (Backend-Synced Apps)</li>
+                <li><strong>حلول برمجية مخصّصة للشركات:</strong> (Custom Software Solutions)</li>
+            </ul>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Services Section:</div>
+            <strong>Title:</strong> Our Core Services<br>
+            <strong>List:</strong> Mobile App Development, Ecommerce Store Development, Ecommerce App Development, Custom Software Solutions.
+        </div>
+    </section>
+    
   </div>
 
-  <!-- الصفحة الثانية: الأقسام 5–10 -->
-  <div class="page">
-    <div class="decoration"></div><div class="decoration"></div><div class="decoration"></div>
-    <div class="decoration"></div><div class="decoration"></div>
+  <div class="page animate__animated animate__fadeIn">
 
-    <section data-aos="fade-up">
-      <div class="mini-header">
-        <div class="mini-header-title">تكملة هيكل الصفحة الرئيسية – من الإقناع إلى الدعوة للإجراء</div>
-        <div class="mini-header-tag">أقسام الدعم، الإثبات، والفُنِل النهائي</div>
-      </div>
-
-      <div class="pill">
-        <span class="dot"></span>
-        <span>من "لماذا نختاركم؟" حتى "ابدأ مشروعك الآن"</span>
-      </div>
-
-      <!-- القسم 5: Why NAHR -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="40">
-        <h2 class="section-title">٥) لماذا يختارنا العملاء؟ – Why NAHR</h2>
-
-        <h3 class="sub-title">العنوان والنص التمهيدي</h3>
-        <ul>
-          <li><strong>العنوان:</strong> لماذا ترى العديد من الشركات أن NAHR من أفضل شركات التطبيقات؟</li>
-          <li><strong>النص التمهيدي:</strong><br>
-            اختيار شريك تقني لمشروعك خطوة حاسمة، ولذلك نحرص على تقديم قيم واضحة تميّز أسلوب عملنا:
-          </li>
-        </ul>
-
-        <h3 class="sub-title">القيم المميِّزة</h3>
-        <ul>
-          <li>تنفيذ سريع مع التزام كامل بالمعايير التقنية والجودة.</li>
-          <li>تصميم وتجربة استخدام مبنيان خصيصًا لزيادة التحويل والمبيعات.</li>
-          <li>فريق متخصص في التطبيقات والتجارة الإلكترونية.</li>
-          <li>خبرة في أسواق متعددة تمكّننا من فهم اختلاف المستخدمين واحتياجاتهم.</li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          ده الجزء اللي بيجاوب على سؤال: "ليه نختاركم أنتم؟"  
-          وبيقلّل التردد قبل التواصل أو طلب عرض سعر.
-        </p>
-      </div>
-
-      <!-- القسم 6: Mini Case Studies -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="80">
-        <h2 class="section-title">٦) نماذج أعمال سريعة – Mini Case Studies</h2>
-
-        <h3 class="sub-title">العنوان:</h3>
-        <p><strong>نماذج مختصرة من أعمالنا</strong></p>
-
-        <h3 class="sub-title">الكروت الثلاثة</h3>
-        <ul>
-          <li>
-            <strong>1) متجر إلكتروني لعلامة تجارية</strong><br>
-            <strong>التحدي:</strong> ارتفاع الزيارات مقابل ضعف المبيعات.<br>
-            <strong>الحل:</strong> تحسين تجربة الشراء وإعادة تصميم مسار الطلب وربطه بالدفع والشحن.<br>
-            <strong>النتيجة:</strong> ارتفاع ملحوظ في المبيعات خلال الأسابيع الأولى.
-          </li>
-          <li>
-            <strong>2) تطبيق طلبات</strong><br>
-            <strong>التحدي:</strong> طول مدة تنفيذ الطلب وضعف التجربة.<br>
-            <strong>الحل:</strong> إعادة بناء مسار الطلب وربطه بنظام إدارة أسرع.<br>
-            <strong>النتيجة:</strong> انخفاض زمن تنفيذ الطلب بنسبة مؤثرة.
-          </li>
-          <li>
-            <strong>3) منتج SaaS</strong><br>
-            <strong>التحدي:</strong> انخفاض الاحتفاظ بالمستخدمين.<br>
-            <strong>الحل:</strong> تحسين تجربة الانضمام والاستخدام الأول.<br>
-            <strong>النتيجة:</strong> زيادة معدل الاحتفاظ خلال الشهر الأول.
-          </li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          قبل ما العميل يكمل الصفحة، لازم يشوف Proof سريع إن فيه نتائج حقيقية.  
-          ده بيثبّت مصداقية قوية بدون ما يضطر يروح لصفحة البورتفوليو.
-        </p>
-      </div>
-
-      <!-- القسم 7: Process -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="120">
-        <h2 class="section-title">٧) خطوات العمل – Process</h2>
-
-        <h3 class="sub-title">العنوان:</h3>
-        <p><strong>كيف نعمل؟</strong></p>
-
-        <h3 class="sub-title">مراحل التنفيذ</h3>
-        <ul>
-          <li>التحليل والاكتشاف</li>
-          <li>التخطيط وتحديد الخواص</li>
-          <li>تصميم تجربة الاستخدام والواجهات</li>
-          <li>التطوير</li>
-          <li>الاختبارات</li>
-          <li>الإطلاق والمتابعة</li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          ده بيطمن العميل إن الأمور مش عشوائية، وفيه خطة واضحة من أول دقيقة.  
-          مهم جدًا لأصحاب المشاريع غير التقنيين إنهم يشوفوا خطوات واضحة للمشروع.
-        </p>
-      </div>
-
-      <!-- القسم 8: Team -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="160">
-        <h2 class="section-title">٨) الفريق الأساسي – Core Team</h2>
-
-        <h3 class="sub-title">العنوان والنص التمهيدي</h3>
-        <ul>
-          <li><strong>العنوان:</strong> الفريق الذي يقف خلف التنفيذ</li>
-          <li><strong>النص التمهيدي:</strong><br>
-            يقف خلف NAHR فريق تقني متكامل يعمل بتناغم من مرحلة الفكرة وحتى الإطلاق، ويضم الاختصاصات الآتية:
-          </li>
-        </ul>
-
-        <h3 class="sub-title">توزيع الفريق (Team Breakdown)</h3>
-        <ul>
-          <li>3 مهندسين Backend / APIs</li>
-          <li>2 مطوّري موبايل</li>
-          <li>2 متخصصي واجهة وتجربة استخدام</li>
-          <li>1 إدارة منتج واستراتيجية</li>
-          <li>1 محتوى وتحسين محركات البحث</li>
-          <li>1 جودة وDevOps</li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          لأن العميل لازم يفهم إن المشروع مش "مجهود شخص واحد"، بل فريق كامل.  
-          ده يرفع الثقة والانطباع عن قدرة الشركة على تنفيذ مشاريع متوسطة وكبيرة.
-        </p>
-      </div>
-
-      <!-- القسم 9: FAQ -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="200">
-        <h2 class="section-title">٩) الأسئلة الشائعة – FAQ</h2>
-
-        <h3 class="sub-title">العنوان:</h3>
-        <p><strong>أسئلة يتكرر طرحها من أصحاب المشاريع</strong></p>
-
-        <h3 class="sub-title">أمثلة للأسئلة</h3>
-        <ul>
-          <li>ما التكلفة التقريبية لتطوير تطبيق؟</li>
-          <li>ما مدة تنفيذ مشروع التطبيق أو المتجر؟</li>
-          <li>هل تعملون في السعودية والإمارات؟</li>
-          <li>ما الذي يحدث بعد الإطلاق؟</li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          الأسئلة دي لو ماجاوبناش عليها، العميل غالبًا مش هيكمّل تواصل.  
-          فالـ FAQ بيشيل الاعتراضات قبل ما تحصل ويجهّز العميل نفسيًا للتواصل.
-        </p>
-      </div>
-
-      <!-- القسم 10: Final CTA -->
-      <div class="section-block card" data-aos="fade-up" data-aos-delay="240">
-        <h2 class="section-title">١٠) الدعوة إلى الإجراء – Final CTA</h2>
-
-        <h3 class="sub-title">العنوان والنص</h3>
-        <ul>
-          <li><strong>العنوان:</strong> ابدأ مشروعك الآن مع إحدى أفضل شركات تطوير التطبيقات</li>
-          <li><strong>النص:</strong><br>
-            شاركنا فكرة مشروعك وميزانيتك التقديرية، وسنقدّم لك تحليلًا مجانيًا وخطوات واضحة تمكّنك من بدء التنفيذ بثقة.
-          </li>
-        </ul>
-
-        <h3 class="sub-title">أزرار الدعوة للإجراء (CTA)</h3>
-        <ul>
-          <li>احصل على تحليل مشروعك مجانًا</li>
-          <li>تواصل عبر واتساب مباشرة</li>
-        </ul>
-
-        <h3 class="sub-title">لماذا نضيف هذا القسم؟</h3>
-        <p>
-          ده "إغلاق الفُنِل" — بعد الإقناع، لازم دعوة واضحة للتواصل الفوري.  
-          من غيره، الصفحة بتضيع فرص Leads مباشرة رغم أن الزائر اقتنع.
-        </p>
-      </div>
+    <section id="projects" class="section-block" data-aos="fade-up">
+        <h2 class="section-title">نماذج من مشاريع نفذناها (6 مشاريع)</h2>
+        <p class="muted">هذه النماذج يجب أن تكون بطاقات جذابة تحتوي على اسم المشروع وصورة التطبيق/المتجر الذي تم تنفيذه.</p>
+        <div class="projects-grid">
+            <div class="project-card">المشروع الأول (متجر/تطبيق)</div>
+            <div class="project-card">المشروع الثاني (خدمات/حركة)</div>
+            <div class="project-card">المشروع الثالث (اشتراكات/فوترة)</div>
+            <div class="project-card">المشروع الرابع (منصة أعمال B2B)</div>
+            <div class="project-card">المشروع الخامس (حلول مخصصة)</div>
+            <div class="project-card">المشروع السادس (Ecommerce App)</div>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Project Highlights (6 Projects):</div>
+            <strong>Title:</strong> Selected Projects<br>
+            <strong>Note:</strong> Display 6 project cards. Each card must link to a detailed case study page.
+        </div>
     </section>
+
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">ماذا يقول عملاؤنا؟</h2>
+        <div class="card">
+            <p>آراء حقيقية من أصحاب مشاريع أطلقوا منصاتهم معنا، وتحدّثوا عن تجربة العمل، جودة التنفيذ، والنتائج التي تحققت بعد الإطلاق.</p>
+            <div class="logo-placeholder" style="height: 120px; font-size: 16px; background: #fff7ed; border: 1px dashed #fdba74;">[إطار فيديو (Video Embed) لشهادات العملاء]</div>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Video Testimonials:</div>
+            <strong>Title:</strong> Client Testimonials<br>
+            <strong>Content:</strong> Real stories from clients who launched their digital products with NAHR and shared the results they achieved through our work.
+        </div>
+    </section>
+
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">NAHR — خبرة تقنية من مصر برؤية عالمية</h2>
+        <div class="card">
+            <p>NAHR شركة تطوير برمجيات مصرية تضم أكثر من 80 متخصصًا في تطوير التطبيقات، المتاجر الإلكترونية، الأنظمة البرمجية، وتجربة الاستخدام.</p>
+            <p>نلتزم ببناء منتجات رقمية ذات جودة عالية، تعتمد على هندسة قوية وتصميم دقيق، وتنافس في الأسواق المحلية والدولية.</p>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - About NAHR:</div>
+            <strong>Title:</strong> NAHR — An Egypt-Based Tech Company with a Global Mindset<br>
+            <strong>Content:</strong> With an 80+ expert team, NAHR delivers high-quality mobile apps, ecommerce platforms, and software systems engineered to meet global standards and support business growth across MENA and Europe.
+        </div>
+    </section>
+    
+  </div>
+  
+  <div class="page animate__animated animate__fadeIn">
+
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">فريقنا (80+ متخصص)</h2>
+        <div class="card">
+            <p>يضم فريق NAHR أكثر من 80 متخصصًا يعملون في فرق مترابطة تشمل التطوير، الواجهات، التجربة، الجودة، DevOps، وإدارة المنتجات.</p>
+            <p class="muted">نحرص على تقديم بيئة عمل دقيقة ومنهجية تضمن جودة التنفيذ وسرعة الإنجاز.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">الرئيس التنفيذي</div>
+                    <div class="team-member-role">CEO</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">مدير عام الشركة</div>
+                    <div class="team-member-role">Director / General Manager</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">مدير المشروعات</div>
+                    <div class="team-member-role">Project Manager (PMP)</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">خبير UX/UI</div>
+                    <div class="team-member-role">Lead UX/UI Designer</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">مهندس برمجيات</div>
+                    <div class="team-member-role">Senior Backend Dev</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">مهندس تطبيقات موبايل</div>
+                    <div class="team-member-role">Mobile Developer</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">متخصص QA</div>
+                    <div class="team-member-role">Quality Assurance (QA)</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-img"></div>
+                    <div class="team-member-name">مدير حسابات عملاء</div>
+                    <div class="team-member-role">Account Manager</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Team Section:</div>
+            <strong>Title:</strong> Our Team<br>
+            <strong>Content:</strong> Our 80+ experts work across backend, frontend, mobile, UX/UI, QA, DevOps, and product management to ensure seamless execution and consistent delivery standards.<br>
+            <strong>Note:</strong> Display 8+ team members with clear roles (CEO, Director, PM, etc.)
+        </div>
+    </section>
+
+    <section class="section-block" data-aos="fade-up">
+        <h2 class="section-title">منهجية العمل (خطوات التطوير)</h2>
+        <div class="card">
+            <p>نتبع منهجية عمل دقيقة ومراحل محددة لضمان أعلى جودة للمنتج النهائي والالتزام بالجدول الزمني:</p>
+            <div class="process-grid" dir="ltr">
+                <div class="process-step">التحليل Discovery</div>
+                <div class="process-step">التخطيط Planning</div>
+                <div class="process-step">تجربة الاستخدام والواجهات UX/UI</div>
+                <div class="process-step">التطوير Development</div>
+                <div class="process-step">الاختبارات Testing</div>
+                <div class="process-step">الإطلاق والمتابعة Launch & Growth</div>
+            </div>
+        </div>
+        
+        <div class="dev-spec" dir="ltr">
+            <div class="dev-spec-title">DEV SPEC (EN) - Process Section:</div>
+            <strong>Title:</strong> Our Development Process<br>
+            <strong>Stages:</strong> Discovery, Planning, UX/UI, Development, Testing, Launch & Growth.
+        </div>
+    </section>
+
+    <section id="contact" class="final-cta" data-aos="fade-up">
+        <h2>ابدأ مشروعك اليوم مع أفضل شركة تصميم تطبيقات</h2>
+        <p>تواصل معنا لتحليل فكرتك ووضع خطة تنفيذ واضحة.</p>
+        <a href="#contact-form" class="cta-button primary">تواصل معنا الآن</a>
+    </section>
+    
+    <div class="dev-spec" dir="ltr" style="margin: 20px 0;">
+        <div class="dev-spec-title">DEV SPEC (EN) - Final CTA:</div>
+        <strong>H2:</strong> Start Your Project Today with a Leading App Development Partner<br>
+        <strong>Content:</strong> Share your idea and get a clear development roadmap.<br>
+        <strong>CTA:</strong> Contact Us Now
+    </div>
+
   </div>
 
-  <!-- سكربت AOS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({
@@ -798,5 +402,3 @@
   </script>
 </body>
 </html>
-
-

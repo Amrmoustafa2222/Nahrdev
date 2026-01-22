@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAD United Group | Full Strategy Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #f6ca45; /* Gold */
+            --primary-hover: #e5bd3f;
+            --bg-black: #080808;
+            --card-gray: #121212;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-black); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-hover); }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-black); color: var(--text-main); font-family: 'Cairo', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        a { text-decoration: none; }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.4); z-index: 1000;
+            display: flex; align-items: center; justify-content: center; transition: var(--transition);
+        }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); background-color: #20b354; }
+
+        /* Header Section */
+        header {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), var(--bg-black)), 
+                        url('https://scontent.fcai20-3.fna.fbcdn.net/v/t39.30808-6/475571636_9376545812403044_5811666999219409256_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=3a1ebe&_nc_ohc=XzQjwc3ktgwQ7kNvwGQ1lkn&_nc_oc=AdlO-pJXDmc48ciovvHg93VBDzSPil2ssSvPtHP-6L0N81nZ-57JvMyTOkWIsWWH4iA&_nc_zt=23&_nc_ht=scontent.fcai20-4.fna&oh=00_AfqfijdhkVB5Zh2GIyylC1JuTe8veYcimjVELIKuY48BYQ&oe=6978070F');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            border-bottom: 6px solid var(--primary); padding: 40px 20px;
+        }
+
+        .logo-box {
+            width: 180px; height: 180px; background: #fff; border-radius: 50%;
+            padding: 10px; border: 4px solid var(--primary); margin-bottom: 30px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 60px rgba(246, 202, 69, 0.3); transition: var(--transition);
+        }
+        .logo-box:hover { transform: scale(1.05); box-shadow: 0 0 80px rgba(246, 202, 69, 0.5); }
+        .logo-box img { width: 100%; height: auto; }
+
+        .hero-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 1.4rem; color: var(--primary); font-weight: 600; max-width: 900px; }
+        .hero-slogan { font-family: 'Montserrat', sans-serif; font-size: clamp(3rem, 8vw, 6rem); color: transparent; -webkit-text-stroke: 1.5px var(--primary); font-weight: 900; opacity: 0.7; margin-top: 30px; letter-spacing: 4px; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 80px 20px; }
+
+        /* Sections Styling */
+        .section-header { border-right: 8px solid var(--primary); padding-right: 25px; margin: 80px 0 40px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary); text-transform: uppercase; font-weight: 800; }
+
+        .content-block { background: var(--card-gray); padding: 40px; border-radius: 25px; border: 1px solid #222; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .content-text { font-size: 1.1rem; line-height: 1.8; color: #ddd; }
+        .ar-summary { background: rgba(246, 202, 69, 0.08); border-right: 4px solid var(--primary); padding: 25px; margin-top: 30px; font-size: 1.2rem; color: #fff; border-radius: 12px; }
+        
+        .objectives-list li { margin-bottom: 15px; display: flex; align-items: center; font-size: 1.1rem; }
+        .objectives-list i { color: var(--primary); margin-left: 15px; font-size: 1.3rem; }
+
+        /* Content Formula Grid */
+        .mix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .mix-card { background: var(--card-gray); padding: 40px 30px; border-radius: 25px; text-align: center; border: 1px solid #2a2a2a; transition: var(--transition); position: relative; overflow: hidden; }
+        .mix-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--primary); transform: scaleX(0); transition: var(--transition); }
+        .mix-card:hover { transform: translateY(-12px); border-color: #444; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .mix-card:hover::before { transform: scaleX(1); }
+        .mix-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+        .mix-card .percent { font-size: 4rem; font-weight: 900; color: var(--primary); display: block; font-family: 'Montserrat', sans-serif; line-height: 1; margin-bottom: 15px; }
+
+        /* Tabs Navigation */
+        .tabs-nav { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; justify-content: center; }
+        .tab-btn { 
+            background: #151515; border: 2px solid #333; color: #aaa; 
+            padding: 18px 35px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: var(--transition); font-size: 1rem;
+        }
+        .tab-btn:hover { color: #fff; border-color: var(--primary); }
+        .tab-btn.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 5px 20px rgba(246, 202, 69, 0.3); transform: scale(1.05); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeInUp 0.6s ease-out; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tables */
+        .table-box { background: var(--card-gray); border-radius: 25px; overflow-hidden; border: 1px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; text-align: left; }
+        th { background: #1e1e1e; color: var(--primary); padding: 30px 25px; font-size: 1.1rem; border-bottom: 3px solid var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        tr { transition: background 0.3s; }
+        tr:hover td { background: #181818; }
+        td { padding: 35px 25px; border-bottom: 1px solid #2a2a2a; vertical-align: top; line-height: 1.7; }
+        
+        .day-cell { font-weight: 900; color: var(--primary); font-size: 1.1rem; }
+        .platform-badge { font-weight: 800; font-size: 0.8rem; padding: 8px 15px; border-radius: 8px; text-transform: uppercase; margin-bottom: 15px; display: inline-block; letter-spacing: 1px;box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .bg-ig { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color: #fff; }
+        .bg-li { background: #0077b5; color: #fff; }
+
+        .caption-text { font-size: 1.05rem; color: #eee; margin-bottom: 15px; font-weight: 400; }
+        .hashtags { color: var(--primary); font-size: 0.95rem; font-weight: 600; display: block; }
+
+        .design-text-box { 
+            background: rgba(246, 202, 69, 0.08); border: 2px dashed var(--primary); 
+            color: var(--primary); padding: 20px; text-align: center; border-radius: 15px;
+            font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer { background: #030303; padding: 100px 20px; text-align: center; border-top: 1px solid #222; margin-top: 100px; }
+        .nahr-footer-logo { width: 180px; height: auto; margin-bottom: 30px; transition: var(--transition); }
+        .nahr-footer-logo:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(246, 202, 69, 0.5)); }
+        
+        .footer-credits { font-size: 1.2rem; color: #fff; margin-bottom: 15px; }
+        .footer-credits a { color: var(--primary); font-weight: 700; position: relative; }
+        .footer-credits a::after { content: ''; position: absolute; width: 100%; height: 2px; bottom: -2px; left: 0; background: var(--primary); transform: scaleX(0); transition: transform 0.3s; }
+        .footer-credits a:hover::after { transform: scaleX(1); }
+
+        .footer-wish { font-size: 1.3rem; color: #888; font-style: italic; margin-bottom: 30px; }
+        
+        .nahr-socials a { display: inline-block; width: 50px; height: 50px; line-height: 50px; background: #111; color: #888; border-radius: 50%; margin: 0 10px; font-size: 1.5rem; transition: var(--transition); border: 1px solid #222; }
+        .nahr-socials a:hover { background: var(--primary); color: #000; border-color: var(--primary); transform: translateY(-5px); }
+
+        @media (max-width: 768px) {
+            header { padding: 120px 20px 80px; }
+            .hero-slogan { font-size: 3rem; }
+            .tab-btn { width: 100%; text-align: center; padding: 15px; }
+            .section-header h2 { font-size: 1.8rem; }
+            td, th { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://web.whatsapp.com/send?phone=201062271119&text=%D8%B4%D8%B1%D9%83%D8%A9%20%D9%86%D9%87%D8%B1%20%D9%84%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D9%88%D8%AA%D8%B7%D9%88%D9%8A%D8%B1%20%D9%85%D9%88%D8%A7%D9%84%D9%88%D9%8A%D8%A8%20%D9%88%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AC%D9%88%D8%A7%D9%84%20%D9%87%D9%86%D8%A7%20%D9%84%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%AA%D9%83%D8%9F" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header>
+        <div class="logo-box" data-aos="zoom-in" data-aos-duration="1200">
+            <img src="https://asad.nahrdev.com/assets/img/logo/logo-asad.svg" alt="ASAD UNITED GROUP">
+        </div>
+        <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">ASAD UNITED GROUP</h1>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">Social Media Brand Strategy & Monthly Content Plan (Instagram & LinkedIn – Kuwait Market)</p>
+        <div class="hero-slogan" data-aos="zoom-out" data-aos-delay="600">WE BUILD VALUE</div>
+    </header>
+
+    <div class="container">
+        
+        <section class="content-block" data-aos="fade-up">
+            <div class="section-header" style="margin-top: 0;"><h2>Strategic Introduction</h2></div>
+            <p class="content-text">At ASAD United Group, social media is not treated as a traditional marketing channel. It is a strategic extension of our corporate identity and a direct reflection of how we think, operate, and lead. Every message we share and every visual we publish is designed to communicate our core values as an engineering and construction group built on integrity, discipline, transparency, and accountability. Our digital presence mirrors the same standards we apply on-site and across our operations.</p>
+            <p class="content-text" style="margin-top: 20px;">This strategy has been developed to position ASAD as a trusted, legally established, and forward-thinking construction partner in Kuwait. Rather than focusing on short-term promotion, the plan emphasizes professional storytelling, long-term credibility, and sustained brand authority.</p>
+            <div class="ar-summary">المقدمة توضح أن السوشيال ميديا في أساد أداة استراتيجية تعكس الهوية المؤسسية وليست مجرد تسويق، بهدف بناء الثقة والسلطة الفنية.</div>
+        </section>
+
+        <section class="section-header" data-aos="fade-right"><h2>1️⃣ Objectives of the Strategy</h2></section>
+        <div class="content-block" data-aos="fade-left">
+            <ul class="objectives-list" style="list-style: none;">
+                <li><i class="fas fa-check-circle"></i> Strengthen ASAD’s brand awareness in Kuwait as a leading construction and engineering group.</li>
+                <li><i class="fas fa-check-circle"></i> Position ASAD as a trusted and legally established engineering partner for public and private sector clients.</li>
+                <li><i class="fas fa-check-circle"></i> Communicate ASAD’s vision, values, and technical expertise through consistent, professional messaging.</li>
+                <li><i class="fas fa-check-circle"></i> Build long-term credibility that reflects the company’s establishment since 2002 and its continuous development.</li>
+                <li><i class="fas fa-check-circle"></i> Reinforce transparency by highlighting ASAD’s legal structure, licensing, and compliance standards.</li>
+            </ul>
+            <div class="ar-summary">أهداف الخطة تركز على الوعي، الثقة، المصداقية طويلة الأمد، وإبراز الكيان القانوني لأساد.</div>
+        </div>
+
+        <section class="section-header" data-aos="fade-right"><h2>2️⃣ Content Formula – The Strategic Mix</h2></section>
+        <div class="mix-grid">
+            <div class="mix-card" data-aos="zoom-in-up" data-aos-delay="100">
+                <span class="percent">40%</span>
+                <h3>Brand Identity</h3>
+                <p class="content-text" style="font-size: 1rem;">Vision, values, philosophy, and ASAD’s history since its official registration in 2002.</p>
+            </div>
+            <div class="mix-card" data-aos="zoom-in-up" data-aos-delay="200">
+                <span class="percent">30%</span>
+                <h3>Authority & Expertise</h3>
+                <p class="content-text" style="font-size: 1rem;">Engineering services, project management capabilities, ISO certifications, and operational excellence.</p>
+            </div>
+            <div class="mix-card" data-aos="zoom-in-up" data-aos-delay="300">
+                <span class="percent">20%</span>
+                <h3>ASAD Family & Safety</h3>
+                <p class="content-text" style="font-size: 1rem;">Highlighting ASAD as one family of more than 116 engineers, technicians, and professionals, supported by a strong safety culture.</p>
+            </div>
+            <div class="mix-card" data-aos="zoom-in-up" data-aos-delay="400">
+                <span class="percent">10%</span>
+                <h3>Innovation & Sustainability</h3>
+                <p class="content-text" style="font-size: 1rem;">Future outlook, digital tools, ASAD App, interactive company profile, and the use of advanced technologies.</p>
+            </div>
+        </div>
+        <div class="ar-summary" data-aos="fade-up">الخلطة تضمن توازن الرسالة بين الهوية، الخبرة، الإنسان، والمستقبل.</div>
+
+        <section class="section-header" data-aos="fade-right"><h2>3️⃣ Publishing Framework & Monthly Plan</h2></section>
+        <div class="content-block" data-aos="fade-up" style="text-align: center; padding: 20px;">
+            <p class="content-text" style="margin-bottom: 10px;"><strong>Platforms:</strong> Instagram & LinkedIn | <strong>Publishing Days:</strong> Sunday – Tuesday – Wednesday</p>
+            <p class="content-text"><strong>Publishing Logic:</strong> Each day includes One Instagram post (visual storytelling) & One LinkedIn post (corporate voice). Total: 24 posts.</p>
+            <div class="ar-summary" style="margin-top: 15px; padding: 15px;">آلية نشر ثابتة ومنظمة تضمن وحدة الرسالة واختلاف الأسلوب حسب المنصة.</div>
+        </div>
+
+        <div class="tabs-nav" data-aos="fade-up">
+            <button class="tab-btn active" onclick="openWeek(event, 'week1')">WEEK 1: Brand Foundation</button>
+            <button class="tab-btn" onclick="openWeek(event, 'week2')">WEEK 2: Expertise & Services</button>
+            <button class="tab-btn" onclick="openWeek(event, 'week3')">WEEK 3: People & Safety</button>
+            <button class="tab-btn" onclick="openWeek(event, 'week4')">WEEK 4: Sustainability & Future</button>
+        </div>
+
+        <div id="week1" class="tab-panel active">
+            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 1 – BRAND FOUNDATION (Roots, Vision & Legal Credibility)<br>الأسبوع الأول يرسخ الجذور، الرؤية، والموثوقية القانونية.</div>
+            <div class="table-box">
+                <table>
+                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">At ASAD, construction goes beyond concrete and steel. It is about responsibility, discipline, and delivering real value that lasts. Since our establishment in 2002, we have built our reputation on trust, integrity, and long-term commitment to Kuwait’s development.</p><span class="hashtags">#WeBuildValue #ASAD #KuwaitConstruction #EngineeringLeadership</span></td>
+                            <td><div class="design-text-box">WE BUILD VALUE</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Building value means thinking beyond handover dates. At ASAD United Group, officially registered in Kuwait as a limited liability company since 2002, we approach every project with a long-term mindset that balances technical excellence with ethical responsibility and legal transparency.</p><span class="hashtags">#ASAD #BuildingValue #Kuwait</span></td>
+                            <td><div class="design-text-box">Building Value</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Since 2002, ASAD has contributed to Kuwait’s construction landscape through trusted partnerships and a clear vision for excellence. Our journey reflects consistency, accountability, and professional discipline.</p><span class="hashtags">#Since2002 #ASADHistory #Kuwait</span></td>
+                            <td><div class="design-text-box">Since 2002</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Experience is measured by consistency and accountability. Established in 2002 and operating under commercial registration number 90737, ASAD continues to deliver projects aligned with the highest professional and legal standards.</p><span class="hashtags">#CorporateCredibility #ASAD</span></td>
+                            <td><div class="design-text-box">Established 2002</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">More than 150 completed projects across Kuwait reflect ASAD’s ability to deliver with precision and accountability. Each project represents a promise fulfilled.</p><span class="hashtags">#150Projects #ASAD #ProvenDelivery</span></td>
+                            <td><div class="design-text-box">150+ Projects</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Delivering over 150 projects requires disciplined systems, structured leadership, and financial stability. ASAD’s portfolio reflects a controlled and responsible growth approach within Kuwait’s construction sector.</p><span class="hashtags">#ProjectDelivery #ASAD</span></td>
+                            <td><div class="design-text-box">Proven Delivery</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="week2" class="tab-panel">
+            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 2 – EXPERTISE & SERVICES (Engineering Strength & Operational Excellence)<br>الأسبوع الثاني يبرز القوة الفنية والخدمات المتكاملة.</div>
+            <div class="table-box">
+                <table>
+                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">From infrastructure and construction to electromechanical works and project management, ASAD delivers integrated engineering solutions under one trusted name. Coordination and clarity are at the core of our execution.</p><span class="hashtags">#IntegratedSolutions #ASAD #KuwaitIntegrated</span></td>
+                            <td><div class="design-text-box">Integrated Expertise</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Integrated delivery reduces risk and improves outcomes. ASAD’s multidisciplinary structure enables us to manage complex projects while maintaining quality, safety, and transparency.</p><span class="hashtags">#ProjectExcellence #ASAD</span></td>
+                            <td><div class="design-text-box">Project Excellence</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">ASAD approaches every project as a complete responsibility — from planning to handover. Our turnkey solutions are designed to provide clarity, efficiency, and peace of mind.</p><span class="hashtags">#TurnkeySolutions #ASAD</span></td>
+                            <td><div class="design-text-box">Turnkey Delivery</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Turnkey delivery requires trust, planning, and accountability. ASAD ensures alignment with client objectives at every stage of the project lifecycle.</p><span class="hashtags">#CompleteSolutions #ASAD</span></td>
+                            <td><div class="design-text-box">Complete Solutions</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Quality is not inspected at the end — it is built into every process. Our standards guide decisions from day one.</p><span class="hashtags">#QualityFirst #ISO #ASAD</span></td>
+                            <td><div class="design-text-box">Built with Quality</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Certified systems reflect disciplined thinking. ASAD’s compliance with international ISO standards ensures consistency and continuous improvement across operations.</p><span class="hashtags">#ISOCertified #ASAD</span></td>
+                            <td><div class="design-text-box">ISO Certified</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="week3" class="tab-panel">
+            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 3 – PEOPLE & SAFETY (ASAD Family & QHSE Culture)<br>الأسبوع الثالث يركز على “عائلة أساد” وثقافة السلامة.</div>
+            <div class="table-box">
+                <table>
+                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Behind every project stands one ASAD Family. With more than 116 engineers, technicians, and professionals, we believe people are the foundation of excellence.</p><span class="hashtags">#ASADFamily #BuiltByPeople #Kuwait</span></td>
+                            <td><div class="design-text-box">Built by People</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">ASAD’s strength lies in its people. Our family of over 116 professionals shares a unified commitment to quality, safety, and accountability.</p><span class="hashtags">#OurFamily #ASAD</span></td>
+                            <td><div class="design-text-box">Our Family</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">A strong culture creates strong results. Collaboration, respect, and responsibility define how the ASAD Family works — on-site and beyond.</p><span class="hashtags">#OneTeam #ASADCulture</span></td>
+                            <td><div class="design-text-box">One Team. One Vision.</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Culture is built through daily actions. ASAD fosters an environment that encourages transparency, growth, and teamwork.</p><span class="hashtags">#CorporateCulture #ASAD</span></td>
+                            <td><div class="design-text-box">One Vision</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Safety is not a checklist — it is a daily responsibility. ASAD embeds QHSE standards into every project to protect people and partners.</p><span class="hashtags">#SafetyFirst #QHSE #ASAD</span></td>
+                            <td><div class="design-text-box">Safety First</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">A strong safety culture reflects disciplined leadership. ASAD’s QHSE commitment ensures safer sites and consistent performance.</p><span class="hashtags">#SafetyCulture #ASAD</span></td>
+                            <td><div class="design-text-box">Safety Culture</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="week4" class="tab-panel">
+            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 4 – SUSTAINABILITY & FUTURE (Innovation, Technology & Forward Vision)<br>الأسبوع الرابع يبرز الاستدامة، الابتكار، والتكنولوجيا التفاعلية.</div>
+            <div class="table-box">
+                <table>
+                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Sustainability is a responsibility. ASAD integrates sustainable thinking into its projects to create long-term value for future generations.</p><span class="hashtags">#Sustainability #ASAD</span></td>
+                            <td><div class="design-text-box">Sustainable Thinking</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Sunday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Responsible growth balances performance with social and environmental impact. ASAD’s approach supports Kuwait’s long-term development.</p><span class="hashtags">#SustainableGrowth #ASAD</span></td>
+                            <td><div class="design-text-box">Sustainability in Action</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Construction is evolving — and so are we. Through digital tools, interactive profiles, and the ASAD App, we redefine how stakeholders engage with our work.</p><span class="hashtags">#Innovation #ASADApp #FutureReady</span></td>
+                            <td><div class="design-text-box">Future Ready</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Innovation is a mindset. ASAD embraces digital solutions, interactive platforms, and advanced technologies to remain ahead in the construction sector.</p><span class="hashtags">#InnovationMindset #ASAD</span></td>
+                            <td><div class="design-text-box">Innovation Mindset</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                            <td><p class="caption-text">Every project is a step forward in ASAD’s journey. With clarity and discipline, we continue building value for Kuwait.</p><span class="hashtags">#TheStoryContinues #ASAD</span></td>
+                            <td><div class="design-text-box">The Story Continues</div></td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                            <td><p class="caption-text">Moving forward with a clear vision, ASAD continues to build a future defined by trust, responsibility, and long-term value.</p><span class="hashtags">#LookingAhead #ASAD</span></td>
+                            <td><div class="design-text-box">Looking Ahead</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <section class="content-block" data-aos="fade-up" style="margin-top: 60px;">
+            <div class="section-header" style="margin-top: 0;"><h2>Closing Statement</h2></div>
+            <p class="content-text">This strategy represents more than a monthly content plan — it is a long-term communication framework designed to reflect ASAD United Group’s true identity. Through disciplined execution, unified messaging, and a consistent visual language, ASAD’s digital presence will mirror the same standards applied across its engineering and construction projects. The result is a credible, authoritative, and trusted brand voice that grows stronger with every project and every chapter ahead.</p>
+            <div class="ar-summary">الختام يؤكد أن الخطة إطار تواصلي طويل الأمد يعزز مكانة أساد كعلامة موثوقة وقائدة.</div>
+        </section>
+
+    </div>
+
+    <footer>
+        <a href="https://nahrdev.com/" target="_blank">
+            <img src="https://newsite.nahrdev.com/wp-content/uploads/2024/12/Gemini_Generated_Image_cof5xlcof5xlcof5__1_-removebg-preview.png" alt="Nahr Development" class="nahr-footer-logo">
+        </a>
+        <p class="footer-credits">This strategy dashboard was developed by <strong><a href="https://nahrdev.com/" target="_blank">Nahr Software Solutions</a></strong></p>
+        <div class="footer-wish">Wishing ASAD United Group continued excellence and market leadership.</div>
+        
+        <div class="nahr-socials" style="margin-top: 30px;">
+            <a href="https://eg.linkedin.com/company/nahr-development" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://nahrdev.com/" target="_blank"><i class="fas fa-globe"></i></a>
+        </div>
+        <p style="margin-top: 30px; opacity: 0.3; font-size: 0.8rem;">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animations with softer settings
+        AOS.init({ duration: 1000, easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)', once: true, offset: 50 });
+
+        function openWeek(evt, weekId) {
+            const panels = document.querySelectorAll('.tab-panel');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            panels.forEach(p => p.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(weekId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+
+            // Smooth scroll to the tabs section
+            window.scrollTo({ top: document.querySelector('.tabs-nav').offsetTop - 40, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -527,7 +527,7 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* Tables */
+        /* Tables - التصميم الجديد للجداول على الموبايل */
         .table-box { 
             background: var(--gradient-card); 
             border-radius: 25px; 
@@ -537,17 +537,23 @@
             position: relative;
         }
         
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 25px;
+        }
+        
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 1000px; 
-            text-align: right; 
+            text-align: right;
+            min-width: 1000px; /* الحد الأدنى للعرض على الشاشات الكبيرة */
         }
         
         th { 
             background: rgba(30, 30, 30, 0.9); 
             color: var(--primary); 
-            padding: 30px 25px; 
+            padding: 25px 20px; 
             font-size: 1.1rem; 
             border-bottom: 3px solid var(--primary); 
             text-transform: uppercase; 
@@ -556,6 +562,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            white-space: nowrap;
         }
         
         tr { 
@@ -567,7 +574,7 @@
         }
         
         td { 
-            padding: 35px 25px; 
+            padding: 30px 20px; 
             border-bottom: 1px solid rgba(42, 42, 42, 0.5); 
             vertical-align: top; 
             line-height: 1.7; 
@@ -580,6 +587,10 @@
             color: var(--primary); 
             font-size: 1.1rem; 
             width: 120px;
+            position: sticky;
+            right: 0;
+            background: rgba(18, 18, 18, 0.95);
+            z-index: 5;
         }
         
         .platform-badge { 
@@ -633,6 +644,7 @@
             text-transform: uppercase; 
             letter-spacing: 1px;
             transition: var(--transition);
+            min-width: 140px;
         }
         
         .design-text-box:hover {
@@ -738,7 +750,7 @@
             box-shadow: 0 10px 20px rgba(246, 202, 69, 0.3);
         }
 
-        /* Responsive Design */
+        /* Responsive Design - تحسينات للجوال */
         @media (max-width: 1200px) {
             .container { max-width: 100%; }
         }
@@ -756,11 +768,45 @@
             .hero-slogan { font-size: 3rem; }
             .tab-btn { width: 100%; text-align: center; padding: 15px; }
             .section-header h2 { font-size: 1.8rem; }
-            td, th { padding: 20px 15px; }
+            
+            /* تحسينات الجداول للجوال */
+            .table-responsive {
+                margin: 0 -15px;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .table-box {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            
+            th, td { 
+                padding: 20px 15px; 
+                font-size: 0.95rem;
+            }
+            
+            .design-text-box {
+                padding: 15px 10px;
+                font-size: 1rem;
+                min-width: 120px;
+            }
+            
+            .platform-badge {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .caption-text {
+                font-size: 1rem;
+            }
+            
             .content-block { padding: 25px; }
             .mix-grid { grid-template-columns: 1fr; }
-            .back-to-top { left: 20px; bottom: 90px; }
-            .whatsapp-float { bottom: 90px; }
+            .back-to-top { left: 20px; bottom: 90px; width: 45px; height: 45px; }
+            .whatsapp-float { bottom: 90px; width: 55px; height: 55px; }
             .logo-box { width: 150px; height: 150px; }
         }
 
@@ -771,6 +817,82 @@
             .container { padding: 40px 15px; }
             footer { padding: 60px 15px; }
             .nahr-footer-logo { width: 140px; }
+            
+            /* تحسينات إضافية للجداول على الهواتف الصغيرة */
+            .table-responsive {
+                margin: 0 -10px;
+            }
+            
+            th, td { 
+                padding: 15px 10px; 
+                font-size: 0.9rem;
+            }
+            
+            .day-cell {
+                width: 100px;
+                position: relative;
+            }
+            
+            .design-text-box {
+                padding: 12px 8px;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+            
+            .platform-badge {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+            
+            .caption-text {
+                font-size: 0.95rem;
+            }
+            
+            .content-block {
+                padding: 20px;
+                border-radius: 20px;
+            }
+            
+            .ar-summary {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+            
+            .section-header {
+                margin: 50px 0 30px;
+                padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            /* تحسينات للشاشات الصغيرة جداً */
+            .tabs-nav {
+                padding: 15px;
+            }
+            
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            th, td { 
+                padding: 12px 8px; 
+                font-size: 0.85rem;
+            }
+            
+            .design-text-box {
+                padding: 10px 6px;
+                font-size: 0.85rem;
+            }
+            
+            .caption-text {
+                font-size: 0.9rem;
+            }
+            
+            .platform-badge {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -861,194 +983,202 @@
         <div id="week1" class="tab-panel active">
             <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 1 – BRAND FOUNDATION (Roots, Vision & Legal Credibility)<br>الأسبوع الأول يرسخ الجذور، الرؤية، والموثوقية القانونية.</div>
             <div class="table-box">
-                <table>
-                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">At ASAD, construction goes beyond concrete and steel. It is about responsibility, discipline, and delivering real value that lasts. Since our establishment in 2002, we have built our reputation on trust, integrity, and long-term commitment to Kuwait’s development.</p><span class="hashtags">#WeBuildValue #ASAD #KuwaitConstruction #EngineeringLeadership</span></td>
-                            <td><div class="design-text-box">WE BUILD VALUE</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Building value means thinking beyond handover dates. At ASAD United Group, officially registered in Kuwait as a limited liability company since 2002, we approach every project with a long-term mindset that balances technical excellence with ethical responsibility and legal transparency.</p><span class="hashtags">#ASAD #BuildingValue #Kuwait</span></td>
-                            <td><div class="design-text-box">Building Value</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Since 2002, ASAD has contributed to Kuwait’s construction landscape through trusted partnerships and a clear vision for excellence. Our journey reflects consistency, accountability, and professional discipline.</p><span class="hashtags">#Since2002 #ASADHistory #Kuwait</span></td>
-                            <td><div class="design-text-box">Since 2002</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Experience is measured by consistency and accountability. Established in 2002 and operating under commercial registration number 90737, ASAD continues to deliver projects aligned with the highest professional and legal standards.</p><span class="hashtags">#CorporateCredibility #ASAD</span></td>
-                            <td><div class="design-text-box">Established 2002</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">More than 150 completed projects across Kuwait reflect ASAD’s ability to deliver with precision and accountability. Each project represents a promise fulfilled.</p><span class="hashtags">#150Projects #ASAD #ProvenDelivery</span></td>
-                            <td><div class="design-text-box">150+ Projects</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Delivering over 150 projects requires disciplined systems, structured leadership, and financial stability. ASAD’s portfolio reflects a controlled and responsible growth approach within Kuwait’s construction sector.</p><span class="hashtags">#ProjectDelivery #ASAD</span></td>
-                            <td><div class="design-text-box">Proven Delivery</div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">At ASAD, construction goes beyond concrete and steel. It is about responsibility, discipline, and delivering real value that lasts. Since our establishment in 2002, we have built our reputation on trust, integrity, and long-term commitment to Kuwait's development.</p><span class="hashtags">#WeBuildValue #ASAD #KuwaitConstruction #EngineeringLeadership</span></td>
+                                <td><div class="design-text-box">WE BUILD VALUE</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Building value means thinking beyond handover dates. At ASAD United Group, officially registered in Kuwait as a limited liability company since 2002, we approach every project with a long-term mindset that balances technical excellence with ethical responsibility and legal transparency.</p><span class="hashtags">#ASAD #BuildingValue #Kuwait</span></td>
+                                <td><div class="design-text-box">Building Value</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Since 2002, ASAD has contributed to Kuwait's construction landscape through trusted partnerships and a clear vision for excellence. Our journey reflects consistency, accountability, and professional discipline.</p><span class="hashtags">#Since2002 #ASADHistory #Kuwait</span></td>
+                                <td><div class="design-text-box">Since 2002</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Experience is measured by consistency and accountability. Established in 2002 and operating under commercial registration number 90737, ASAD continues to deliver projects aligned with the highest professional and legal standards.</p><span class="hashtags">#CorporateCredibility #ASAD</span></td>
+                                <td><div class="design-text-box">Established 2002</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">More than 150 completed projects across Kuwait reflect ASAD's ability to deliver with precision and accountability. Each project represents a promise fulfilled.</p><span class="hashtags">#150Projects #ASAD #ProvenDelivery</span></td>
+                                <td><div class="design-text-box">150+ Projects</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Delivering over 150 projects requires disciplined systems, structured leadership, and financial stability. ASAD's portfolio reflects a controlled and responsible growth approach within Kuwait's construction sector.</p><span class="hashtags">#ProjectDelivery #ASAD</span></td>
+                                <td><div class="design-text-box">Proven Delivery</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div id="week2" class="tab-panel">
             <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 2 – EXPERTISE & SERVICES (Engineering Strength & Operational Excellence)<br>الأسبوع الثاني يبرز القوة الفنية والخدمات المتكاملة.</div>
             <div class="table-box">
-                <table>
-                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">From infrastructure and construction to electromechanical works and project management, ASAD delivers integrated engineering solutions under one trusted name. Coordination and clarity are at the core of our execution.</p><span class="hashtags">#IntegratedSolutions #ASAD #KuwaitIntegrated</span></td>
-                            <td><div class="design-text-box">Integrated Expertise</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Integrated delivery reduces risk and improves outcomes. ASAD’s multidisciplinary structure enables us to manage complex projects while maintaining quality, safety, and transparency.</p><span class="hashtags">#ProjectExcellence #ASAD</span></td>
-                            <td><div class="design-text-box">Project Excellence</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">ASAD approaches every project as a complete responsibility — from planning to handover. Our turnkey solutions are designed to provide clarity, efficiency, and peace of mind.</p><span class="hashtags">#TurnkeySolutions #ASAD</span></td>
-                            <td><div class="design-text-box">Turnkey Delivery</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Turnkey delivery requires trust, planning, and accountability. ASAD ensures alignment with client objectives at every stage of the project lifecycle.</p><span class="hashtags">#CompleteSolutions #ASAD</span></td>
-                            <td><div class="design-text-box">Complete Solutions</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Quality is not inspected at the end — it is built into every process. Our standards guide decisions from day one.</p><span class="hashtags">#QualityFirst #ISO #ASAD</span></td>
-                            <td><div class="design-text-box">Built with Quality</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Certified systems reflect disciplined thinking. ASAD’s compliance with international ISO standards ensures consistency and continuous improvement across operations.</p><span class="hashtags">#ISOCertified #ASAD</span></td>
-                            <td><div class="design-text-box">ISO Certified</div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">From infrastructure and construction to electromechanical works and project management, ASAD delivers integrated engineering solutions under one trusted name. Coordination and clarity are at the core of our execution.</p><span class="hashtags">#IntegratedSolutions #ASAD #KuwaitIntegrated</span></td>
+                                <td><div class="design-text-box">Integrated Expertise</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Integrated delivery reduces risk and improves outcomes. ASAD's multidisciplinary structure enables us to manage complex projects while maintaining quality, safety, and transparency.</p><span class="hashtags">#ProjectExcellence #ASAD</span></td>
+                                <td><div class="design-text-box">Project Excellence</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">ASAD approaches every project as a complete responsibility — from planning to handover. Our turnkey solutions are designed to provide clarity, efficiency, and peace of mind.</p><span class="hashtags">#TurnkeySolutions #ASAD</span></td>
+                                <td><div class="design-text-box">Turnkey Delivery</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Turnkey delivery requires trust, planning, and accountability. ASAD ensures alignment with client objectives at every stage of the project lifecycle.</p><span class="hashtags">#CompleteSolutions #ASAD</span></td>
+                                <td><div class="design-text-box">Complete Solutions</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Quality is not inspected at the end — it is built into every process. Our standards guide decisions from day one.</p><span class="hashtags">#QualityFirst #ISO #ASAD</span></td>
+                                <td><div class="design-text-box">Built with Quality</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Certified systems reflect disciplined thinking. ASAD's compliance with international ISO standards ensures consistency and continuous improvement across operations.</p><span class="hashtags">#ISOCertified #ASAD</span></td>
+                                <td><div class="design-text-box">ISO Certified</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div id="week3" class="tab-panel">
-            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 3 – PEOPLE & SAFETY (ASAD Family & QHSE Culture)<br>الأسبوع الثالث يركز على “عائلة أساد” وثقافة السلامة.</div>
+            <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 3 – PEOPLE & SAFETY (ASAD Family & QHSE Culture)<br>الأسبوع الثالث يركز على "عائلة أساد" وثقافة السلامة.</div>
             <div class="table-box">
-                <table>
-                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Behind every project stands one ASAD Family. With more than 116 engineers, technicians, and professionals, we believe people are the foundation of excellence.</p><span class="hashtags">#ASADFamily #BuiltByPeople #Kuwait</span></td>
-                            <td><div class="design-text-box">Built by People</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">ASAD’s strength lies in its people. Our family of over 116 professionals shares a unified commitment to quality, safety, and accountability.</p><span class="hashtags">#OurFamily #ASAD</span></td>
-                            <td><div class="design-text-box">Our Family</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">A strong culture creates strong results. Collaboration, respect, and responsibility define how the ASAD Family works — on-site and beyond.</p><span class="hashtags">#OneTeam #ASADCulture</span></td>
-                            <td><div class="design-text-box">One Team. One Vision.</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Culture is built through daily actions. ASAD fosters an environment that encourages transparency, growth, and teamwork.</p><span class="hashtags">#CorporateCulture #ASAD</span></td>
-                            <td><div class="design-text-box">One Vision</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Safety is not a checklist — it is a daily responsibility. ASAD embeds QHSE standards into every project to protect people and partners.</p><span class="hashtags">#SafetyFirst #QHSE #ASAD</span></td>
-                            <td><div class="design-text-box">Safety First</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">A strong safety culture reflects disciplined leadership. ASAD’s QHSE commitment ensures safer sites and consistent performance.</p><span class="hashtags">#SafetyCulture #ASAD</span></td>
-                            <td><div class="design-text-box">Safety Culture</div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Behind every project stands one ASAD Family. With more than 116 engineers, technicians, and professionals, we believe people are the foundation of excellence.</p><span class="hashtags">#ASADFamily #BuiltByPeople #Kuwait</span></td>
+                                <td><div class="design-text-box">Built by People</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">ASAD's strength lies in its people. Our family of over 116 professionals shares a unified commitment to quality, safety, and accountability.</p><span class="hashtags">#OurFamily #ASAD</span></td>
+                                <td><div class="design-text-box">Our Family</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">A strong culture creates strong results. Collaboration, respect, and responsibility define how the ASAD Family works — on-site and beyond.</p><span class="hashtags">#OneTeam #ASADCulture</span></td>
+                                <td><div class="design-text-box">One Team. One Vision.</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Culture is built through daily actions. ASAD fosters an environment that encourages transparency, growth, and teamwork.</p><span class="hashtags">#CorporateCulture #ASAD</span></td>
+                                <td><div class="design-text-box">One Vision</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Safety is not a checklist — it is a daily responsibility. ASAD embeds QHSE standards into every project to protect people and partners.</p><span class="hashtags">#SafetyFirst #QHSE #ASAD</span></td>
+                                <td><div class="design-text-box">Safety First</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">A strong safety culture reflects disciplined leadership. ASAD's QHSE commitment ensures safer sites and consistent performance.</p><span class="hashtags">#SafetyCulture #ASAD</span></td>
+                                <td><div class="design-text-box">Safety Culture</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div id="week4" class="tab-panel">
             <div class="ar-summary" style="margin-bottom: 30px;">🟦 WEEK 4 – SUSTAINABILITY & FUTURE (Innovation, Technology & Forward Vision)<br>الأسبوع الرابع يبرز الاستدامة، الابتكار، والتكنولوجيا التفاعلية.</div>
             <div class="table-box">
-                <table>
-                    <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Sustainability is a responsibility. ASAD integrates sustainable thinking into its projects to create long-term value for future generations.</p><span class="hashtags">#Sustainability #ASAD</span></td>
-                            <td><div class="design-text-box">Sustainable Thinking</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Sunday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Responsible growth balances performance with social and environmental impact. ASAD’s approach supports Kuwait’s long-term development.</p><span class="hashtags">#SustainableGrowth #ASAD</span></td>
-                            <td><div class="design-text-box">Sustainability in Action</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Construction is evolving — and so are we. Through digital tools, interactive profiles, and the ASAD App, we redefine how stakeholders engage with our work.</p><span class="hashtags">#Innovation #ASADApp #FutureReady</span></td>
-                            <td><div class="design-text-box">Future Ready</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Tuesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Innovation is a mindset. ASAD embraces digital solutions, interactive platforms, and advanced technologies to remain ahead in the construction sector.</p><span class="hashtags">#InnovationMindset #ASAD</span></td>
-                            <td><div class="design-text-box">Innovation Mindset</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
-                            <td><p class="caption-text">Every project is a step forward in ASAD’s journey. With clarity and discipline, we continue building value for Kuwait.</p><span class="hashtags">#TheStoryContinues #ASAD</span></td>
-                            <td><div class="design-text-box">The Story Continues</div></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">Wednesday</td>
-                            <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
-                            <td><p class="caption-text">Moving forward with a clear vision, ASAD continues to build a future defined by trust, responsibility, and long-term value.</p><span class="hashtags">#LookingAhead #ASAD</span></td>
-                            <td><div class="design-text-box">Looking Ahead</div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>Day</th><th>Platform</th><th>Caption (EN)</th><th>Design Text</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Sustainability is a responsibility. ASAD integrates sustainable thinking into its projects to create long-term value for future generations.</p><span class="hashtags">#Sustainability #ASAD</span></td>
+                                <td><div class="design-text-box">Sustainable Thinking</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Sunday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Responsible growth balances performance with social and environmental impact. ASAD's approach supports Kuwait's long-term development.</p><span class="hashtags">#SustainableGrowth #ASAD</span></td>
+                                <td><div class="design-text-box">Sustainability in Action</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Construction is evolving — and so are we. Through digital tools, interactive profiles, and the ASAD App, we redefine how stakeholders engage with our work.</p><span class="hashtags">#Innovation #ASADApp #FutureReady</span></td>
+                                <td><div class="design-text-box">Future Ready</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Tuesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Innovation is a mindset. ASAD embraces digital solutions, interactive platforms, and advanced technologies to remain ahead in the construction sector.</p><span class="hashtags">#InnovationMindset #ASAD</span></td>
+                                <td><div class="design-text-box">Innovation Mindset</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-ig"><i class="fab fa-instagram"></i> Instagram</span></td>
+                                <td><p class="caption-text">Every project is a step forward in ASAD's journey. With clarity and discipline, we continue building value for Kuwait.</p><span class="hashtags">#TheStoryContinues #ASAD</span></td>
+                                <td><div class="design-text-box">The Story Continues</div></td>
+                            </tr>
+                            <tr>
+                                <td class="day-cell">Wednesday</td>
+                                <td><span class="platform-badge bg-li"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                                <td><p class="caption-text">Moving forward with a clear vision, ASAD continues to build a future defined by trust, responsibility, and long-term value.</p><span class="hashtags">#LookingAhead #ASAD</span></td>
+                                <td><div class="design-text-box">Looking Ahead</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <section class="content-block" data-aos="fade-up" style="margin-top: 60px;">
             <div class="section-header" style="margin-top: 0;"><h2>Closing Statement</h2></div>
-            <p class="content-text">This strategy represents more than a monthly content plan — it is a long-term communication framework designed to reflect ASAD United Group’s true identity. Through disciplined execution, unified messaging, and a consistent visual language, ASAD’s digital presence will mirror the same standards applied across its engineering and construction projects. The result is a credible, authoritative, and trusted brand voice that grows stronger with every project and every chapter ahead.</p>
+            <p class="content-text">This strategy represents more than a monthly content plan — it is a long-term communication framework designed to reflect ASAD United Group's true identity. Through disciplined execution, unified messaging, and a consistent visual language, ASAD's digital presence will mirror the same standards applied across its engineering and construction projects. The result is a credible, authoritative, and trusted brand voice that grows stronger with every project and every chapter ahead.</p>
             <div class="ar-summary">الختام يؤكد أن الخطة إطار تواصلي طويل الأمد يعزز مكانة أساد كعلامة موثوقة وقائدة.</div>
         </section>
 

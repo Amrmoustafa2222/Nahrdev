@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Marketing & Growth Strategy | Fanooos Qatar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --accent: #e63946;
+            --bg-pure: #ffffff;
+            --bg-soft: #fcfcfc;
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --shadow-soft: 0 10px 40px rgba(0,0,0,0.03);
+            --shadow-premium: 0 30px 60px rgba(0,0,0,0.06);
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-main);
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #fff; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        h1, h2, h3, h4, h5 { font-weight: 800; color: var(--primary); letter-spacing: -0.01em; }
+        .lux-text { font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        section { padding: 120px 0; position: relative; background-color: #ffffff; }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 0; background: #ffffff; z-index: 1000; border-bottom: 1px solid #f2f2f2; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo-img { height: 48px; width: auto; }
+        .hero { min-height: 90vh; display: flex; align-items: center; background: #ffffff; padding-top: 100px; overflow: hidden; }
+        .hero-flex { display: flex; align-items: center; gap: 60px; width: 100%; }
+        .hero-left { flex: 1; text-align: right; }
+        .hero-right { flex: 1.4; display: flex; justify-content: center; position: relative; }
+        .hero-img { max-width: 100%; height: auto; transition: var(--transition); }
+        .hero-badge { background: rgba(230, 57, 70, 0.05); color: var(--accent); padding: 8px 24px; border-radius: 40px; font-size: 13px; font-weight: 700; margin-bottom: 25px; display: inline-block; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); line-height: 1.15; margin-bottom: 25px; }
+        .hero h1 span { display: block; color: var(--accent); font-size: 0.85em; font-weight: 400; margin-top: 5px; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
+        
+        .exec-summary { border-right: 5px solid var(--accent); padding: 40px; background: #fafafa; border-radius: 0 30px 30px 0; margin-top: -50px; position: relative; z-index: 10; font-size: 1.5rem; font-weight: 800; line-height: 1.4; box-shadow: var(--shadow-soft); }
+
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 15px; }
+        .section-header .sub { color: var(--accent); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 4px; }
+        .premium-card { background: #fff; padding: 45px; border-radius: 40px; box-shadow: var(--shadow-soft); border: 1px solid #f2f2f2; transition: var(--transition); }
+        .premium-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-premium); }
+        .dark-card { background: var(--primary) !important; color: #fff !important; border: none; }
+        .card-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
+        .card-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .swot-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .swot-panel { background: #fff; padding: 50px; border-radius: 45px; border: 1px solid #f0f0f0; transition: var(--transition); position: relative; overflow: hidden; height: 100%; }
+        .swot-panel:hover { border-color: var(--accent); transform: translateY(-12px) scale(1.02); box-shadow: 0 40px 120px rgba(0,0,0,0.08); }
+        .swot-letter { position: absolute; top: -20px; left: -10px; font-size: 9rem; font-weight: 900; color: rgba(0,0,0,0.015); pointer-events: none; z-index: 1; transition: var(--transition); }
+        .swot-panel:hover .swot-letter { color: rgba(230, 57, 70, 0.03); transform: scale(1.1); }
+        .swot-panel h3 { margin-bottom: 20px; font-size: 1.8rem; display: flex; align-items: center; gap: 15px; position: relative; z-index: 2; transition: var(--transition); }
+        .swot-panel:hover h3 { color: var(--accent); }
+        .swot-panel p { position: relative; z-index: 2; color: var(--text-muted); line-height: 1.8; }
+        .swot-panel i { width: 45px; height: 45px; background: var(--bg-accent-soft); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition); }
+        .swot-panel:hover i { background: var(--accent); color: #fff; transform: rotate(10deg); }
+
+        .comp-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+        .comp-table th { padding: 15px; text-align: right; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; font-weight: 700; }
+        .comp-table td { background: #fff; padding: 30px 20px; border: 1px solid #f8f8f8; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
+        .comp-table td:first-child { border-radius: 20px 0 0 20px; border-right: 6px solid var(--accent); font-weight: 800; }
+        .comp-table td:last-child { border-radius: 0 20px 20px 0; }
+
+        .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; align-items: stretch; }
+        .persona-profile { background: #fff; border-radius: 50px; overflow: hidden; border: 1px solid #f2f2f2; box-shadow: var(--shadow-soft); transition: var(--transition); display: flex; flex-direction: column; height: 100%; }
+        .persona-profile:hover { transform: translateY(-10px); box-shadow: var(--shadow-premium); border-color: var(--accent); }
+        .persona-top { padding: 40px; background: #fbfbfb; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 20px; }
+        .persona-avatar { width: 80px; height: 80px; min-width: 80px; background: var(--accent); color: #fff; border-radius: 25px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 12px 25px rgba(230,57,70,0.2); }
+        .persona-info h3 { margin: 0; font-size: 1.6rem; }
+        .persona-tags { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+        .persona-tag { background: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); border: 1px solid #eee; }
+        .persona-body { padding: 40px; flex-grow: 1; display: flex; flex-direction: column; }
+        .persona-section { margin-bottom: 25px; }
+        .persona-section:last-child { margin-top: auto; margin-bottom: 0; }
+        .ps-title { font-size: 0.85rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
+        .ps-content { color: var(--text-main); font-weight: 400; font-size: 1rem; line-height: 1.8; }
+        .persona-driver { font-size: 0.85rem; background: #fff5f5; color: var(--accent); padding: 8px 15px; border-radius: 12px; margin-top: 10px; display: block; font-weight: 700; border: 1px dashed #e6394633; }
+        .persona-decision { background: var(--bg-soft); padding: 25px; border-radius: 25px; border-right: 4px solid var(--accent); font-style: italic; font-size: 0.95rem; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+        .product-item { text-align: center; padding: 35px 15px; border-radius: 35px; background: #fff; border: 1px solid #f0f0f0; transition: var(--transition); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .product-item:hover { border-color: var(--accent); transform: scale(1.03); box-shadow: var(--shadow-soft); }
+        .product-item i { font-size: 2.2rem; color: var(--accent); margin-bottom: 15px; }
+        .product-item h4 { font-size: 0.9rem; line-height: 1.3; font-weight: 700; }
+
+        .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .audit-box { border-radius: 40px; padding: 50px; height: 100%; border: 1px solid #f2f2f2; background: #ffffff; color: var(--text-main); }
+        .audit-problem { border-right: 6px solid #e63946; }
+        .audit-solution { border-right: 6px solid #10b981; }
+        .audit-list { list-style: none; }
+        .audit-list li { margin-bottom: 15px; display: flex; gap: 12px; align-items: flex-start; }
+        .audit-list i { margin-top: 5px; font-size: 0.9rem; }
+
+        .plan-access { background: var(--primary); color: #fff; border-radius: 50px; padding: 80px 40px; text-align: center; position: relative; overflow: hidden; }
+        .plan-access::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(230,57,70,0.1), transparent); pointer-events: none; }
+        .plan-btn { display: inline-flex; align-items: center; gap: 15px; background: var(--accent); color: #fff; padding: 20px 45px; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.2rem; transition: var(--transition); margin-top: 35px; box-shadow: 0 20px 40px rgba(230,57,70,0.3); }
+        .plan-btn:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(230,57,70,0.4); background: #f24d5a; }
+
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; right: 26px; top: 0; bottom: 0; width: 2px; background: #f0f0f0; }
+        .t-step { position: relative; padding-right: 80px; margin-bottom: 70px; }
+        .t-num { position: absolute; right: 0; top: 0; width: 54px; height: 54px; background: var(--accent); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; border: 5px solid #fff; box-shadow: 0 10px 25px rgba(230, 57, 70, 0.25); z-index: 2; }
+        .t-benchmark { background: #fff; padding: 20px; border-radius: 20px; border: 1px solid #eee; margin-top: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .benchmark-v { font-size: 0.8rem; display: flex; flex-direction: column; }
+        .benchmark-v b { color: var(--accent); font-size: 1rem; }
+
+        .psych-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .psych-card { background: #fafafa; border-radius: 35px; padding: 40px; border: 1px solid #f0f0f0; transition: var(--transition); }
+        .psych-card:hover { transform: translateY(-5px); background: #fff; border-color: var(--accent); }
+        .psych-card h4 { margin-top: 15px; margin-bottom: 10px; color: var(--accent); }
+
+        .kpi-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .kpi-main-card { background: #fff; padding: 50px 40px; border-radius: 45px; border: 1px solid #f2f2f2; position: relative; overflow: hidden; transition: var(--transition); }
+        .kpi-main-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: var(--shadow-premium); }
+        .kpi-main-card::before { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: var(--accent); }
+        .kpi-label { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 25px; }
+        .kpi-metrics-list { list-style: none; }
+        .kpi-metrics-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 12px 18px; background: var(--bg-soft); border-radius: 18px; font-weight: 700; font-size: 0.95rem; border: 1px solid transparent; transition: var(--transition); }
+        .kpi-metrics-list li span { margin-right: auto; color: var(--accent); font-family: 'Outfit'; font-size: 0.9rem; }
+        .kpi-status-tag { position: absolute; top: 50px; left: 30px; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+
+        .platforms-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; }
+        .platform-card { padding: 35px 20px; text-align: center; }
+
+        .lux-footer { background: var(--primary); color: #fff; padding: 120px 0 60px; position: relative; overflow: hidden; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr; gap: 80px; margin-bottom: 80px; }
+        .footer-logo { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 8px; color: var(--accent); margin-bottom: 25px; display: block; }
+        .footer-desc { opacity: 0.6; font-size: 0.95rem; line-height: 1.8; }
+        .footer-head { font-size: 1.1rem; font-weight: 800; margin-bottom: 25px; display: block; border-right: 3px solid var(--accent); padding-right: 15px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #fff; opacity: 0.5; text-decoration: none; transition: var(--transition); display: block; font-size: 0.9rem; }
+        .footer-links a:hover { opacity: 1; transform: translateX(-5px); color: var(--accent); }
+        .footer-socials { display: flex; gap: 20px; margin-top: 30px; }
+        .social-circle { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.03); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; text-decoration: none; transition: var(--transition); border: 1px solid rgba(255,255,255,0.05); }
+        .social-circle:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-5px); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; text-align: center; }
+        .footer-copy { opacity: 0.2; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        @media (max-width: 1250px) { .persona-grid { grid-template-columns: repeat(2, 1fr); } .kpi-wrapper { grid-template-columns: repeat(1, 1fr); } }
+        @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; } .footer-head { border-right: none; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; } .footer-socials { justify-content: center; } }
+        @media (max-width: 900px) { .exec-summary { margin-top: 20px; font-size: 1.2rem; } .persona-grid, .swot-wrapper, .audit-grid, .product-grid, .platforms-grid { grid-template-columns: 1fr; } .hero-flex { flex-direction: column-reverse; text-align: center; } .section-header h2 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <img src="https://newsite.nahrdev.com/wp-content/uploads/2026/02/Fanooos.svg" alt="Fanooos Logo" class="logo-img">
+            <div class="lux-text" style="font-weight: 700; color: var(--accent); font-size: 13px; letter-spacing: 2px;">STRATEGY QATAR</div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-flex">
+                <div class="hero-right" data-aos="fade-left">
+                    <img src="https://content.rozetka.com.ua/goods/images/big/592473453.jpg" alt="Smart Furniture" class="hero-img">
+                </div>
+                <div class="hero-left" data-aos="fade-right">
+                    <span class="hero-badge">Expert Performance Layer Enabled</span>
+                    <h1>Luxury Performance<span>Fanooos – Qatar</span></h1>
+                    <p>استراتيجية نمو مدعومة بعلم نفس المستهلك ومعايير الأداء الواقعية للسوق القطري الفاخر.</p>
+                </div>
+            </div>
+            <div class="exec-summary" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-quote-right" style="color:var(--accent); margin-left:15px; font-size:1.2em;"></i>
+                السوق جاهز، المنافسين تقليديين، والفرصة متاحة لقيادة فئة كاملة (Smart Furniture Category) في قطر.
+            </div>
+        </div>
+    </header>
+
+    <section id="objective">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Strategic Psychology</span>
+                <h2>The Fanooos Transformation</h2>
+            </div>
+            <div class="premium-card dark-card" style="text-align: center; padding: 80px 40px;" data-aos="zoom-in">
+                <h3 style="font-size: 2.22rem; margin-bottom: 25px; color: #ffffff !important;">Sell the Outcome, Not the Wood</h3>
+                <p style="font-size: 1.4rem; color: var(--accent) !important; font-weight: 800; margin-bottom: 40px; line-height: 1.4;">
+                    Identity + Status + Productivity = The Conversion Key
+                </p>
+                <div class="card-grid-3">
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 25px; text-align: right;">
+                        <h4 style="margin-bottom: 15px; color:var(--accent) !important;"><i class="fas fa-crown"></i> محرّك الـ Status</h4>
+                        <p style="opacity: 0.7;">الجمهور القطري لا يشتري "طاولة"، بل يشتري "التميز" وكونه يمتلك أحدث ما توصلت إليه تكنولوجيا الأثاث.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 25px; text-align: right;">
+                        <h4 style="margin-bottom: 15px; color:var(--accent) !important;"><i class="fas fa-brain"></i> محرّك الـ Efficiency</h4>
+                        <p style="opacity: 0.7;">الربط النفسي بين "Adjustable Desk" وبين "زيادة الدخل الشخصي والإنتاجية" للمهنيين والشركات.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 25px; text-align: right;">
+                        <h4 style="margin-bottom: 15px; color:var(--accent) !important;"><i class="fas fa-heart"></i> محرّك الـ Future-Life</h4>
+                        <p style="opacity: 0.7;">خلق شعور بأن منزلك الآن هو جزء من المستقبل (Smart Living) وهو عنصر الأمان والراحة لعائلتك.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-soft);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Why Now?</span>
+                <h2>Market Opportunity & Timing</h2>
+            </div>
+            <div class="card-grid-2">
+                <div class="premium-card" data-aos="fade-up" style="border-right: 6px solid var(--accent);">
+                    <h3 style="margin-bottom:20px; color:var(--accent);"><i class="fas fa-clock"></i> لماذا التحرك الآن؟</h3>
+                    <p style="font-size:1.3rem; font-weight:700; line-height:1.5;">
+                        نمو الـ Smart Homes في قطر مذهل، في مقابل قلة المنافسة المباشرة والمتخصصة؛ مما يفتح باباً للهيمنة على السوق قبل تشبع الفئة.
+                    </p>
+                </div>
+                <div class="premium-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3 style="margin-bottom:25px;"><i class="fas fa-chart-pie" style="color:var(--accent); margin-left:15px;"></i> تحليل السوق القطري</h3>
+                    <ul style="list-style:none;">
+                        <li style="margin-bottom:15px; display:flex; gap:12px;"><i class="fas fa-check" style="color:var(--accent); margin-top:5px;"></i> <div><strong>High Purchasing Power:</strong> قدرة شرائية عالية جداً للجمهور المستهدف.</div></li>
+                        <li style="margin-bottom:15px; display:flex; gap:12px;"><i class="fas fa-check" style="color:var(--accent); margin-top:5px;"></i> <div><strong>Luxury + Smart Living:</strong> توجه واضح نحو الفخامة والعيش الذكي.</div></li>
+                        <li style="margin-bottom:15px; display:flex; gap:12px;"><i class="fas fa-check" style="color:var(--accent); margin-top:5px;"></i> <div><strong>Infrastructure:</strong> استعداد كامل للبنية التحتية للمنازل الذكية.</div></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="margin-top: 50px;">
+                <table class="comp-table" data-aos="fade-up">
+                    <thead>
+                        <tr><th>فئة المنافسين</th><th>أهم اللاعبين</th><th>نقاط الضعف لديهم</th><th>لماذا نختار Fanooos؟</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Traditional Retailers</td><td>IKEA, Home Centre</td><td>بيع أثاث عادي دون تجربة ذكية.</td><td>نقدم أثاثاً يتفاعل مع حياتك الذكية.</td></tr>
+                        <tr><td>Electronics Stores</td><td>Jarir, FNAC Qatar</td><td>تكنولوجيا بدون تكامل حقيقي في الأثاث.</td><td>نحن ندمج التكنولوجيا في صلب الأثاث.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Strategic Audit</span>
+                <h2>SWOT Analysis</h2>
+            </div>
+            <div class="swot-wrapper">
+                <div class="swot-panel" data-letter="S" data-aos="fade-up">
+                    <div class="swot-letter">S</div>
+                    <h3><i><i class="fas fa-gem"></i></i> Strengths</h3>
+                    <p>تجربة أثاث ذكي رائدة، جودة تصنيع فائقة، ونموذج عمل مبتكر يقلل التكاليف ويرفع القيمة.</p>
+                </div>
+                <div class="swot-panel" data-letter="W" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swot-letter">W</div>
+                    <h3><i><i class="fas fa-bolt"></i></i> Weaknesses</h3>
+                    <p>جودة صور الموقع الحالي، وجود Logos على الصور، وضعف الـ SEO الحالي بالموقع.</p>
+                </div>
+                <div class="swot-panel" data-letter="O" data-aos="fade-up" data-aos-delay="200">
+                    <div class="swot-letter">O</div>
+                    <h3><i><i class="fas fa-chart-line"></i></i> Opportunities</h3>
+                    <p>القدرة الشرائية المرتفعة، التحول التقني في الخليج، واستغلال لينكد إن كأداة نمو قوية.</p>
+                </div>
+                <div class="swot-panel" data-letter="T" data-aos="fade-up" data-aos-delay="300">
+                    <div class="swot-letter">T</div>
+                    <h3><i><i class="fas fa-triangle-exclamation"></i></i> Threats</h3>
+                    <p>المنافسة التقليدية العملاقة، متاجر الإلكترونيات السطحية، انتشار متاجر السوشيال ميديا العشوائية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-soft);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Consumer Insight</span>
+                <h2>Persona Decision Drivers</h2>
+            </div>
+            <div class="persona-grid">
+                <div class="persona-profile" data-aos="fade-up">
+                    <div class="persona-top">
+                        <div class="persona-avatar"><i class="fas fa-user-tie"></i></div>
+                        <div class="persona-info">
+                            <h3>أحمد – الـ Professional</h3>
+                            <div class="persona-tags"><span class="persona-tag">35k QAR+</span></div>
+                        </div>
+                    </div>
+                    <div class="persona-body">
+                        <span class="ps-title">Decision Driver</span>
+                        <p class="ps-content"><strong>الاستثمار في النفس:</strong> أحمد يرى السعر كـ Investment وليس Cost. المحرك هو زيادة الإنتاجية.</p>
+                        <span class="persona-driver">Trigger: Productivity / Low Friction</span>
+                        <div class="persona-decision" style="margin-top:20px;">Objection: "هل فعلاً الجودة تستحق السعر؟"</div>
+                    </div>
+                </div>
+                <div class="persona-profile" data-aos="fade-up" data-aos-delay="100">
+                    <div class="persona-top">
+                        <div class="persona-avatar"><i class="fas fa-gamepad"></i></div>
+                        <div class="persona-info">
+                            <h3>خالد – الـ Gamer / Creator</h3>
+                            <div class="persona-tags"><span class="persona-tag">15k-25k QAR</span></div>
+                        </div>
+                    </div>
+                    <div class="persona-body">
+                        <span class="ps-title">Decision Driver</span>
+                        <p class="ps-content"><strong>الاستعراض الاجتماعي:</strong> خالد يريد ست ب يبهر به متابعيه. المحرك هو الـ Status-Flex.</p>
+                        <span class="persona-driver">Trigger: Social Proof / Status</span>
+                        <div class="persona-decision" style="margin-top:20px;">Objection: "أريد رؤية تجارب مستخدمين حقيقية."</div>
+                    </div>
+                </div>
+                <div class="persona-profile" data-aos="fade-up" data-aos-delay="200">
+                    <div class="persona-top">
+                        <div class="persona-avatar"><i class="fas fa-gem"></i></div>
+                        <div class="persona-info">
+                            <h3>سارة – Lifestyle Buyer</h3>
+                            <div class="persona-tags"><span class="persona-tag">Household: High</span></div>
+                        </div>
+                    </div>
+                    <div class="persona-body">
+                        <span class="ps-title">Decision Driver</span>
+                        <p class="ps-content"><strong>الشعور بالرفاهية:</strong> سارة تشتري مود البيت وراحة بالها. المحرك هو الـ Aesthetic Luxury.</p>
+                        <span class="persona-driver">Trigger: Comfort / Aesthetic Wealth</span>
+                        <div class="persona-decision" style="margin-top:20px;">Objection: "هل الصيانة والتركيب معقدين؟"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Portfolio</span>
+                <h2>Core Smart Products</h2>
+            </div>
+            <div class="product-grid">
+                <div class="product-item" data-aos="fade-up"><i class="fas fa-bed"></i><h4>Vision Lift Smart TV Bed</h4></div>
+                <div class="product-item" data-aos="fade-up" data-aos-delay="50"><i class="fas fa-arrows-up-down"></i><h4>ADJUSTABLE TABLE</h4></div>
+                <div class="product-item" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-tv"></i><h4>Motorized TV Lift Stand</h4></div>
+                <div class="product-item" data-aos="fade-up" data-aos-delay="150"><i class="fas fa-border-all"></i><h4>C-Shaped Side Table</h4></div>
+                <div class="product-item" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-cart-shopping"></i><h4>PC TROLLEY TABLE</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-soft);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Efficiency</span>
+                <h2>Audit & Optimization Strategy</h2>
+            </div>
+            <div class="audit-grid">
+                <div class="audit-box audit-problem" data-aos="fade-right">
+                    <h3 style="color:#e63946;"><i class="fas fa-exclamation-triangle"></i> المشاكل الحالية</h3>
+                    <ul class="audit-list">
+                        <li><i class="fas fa-times" style="color:#e63946;"></i> <div><strong>جودة صور ضعيفة:</strong> لا تعكس قيمة البراند وتتقلل نسب التحويل.</div></li>
+                        <li><i class="fas fa-times" style="color:#e63946;"></i> <div><strong>وجود Logo على الصور:</strong> مرفوض من Merchant Center وممنوع إعلانياً.</div></li>
+                        <li><i class="fas fa-times" style="color:#e63946;"></i> <div><strong>وصف منتجات Generic:</strong> يفتقد للكلمات البحثية والربط بالـ SEO.</div></li>
+                    </ul>
+                </div>
+                <div class="audit-box audit-solution" data-aos="fade-left">
+                    <h3 style="color:#10b981;"><i class="fas fa-check-circle"></i> الحلول التنفيذية</h3>
+                    <ul class="audit-list">
+                        <li><i class="fas fa-check" style="color:#10b981;"></i> <div><strong>بصريات High-Quality:</strong> صور Lifestyle بدون شعارات تركز على الفخامة.</div></li>
+                        <li><i class="fas fa-check" style="color:#10b981;"></i> <div><strong>SEO Content:</strong> محتوى بيعي، Optimized، و AI-Ready للمستقبل.</div></li>
+                        <li><i class="fas fa-check" style="color:#10b981;"></i> <div><strong>GA4 Tracking:</strong> تفعيل التتبع الاحترافي لكل رحلة العميل بالموقع.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Performance Layer</span>
+                <h2>Realistic Performance Targets</h2>
+            </div>
+            <div class="timeline">
+                <div class="t-step" data-aos="fade-right">
+                    <div class="t-num">01</div>
+                    <div class="premium-card">
+                        <h4>Month 1: Brand (Mental Space)</h4>
+                        <div class="t-benchmark">
+                            <div class="benchmark-v">Engagement Rate<b>4.0% - 6.5%</b></div>
+                            <div class="benchmark-v">CPM (Qatar)<b>$18 - $25</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-step" data-aos="fade-right">
+                    <div class="t-num">02</div>
+                    <div class="premium-card">
+                        <h4>Month 2: Leads (Demand Capture)</h4>
+                        <div class="t-benchmark">
+                            <div class="benchmark-v">CPL (Qualified)<b>$15 - $35</b></div>
+                            <div class="benchmark-v">Lead Cycle<b>14-30 Days</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-step" data-aos="fade-right">
+                    <div class="t-num">03</div>
+                    <div class="premium-card">
+                        <h4>Month 3: Sales (Revenue Stage)</h4>
+                        <div class="t-benchmark">
+                            <div class="benchmark-v">ROAS (Projected)<b>3.5x - 5.5x</b></div>
+                            <div class="benchmark-v">CAC (Direct)<b>$180 - $350</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--primary);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span style="color:var(--accent); font-weight:700; letter-spacing:3px;">CONVERSION LAYER</span>
+                <h2 style="color:#fff;">Sales Psychology & Objection Handling</h2>
+            </div>
+            <div class="psych-grid">
+                <div class="psych-card" data-aos="fade-up">
+                    <i class="fas fa-shield-heart" style="font-size: 2.5rem; color: var(--accent);"></i>
+                    <h4>Trust Signals</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted); margin-top:15px;">UGC Videos، تعاون مع Interior Designers، وضمان ذهبي للاستبدال.</p>
+                </div>
+                <div class="psych-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-bolt" style="font-size: 2.5rem; color: var(--accent);"></i>
+                    <h4>Subtle Urgency</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted); margin-top:15px;">كميات محدودة لقطر، أولوية الحجز للـ Early Adopters، و Scarcity للقطع المميزة.</p>
+                </div>
+                <div class="psych-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-comments-dollar" style="font-size: 2.5rem; color: var(--accent);"></i>
+                    <h4>Objection Handling</h4>
+                    <p style="font-size:0.9rem; color:var(--text-muted); margin-top:15px;">ربط السعر بالصحة، توفير تجربة افتراضية، وتفعيل خيارات التقسيط (Tabby).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="plan-access" data-aos="zoom-in">
+                <span style="color:var(--accent); font-weight:800; text-transform:uppercase; letter-spacing:2px;">Operational Assets</span>
+                <h2 style="color:#fff; margin-top:15px; font-size: 2.22rem;">خطط المحتوى التنفيذية</h2>
+                <a href="https://docs.google.com/spreadsheets/d/1YVj_Yj6cn1PXRp5lSAHiafSFQhkPOdjE7iU6jC6SF78/edit?usp=sharing" target="_blank" class="plan-btn">
+                    <i class="fas fa-table"></i> فتح جدول خطة المحتوى (Google Sheets)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-soft);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Omnichannel</span>
+                <h2>Platform Ecosystem</h2>
+            </div>
+            <div class="platforms-grid">
+                <div class="premium-card platform-card" data-aos="fade-up" style="text-align:center;">
+                    <i class="fab fa-linkedin" style="font-size:3rem; color: #0077b5; margin-bottom:15px;"></i>
+                    <h4>LinkedIn</h4>
+                </div>
+                <div class="premium-card platform-card" data-aos="fade-up" data-aos-delay="100" style="text-align:center;">
+                    <i class="fab fa-instagram" style="font-size:3rem; color: #e4405f; margin-bottom:15px;"></i>
+                    <h4>Instagram</h4>
+                </div>
+                <div class="premium-card platform-card" data-aos="fade-up" data-aos-delay="200" style="text-align:center;">
+                    <i class="fab fa-facebook" style="font-size:3rem; color: #1877f2; margin-bottom:15px;"></i>
+                    <h4>Facebook</h4>
+                </div>
+                <div class="premium-card platform-card" data-aos="fade-up" data-aos-delay="300" style="text-align:center;">
+                    <i class="fab fa-snapchat" style="font-size:3rem; color: #fffc00; text-shadow:0 0 1px #000; margin-bottom:15px;"></i>
+                    <h4>Snapchat</h4>
+                </div>
+                <div class="premium-card platform-card" data-aos="fade-up" data-aos-delay="400" style="text-align:center;">
+                    <i class="fab fa-pinterest" style="font-size:3rem; color: #bd081c; margin-bottom:15px;"></i>
+                    <h4>Pinterest</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="sub">Success Path</span>
+                <h2>Final Performance KPIs</h2>
+            </div>
+            <div class="kpi-wrapper">
+                <div class="kpi-main-card" data-aos="fade-up">
+                    <span class="kpi-status-tag">Growth Stage</span>
+                    <span class="kpi-label">Month 1 – 2</span>
+                    <ul class="kpi-metrics-list">
+                        <li>Engagement <span>> 4%</span></li>
+                        <li>CTR <span>> 1.2%</span></li>
+                        <li>Lead Qlty <span>80%</span></li>
+                    </ul>
+                </div>
+                <div class="kpi-main-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="kpi-status-tag">Sales Stage</span>
+                    <span class="kpi-label">Month 3</span>
+                    <ul class="kpi-metrics-list">
+                        <li>ROAS <span>3.5x - 5.5x</span></li>
+                        <li>Conversion <span>1.0% - 2.5%</span></li>
+                        <li>AOV <span>$1,200+</span></li>
+                    </ul>
+                </div>
+                <div class="kpi-main-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="kpi-status-tag">Scaling Stage</span>
+                    <span class="kpi-label">Long-term</span>
+                    <ul class="kpi-metrics-list">
+                        <li>LTV <span>$2,500+</span></li>
+                        <li>CAC Cap <span><$400</span></li>
+                        <li>Retention <span>20%</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="lux-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col" data-aos="fade-up">
+                    <span class="footer-logo">fanooos</span>
+                    <p class="footer-desc">استراتيجية نمو متكاملة تهدف إلى قيادة فئة الأثاث الذكي في السوق القطري، مبنية على تحليل البيانات وعلم نفس المستهلك.</p>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                    <span class="footer-head">رؤيتنا الاستراتيجية</span>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-left" style="font-size:0.7rem; margin-left:8px;"></i> بناء الوعي بالعلامة</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left" style="font-size:0.7rem; margin-left:8px;"></i> ترسيخ صورة الموقع الفاخر</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left" style="font-size:0.7rem; margin-left:8px;"></i> تحقيق العائد الاستثماري المستهدف</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                    <span class="footer-head">تواصل مع البراند</span>
+                    <div class="footer-socials">
+                        <a href="https://www.linkedin.com/company/112531952" target="_blank" class="social-circle"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61578432159572" target="_blank" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/fanooosqatar?utm_source=qr&igsh=MjU5amRpY2V5NzZs" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Fanooos Qatar - Marketing & Growth Blueprint</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true, offset: 50 });
+    </script>
+</body>
+</html>

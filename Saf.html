@@ -759,16 +759,87 @@ tr:hover td {
 .copyright strong {
   color: var(--gold);
 }
-@media (max-width: 1024px) {
-  .navbar { padding: 0 1.5rem; height: auto; min-height: 70px; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-  .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+/* Responsive Master Suite: Desktop, Laptop, Tablet, Mobile & Small Mobile */
+@media (max-width: 1200px) {
+  .container { padding: 3.5rem 1.5rem; }
+  .hero { padding: 6rem 1.5rem 5rem 1.5rem; }
+  .hero h1 { font-size: 3rem; }
+  .section-title { font-size: 2.2rem; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2rem; }
+  .grid-3, .showcase-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+  .footer-grid-vip { grid-template-columns: 1fr 1fr; gap: 3rem; }
 }
+
+@media (max-width: 1024px) {
+  .navbar { padding: 0 1.5rem; height: 70px; flex-wrap: nowrap; justify-content: space-between; }
+  .nav-links { display: none; } /* إخفاء الروابط النصية في التابلت ليبقى اللوجو وزر التواصل في سطر واحد أنيق */
+  .nav-cta { padding: 0.6rem 1.4rem; font-size: 0.95rem; }
+  .hero h1 { font-size: 2.6rem; }
+  .section-title { font-size: 1.9rem; }
+  .card { padding: 2rem; }
+}
+
 @media (max-width: 768px) {
-  .hero h1 { font-size: 2.4rem; }
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .timeline { padding-right: 2rem; }
-  .timeline-badge { right: -3.1rem; width: 32px; height: 32px; font-size: 0.8rem; }
-  .calc-box { padding: 1.8rem; }
+  /* إلغاء الهيدر تماماً في الهاتف المحمول كما طلب العميل */
+  .navbar { display: none !important; }
+  
+  .container { padding: 2.5rem 1rem; }
+  .hero { padding: 4.5rem 1rem 3.5rem 1rem; }
+  .hero-badge { font-size: 0.85rem; padding: 0.4rem 1.1rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: 2rem; line-height: 1.4; margin-bottom: 1.2rem; }
+  .hero p { font-size: 1.05rem; margin-bottom: 2.2rem; line-height: 1.7; }
+  .hero-pills { gap: 0.8rem; flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
+  .pill { padding: 0.8rem 1.2rem; font-size: 0.9rem; justify-content: center; }
+  
+  .section-title { font-size: 1.5rem; gap: 0.5rem; flex-wrap: wrap; }
+  .section-subtitle { font-size: 0.95rem; line-height: 1.6; }
+  
+  .grid-2, .grid-3, .grid-4, .showcase-grid, .seo-grid { grid-template-columns: 1fr !important; gap: 1.3rem; }
+  
+  .card { padding: 1.5rem; border-radius: 18px; }
+  .card-top { margin-bottom: 1.2rem; }
+  .icon-box { width: 50px; height: 50px; font-size: 1.5rem; }
+  .card-title { font-size: 1.25rem; }
+  .card-body { font-size: 0.95rem; line-height: 1.7; }
+  
+  .timeline { padding-right: 1.5rem; margin-top: 2rem; }
+  .timeline-badge { right: -2.3rem; width: 28px; height: 28px; font-size: 0.75rem; }
+  .timeline-content { padding: 1.2rem; border-radius: 16px; }
+  
+  .calc-box { padding: 1.3rem; border-radius: 18px; }
+  .calc-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .calc-results { grid-template-columns: 1fr; gap: 1rem; }
+  .calc-result-card { padding: 1.2rem; }
+  
+  /* تناسب الجداول على شاشات الموبايل */
+  .matrix-table-wrap, .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem -1rem; padding: 0 1rem; }
+  .matrix-table, .data-table { min-width: 650px; font-size: 0.85rem; }
+  .matrix-table th, .matrix-table td, .data-table th, .data-table td { padding: 0.8rem 0.6rem; }
+  
+  /* بطاقات المحتوى والـ SEO */
+  .showcase-header { padding: 1.2rem; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .showcase-body { padding: 1.3rem; }
+  .showcase-title { font-size: 1.2rem; }
+  .caption-box { padding: 1rem; font-size: 0.88rem; }
+  .seo-card { padding: 1.4rem; }
+  
+  /* تناسب وتوسيط الفوتر الفاخر في الهاتف */
+  .footer-vip { padding: 4rem 1rem 2rem 1rem; margin-top: 5rem; }
+  .footer-grid-vip { grid-template-columns: 1fr !important; gap: 2.5rem; }
+  .footer-logos-wrap { justify-content: center; }
+  .footer-brand-box { text-align: center; align-items: center; }
+  .footer-col-title { justify-content: center; }
+  .footer-col-title::after { left: 50%; right: auto; transform: translateX(-50%); }
+  .footer-nav-list { align-items: center; }
+  .footer-contact-box { padding: 1.5rem; }
+  .footer-bottom-vip { flex-direction: column; text-align: center; gap: 1rem; padding-top: 1.8rem; font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.75rem; }
+  .section-title { font-size: 1.35rem; }
+  .card { padding: 1.25rem; }
+  .calc-box { padding: 1rem; }
 }
 
 /* Content Showcase & SEO Grid Styles */

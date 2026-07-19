@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAHR Marketing | Digital Experience</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;700;900&family=Inter:wght@300;400;500;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-light: #f8f9fa;
+            --text-dark: #111111;
+            --text-light: #ffffff;
+            --accent: #0052FF;
+            --border-light: rgba(255,255,255,0.08);
+            --border-dark: rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg-dark); color: var(--text-light); font-family: 'Cairo', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .en-font { font-family: 'Outfit', sans-serif; letter-spacing: -1px; }
+        .inter-font { font-family: 'Inter', sans-serif; }
+
+        #fluid-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity 0.8s ease; }
+        .crosshair { position: absolute; width: 24px; height: 24px; pointer-events: none; }
+        .crosshair::before, .crosshair::after { content: ''; position: absolute; background: rgba(255,255,255,0.3); }
+        .crosshair::before { top: 50%; left: 0; width: 100%; height: 1px; }
+        .crosshair::after { left: 50%; top: 0; height: 100%; width: 1px; }
+
+        .sec-marker { position: absolute; top: 20px; left: 20px; font-size: 14px; font-weight: 800; color: #0052FF; letter-spacing: 2px; border: 1px solid #0052FF; padding: 5px 10px; border-radius: 4px; z-index: 10; direction: ltr; }
+
+        .section-dark { background: var(--bg-dark); color: var(--text-light); padding: 120px 6vw; position: relative; z-index: 3; }
+        .section-light { background: var(--bg-light); color: var(--text-dark); padding: 120px 6vw; position: relative; z-index: 3; }
+        .chapter-title { font-size: clamp(80px, 15vw, 200px); font-weight: 900; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.2); text-transform: uppercase; margin-bottom: 60px; line-height: 0.9; position: relative; z-index: 0; }
+        .section-light .chapter-title { -webkit-text-stroke: 2px rgba(0,0,0,0.25); }
+        
+        .huge-title { font-size: clamp(40px, 6vw, 90px); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; position: relative; z-index: 1; }
+        .sub-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; line-height: 1.4; color: #888; margin-bottom: 40px; }
+        .body-text { font-size: 18px; line-height: 1.8; color: #aaa; font-weight: 500; }
+        .section-light .body-text { color: #555; }
+        
+        /* GSAP Initial States */
+        .gsap-reveal { opacity: 0; transform: translateY(50px); }
+        .gsap-scale { opacity: 0; transform: scale(0.9); }
+
+        /* Specific Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        /* Industry Cards Redesign */
+        .industry-card { background: #0a0a0a; border: 1px solid var(--border-light); padding: 40px; text-align: center; transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .industry-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05)); opacity: 0; transition: opacity 0.4s; }
+        .industry-card:hover { transform: translateY(-10px); border-color: #333; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .industry-card:hover::before { opacity: 1; }
+        .industry-card i { font-size: 40px; color: #555; margin-bottom: 20px; transition: color 0.4s; }
+        .industry-card:hover i { color: #fff; }
+        .industry-card h3 { font-size: 24px; font-weight: 800; color: #fff; }
+
+        /* Gallery Placeholders */
+        .gallery-box { background: #1a1a1a; aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #444; border: 1px dashed #333; transition: all 0.3s; }
+        .gallery-box:hover { background: #222; border-color: #555; color: #fff; }
+        .gallery-box i { font-size: 40px; margin-bottom: 15px; }
+
+        /* Case Studies */
+        .case-block { border-top: 1px solid var(--border-light); padding: 80px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .case-number { font-family: 'Outfit', sans-serif; letter-spacing: -1px; font-size: clamp(60px, 8vw, 150px); font-weight: 900; color: #fff; line-height: 0.9; direction: ltr; text-align: left; margin-bottom: 10px; }
+
+        /* Hero */
+        .hero { position: relative; height: 100vh; width: 100vw; background-image: url('https://nahrdev.com/wp-content/uploads/2026/07/Raven_dropping_pebble_into_bowl-scaled.jpeg'); background-size: cover; background-position: center; overflow: hidden; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.95)); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; height: 100%; padding: 40px 6vw; display: flex; flex-direction: column; justify-content: space-between; }
+        .hero-title-huge { font-size: clamp(60px, 15vw, 250px); font-weight: 800; line-height: 0.8; letter-spacing: -0.05em; margin-bottom: -1vw; width: 100%; opacity: 0.9; text-align: center; }
+
+        @media (max-width: 1024px) {
+            .grid-2, .grid-3, .case-block { grid-template-columns: 1fr; }
+            .chapter-title { font-size: 15vw; }
+        }
+    </style>
+
+<title>Nahr Development | Digital Marketing Agency Portfolio</title>
+<meta name="description" content="Explore Nahr Development's marketing portfolio featuring branding, performance marketing, social media, SEO, content creation, and successful case studies across Egypt, Saudi Arabia, Qatar, Kuwait, Oman, and the UAE.">
+<meta name="keywords" content="Nahr Development, Marketing Portfolio, Digital Marketing Agency, Performance Marketing, Branding, Social Media Marketing, SEO, Content Marketing, Creative Agency, Growth Marketing, Meta Ads, Google Ads, Marketing Strategy, UAE, Saudi Arabia, Egypt, Kuwait, Qatar, Oman">
+
+<meta name="application-name" content="Nahr Development">
+<meta name="category" content="Digital Marketing Agency">
+<meta name="classification" content="Marketing, Branding, Performance Marketing">
+<meta name="subject" content="Marketing Portfolio">
+<meta name="coverage" content="Middle East">
+<meta name="language" content="Arabic">
+
+<meta property="og:title" content="Nahr Development | Marketing Portfolio">
+<meta property="og:description" content="Strategy. Creativity. Performance. Measurable Growth.">
+<meta property="og:image" content="https://nahrdev.com/wp-content/uploads/2026/07/Banner-Markting-scaled.webp">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nahr Development | Marketing Portfolio">
+<meta name="twitter:description" content="Strategy. Creativity. Performance. Measurable Growth.">
+<meta name="twitter:image" content="https://nahrdev.com/wp-content/uploads/2026/07/Banner-Markting-scaled.webp">
+
+</head>
+<body>
+
+<!-- Custom Scrollbar -->
+<style>
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+</style>
+
+<!-- Killer Preloader -->
+<div id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #080808; z-index: 999999; display: flex; align-items: center; justify-content: center; transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);">
+    
+    <!-- Massive Counter Background -->
+    <div id="loader-counter" class="en-font" style="position: absolute; font-size: clamp(150px, 25vw, 400px); font-weight: 900; color: rgba(255,255,255,0.03); line-height: 1; text-align: center; width: 100%; top: 50%; transform: translateY(-50%); font-variant-numeric: tabular-nums; pointer-events: none; user-select: none; z-index: 1;">0%</div>
+    
+    <!-- Central Branding -->
+    <div style="position: relative; z-index: 10; text-align: center; width: 100%; padding: 0 20px;">
+        <h2 id="loader-text" class="en-font" style="font-size: clamp(30px, 7vw, 90px); font-weight: 900; letter-spacing: 2px; margin: 0; 
+            color: transparent; 
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+            background-image: linear-gradient(to right, #0052FF 0%, transparent 0%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;">
+            NAHR DEVELOPMENT
+        </h2>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let counter = 0;
+    const counterElement = document.getElementById('loader-counter');
+    const textElement = document.getElementById('loader-text');
+    const preloader = document.getElementById('preloader');
+    
+    // Smooth fast counting to 100
+    let interval = setInterval(() => {
+        counter += Math.floor(Math.random() * 3) + 1;
+        if(counter >= 100) {
+            counter = 100;
+            clearInterval(interval);
+            counterElement.innerText = "100%";
+            textElement.style.backgroundImage = `linear-gradient(to right, #0052FF 100%, transparent 100%)`;
+            textElement.style.webkitTextStroke = "1px #0052FF"; // Make the stroke match the fill at the end
+            
+            // Dramatic slide up reveal
+            setTimeout(() => {
+                preloader.style.transform = "translateY(-100%)";
+                setTimeout(() => preloader.remove(), 1200);
+            }, 600);
+        } else {
+            counterElement.innerText = counter + "%";
+            textElement.style.backgroundImage = `linear-gradient(to right, #0052FF ${counter}%, transparent ${counter}%)`;
+        }
+    }, 30);
+});
+</script>
+
+<canvas id="fluid-canvas"></canvas>
+    <div id="lenis-wrapper">
+
+<!-- CHAPTER 1 -->
+<section class="hero" id="s1">
+    
+    <div class="hero-overlay"></div>
+    <div class="hero-content" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; position: relative; z-index: 2;">
+        
+        
+        
+        <div style="position: absolute; top: 30%; left: 10%;"><div class="crosshair"></div></div>
+        <div style="position: absolute; top: 70%; right: 20%;"><div class="crosshair"></div></div>
+
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; flex: 1; padding-top: 15vh;">
+            
+            <div class="gsap-reveal" style="max-width: 800px; margin-bottom: 40px;">
+                <p style="font-size: clamp(24px, 4vw, 42px); font-weight: 900; line-height: 1.5; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">نحوّل الأفكار إلى علامات تجارية، والعلامات التجارية إلى قصص نجاح.</p>
+                <p style="font-size: clamp(16px, 2vw, 20px); line-height: 1.8; color: rgba(255,255,255,0.8); margin-top: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">في نهر، نؤمن أن التسويق ليس مجرد محتوى أو إعلانات، بل منظومة متكاملة تبدأ بفهم السوق، وتمر ببناء الهوية، وتنتهي بتحقيق نتائج يمكن قياسها. لذلك نصمم استراتيجيات تسويقية تجمع بين الإبداع، والبيانات، والتقنية، لنساعد عملاءنا على النمو بثقة واستدامة.</p>
+            </div>
+            
+            <style>
+                .nahr-animated-title {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: clamp(100px, 25vw, 350px);
+                    font-weight: 900;
+                    line-height: 0.8;
+                    letter-spacing: -0.02em;
+                    margin-bottom: -4vw;
+                    color: transparent;
+                    -webkit-text-stroke: 3px rgba(128, 179, 255, 0.4); /* Light blue outline */
+                    text-transform: uppercase;
+                    opacity: 0;
+                    transform: translateY(150px);
+                    animation: slideUpHero 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 0.2s;
+                }
+                @keyframes slideUpHero {
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            </style>
+            
+            <div class="nahr-animated-title" dir="ltr">NAHR</div>
+        
+        </div>
+    </div>
+</section>
+
+<section class="section-light" id="s2">
+    
+    <div class="chapter-title gsap-reveal en-font" dir="ltr">01. ABOUT</div>
+    
+    <div class="gsap-reveal grid-2" style="background: var(--bg-dark); color: #fff; border-radius: 24px; padding: clamp(40px, 8vw, 80px) 6vw; align-items: center; position: relative; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.1);">
+        <div style="position: absolute; top: -50%; left: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,82,255,0.15) 0%, transparent 70%); filter: blur(40px);"></div>
+        <div style="position: absolute; bottom: -50%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); filter: blur(40px);"></div>
+        
+        <div style="position: relative; z-index: 2;">
+            <div class="en-font" style="color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase; direction: ltr; text-align: right;">Who We Are</div>
+            <h2 class="huge-title" style="color: #fff; margin-bottom: 30px; font-size: clamp(36px, 5vw, 60px);">شريك استراتيجي لنمو أعمالك.</h2>
+            <div style="width: 80px; height: 4px; background: var(--accent); margin-bottom: 30px;"></div>
+        </div>
+        <div style="position: relative; z-index: 2;">
+            <p class="body-text" style="color: #eee; font-size: 24px; line-height: 1.8; margin-bottom: 20px; font-weight: 700;">نهر وكالة تسويق وإبداع رقمي تقدم حلولًا متكاملة لبناء العلامات التجارية وتطوير حضورها في السوق. نعمل مع الشركات الناشئة والمؤسسات الطموحة والعلامات التجارية الراسخة، لنساعدها على الوصول إلى جمهورها، وتعزيز مكانتها، وتحويل الفرص إلى نتائج حقيقية.</p>
+            <p class="body-text" style="color: #999;">نجمع بين التفكير الاستراتيجي، والإبداع البصري، وتحليل البيانات، وتقنيات التسويق الحديثة لنصنع تجارب رقمية تترك أثرًا وتحقق نموًا مستدامًا.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-light" style="padding-top: 60px;" id="s3">
+    
+    <div class="grid-4">
+        <div class="gsap-scale" style="background: #fff; border: 1px solid rgba(0,82,255,0.1); padding: 50px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,82,255,0.03); transition: all 0.4s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,82,255,0.03)';">
+            <div class="en-font" style="font-size: 70px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 15px; direction: ltr;">+14</div>
+            <div style="font-weight: 700; font-size: 18px; color: #555;">عقلًا مبدعًا</div>
+        </div>
+        
+        <div class="gsap-scale" style="background: #fff; border: 1px solid rgba(0,82,255,0.1); padding: 50px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,82,255,0.03); transition: all 0.4s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,82,255,0.03)';">
+            <div class="en-font" style="font-size: 70px; font-weight: 900; color: #111; line-height: 1; margin-bottom: 15px; direction: ltr;">+150</div>
+            <div style="font-weight: 700; font-size: 18px; color: #555;">قصة نجاح</div>
+        </div>
+        
+        <div class="gsap-scale" style="background: #fff; border: 1px solid rgba(0,82,255,0.1); padding: 50px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,82,255,0.03); transition: all 0.4s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,82,255,0.03)';">
+            <div class="en-font" style="font-size: 70px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 15px; direction: ltr;">+12</div>
+            <div style="font-weight: 700; font-size: 18px; color: #555;">أسواق نعمل بها</div>
+        </div>
+        
+        <div class="gsap-scale" style="background: #fff; border: 1px solid rgba(0,82,255,0.1); padding: 50px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,82,255,0.03); transition: all 0.4s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,82,255,0.03)';">
+            <div class="en-font" style="font-size: 70px; font-weight: 900; color: #111; line-height: 1; margin-bottom: 15px; direction: ltr;">+20</div>
+            <div style="font-weight: 700; font-size: 18px; color: #555;">قطاعًا نخدمه</div>
+        </div>
+    </div>
+    <div class="gsap-reveal" style="text-align: center; margin-top: 50px; font-size: 15px; font-weight: 700; color: #888; letter-spacing: 1px;">خبرات متنوعة. حلول مخصصة. نتائج قابلة للقياس.</div>
+</section>
+
+<section class="section-light" style="padding-top: 60px;" id="s4">
+    
+    <div class="gsap-reveal" style="text-align: center; margin-bottom: 60px;">
+        <h2 class="huge-title">ما نؤمن به</h2>
+        <p class="body-text" style="max-width: 600px; margin: 0 auto;">نحن لا نبيع خدمات، بل نبني شراكات استراتيجية قائمة على المبادئ التالية:</p>
+    </div>
+    <div class="grid-2">
+        <div class="gsap-reveal" style="background: linear-gradient(145deg, #ffffff, #f8faff); border: 1px solid rgba(0,82,255,0.08); padding: 50px; border-radius: 24px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 15px 35px rgba(0,82,255,0.03); cursor: pointer; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.08)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,82,255,0.03)'; this.style.borderColor='rgba(0,82,255,0.08)';">
+            <div style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(0,82,255,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+            <div style="width: 60px; height: 60px; background: #fff; color: var(--accent); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 24px; box-shadow: 0 10px 20px rgba(0,82,255,0.1);"><i class="fa-solid fa-handshake"></i></div>
+            <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 15px; color: #111;">نبني شراكات لا مشاريع</h3>
+            <p class="body-text" style="font-size: 17px; line-height: 1.8; color: #555;">نؤمن أن النجاح الحقيقي يبدأ بعلاقة طويلة الأمد مبنية على الثقة، وليس بتنفيذ مهمة تنتهي بانتهاء المشروع.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: linear-gradient(145deg, #ffffff, #f8faff); border: 1px solid rgba(0,82,255,0.08); padding: 50px; border-radius: 24px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 15px 35px rgba(0,82,255,0.03); cursor: pointer; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.08)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,82,255,0.03)'; this.style.borderColor='rgba(0,82,255,0.08)';">
+            <div style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(0,82,255,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+            <div style="width: 60px; height: 60px; background: var(--accent); color: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 24px; box-shadow: 0 10px 20px rgba(0,82,255,0.2);"><i class="fa-solid fa-fingerprint"></i></div>
+            <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 15px; color: #111;">لكل علامة قصة مختلفة</h3>
+            <p class="body-text" style="font-size: 17px; line-height: 1.8; color: #555;">لا نؤمن بالحلول الجاهزة، بل نصمم استراتيجية تناسب هوية كل علامة وأهدافها وسوقها.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: linear-gradient(145deg, #ffffff, #f8faff); border: 1px solid rgba(0,82,255,0.08); padding: 50px; border-radius: 24px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 15px 35px rgba(0,82,255,0.03); cursor: pointer; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.08)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,82,255,0.03)'; this.style.borderColor='rgba(0,82,255,0.08)';">
+            <div style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(0,82,255,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+            <div style="width: 60px; height: 60px; background: var(--accent); color: #fff; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 24px; box-shadow: 0 10px 20px rgba(0,82,255,0.2);"><i class="fa-solid fa-gem"></i></div>
+            <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 15px; color: #111;">الجودة في التفاصيل</h3>
+            <p class="body-text" style="font-size: 17px; line-height: 1.8; color: #555;">كل قرار، وكل تصميم، وكل كلمة تُراجع بعناية لتخرج بأعلى مستوى من الجودة.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: linear-gradient(145deg, #ffffff, #f8faff); border: 1px solid rgba(0,82,255,0.08); padding: 50px; border-radius: 24px; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 15px 35px rgba(0,82,255,0.03); cursor: pointer; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.08)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,82,255,0.03)'; this.style.borderColor='rgba(0,82,255,0.08)';">
+            <div style="position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(0,82,255,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+            <div style="width: 60px; height: 60px; background: #fff; color: var(--accent); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 24px; box-shadow: 0 10px 20px rgba(0,82,255,0.1);"><i class="fa-solid fa-arrow-trend-up"></i></div>
+            <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 15px; color: #111;">التطور المستمر</h3>
+            <p class="body-text" style="font-size: 17px; line-height: 1.8; color: #555;">نتابع أداء أعمالنا باستمرار، ونطوّرها اعتمادًا على البيانات لضمان تحقيق أفضل النتائج.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-dark" id="s5">
+    
+    <div class="gsap-reveal" style="text-align: center; margin-bottom: 80px;">
+        <h2 class="huge-title">كيف نعمل؟</h2>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto; position: relative;">
+        <!-- Vertical Line connecting them -->
+        <div style="position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(255,255,255,0.1); z-index: 0; transform: translateX(-50%);"></div>
+        
+        <div class="gsap-reveal" style="text-align: center; margin-bottom: 40px; position: relative; z-index: 1; background: var(--bg-dark); padding: 20px;">
+            <div class="en-font" style="font-size: 18px; color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 10px;">01</div>
+            <h3 style="font-size: 32px; font-weight: 900; margin-bottom: 15px; color: #fff;">اكتشاف وفهم</h3>
+            <p class="body-text" style="color: #aaa;">نبدأ بفهم نشاطك التجاري، وأهدافك، وجمهورك، والمنافسين.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: var(--bg-dark); padding: 10px; z-index: 1; margin-bottom: 40px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-arrow-down" style="color: #666;"></i></div>
+        </div>
+        
+        <div class="gsap-reveal" style="text-align: center; margin-bottom: 40px; position: relative; z-index: 1; background: var(--bg-dark); padding: 20px;">
+            <div class="en-font" style="font-size: 18px; color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 10px;">02</div>
+            <h3 style="font-size: 32px; font-weight: 900; margin-bottom: 15px; color: #fff;">التخطيط</h3>
+            <p class="body-text" style="color: #aaa;">نضع استراتيجية واضحة مبنية على البيانات ورؤية قابلة للتنفيذ.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: var(--bg-dark); padding: 10px; z-index: 1; margin-bottom: 40px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-arrow-down" style="color: #666;"></i></div>
+        </div>
+        
+        <div class="gsap-reveal" style="text-align: center; margin-bottom: 40px; position: relative; z-index: 1; background: var(--bg-dark); padding: 20px;">
+            <div class="en-font" style="font-size: 18px; color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 10px;">03</div>
+            <h3 style="font-size: 32px; font-weight: 900; margin-bottom: 15px; color: #fff;">التنفيذ</h3>
+            <p class="body-text" style="color: #aaa;">نحول الاستراتيجية إلى محتوى، وتصاميم، وحملات، وتجارب رقمية متكاملة.</p>
+        </div>
+        
+        <div class="gsap-reveal" style="background: var(--bg-dark); padding: 10px; z-index: 1; margin-bottom: 40px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-arrow-down" style="color: #666;"></i></div>
+        </div>
+        
+        <div class="gsap-reveal" style="text-align: center; position: relative; z-index: 1; background: var(--bg-dark); padding: 20px;">
+            <div class="en-font" style="font-size: 18px; color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 10px;">04</div>
+            <h3 style="font-size: 32px; font-weight: 900; margin-bottom: 15px; color: #fff;">التحسين</h3>
+            <p class="body-text" style="color: #aaa;">نقيس النتائج، ونحلل الأداء، ونطور الحملات باستمرار لتحقيق أفضل عائد.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-dark" style="padding-top: 120px;" id="s7">
+    
+    <div class="gsap-reveal" style="text-align: center; margin-bottom: 80px;">
+        <h2 class="huge-title">عندما تتحول الاستراتيجية إلى نتائج</h2>
+        <p class="body-text" style="max-width: 600px; margin: 0 auto;">أرقامنا ليست مجرد إحصائيات، بل هي قصص نجاح موثقة، وعلامات تجارية حققت قفزات حقيقية في أرباحها وحضورها.</p>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto;">
+        
+        <!-- Row 1: 3 Items -->
+        <div class="gsap-scale" style="grid-column: span 2; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.05); padding: 60px 30px; text-align: center; border-radius: 24px; position: relative; overflow: hidden; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+            <div style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(0,82,255,0.1) 0%, transparent 70%);"></div>
+            <div class="en-font" style="font-size: clamp(50px, 6vw, 70px); font-weight: 900; color: #fff; line-height: 1; margin-bottom: 10px; direction: ltr;">+35M</div>
+            <div style="font-size: 20px; color: #888; font-weight: 700;">وصول (Reach)</div>
+        </div>
+        
+        <div class="gsap-scale" style="grid-column: span 2; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.05); padding: 60px 30px; text-align: center; border-radius: 24px; position: relative; overflow: hidden; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+            <div style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(0,82,255,0.1) 0%, transparent 70%);"></div>
+            <div class="en-font" style="font-size: clamp(50px, 6vw, 70px); font-weight: 900; color: #fff; line-height: 1; margin-bottom: 10px; direction: ltr;">+12M</div>
+            <div style="font-size: 20px; color: #888; font-weight: 700;">مشاهدة (Views)</div>
+        </div>
+        
+        <div class="gsap-scale" style="grid-column: span 2; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.05); padding: 60px 30px; text-align: center; border-radius: 24px; position: relative; overflow: hidden; transition: all 0.4s;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(0,82,255,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+            <div style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle, rgba(0,82,255,0.1) 0%, transparent 70%);"></div>
+            <div class="en-font" style="font-size: clamp(50px, 6vw, 70px); font-weight: 900; color: #fff; line-height: 1; margin-bottom: 10px; direction: ltr;">+800K</div>
+            <div style="font-size: 20px; color: #888; font-weight: 700;">عميل محتمل (Leads)</div>
+        </div>
+        
+        <!-- Row 2: 2 Huge Items -->
+        <div class="gsap-scale" style="grid-column: span 3; background: #050505; border: 1px solid rgba(0,82,255,0.2); padding: 80px 30px; text-align: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,82,255,0.05); transition: all 0.4s;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.05)';">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,82,255,0.05) 0%, transparent 100%);"></div>
+            <div class="en-font" style="font-size: clamp(60px, 8vw, 100px); font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 15px; direction: ltr; position: relative; z-index: 1;">+650</div>
+            <div style="font-size: 24px; color: #ddd; font-weight: 800; position: relative; z-index: 1;">حملة تسويقية ناجحة</div>
+        </div>
+        
+        <div class="gsap-scale" style="grid-column: span 3; background: #050505; border: 1px solid rgba(0,82,255,0.2); padding: 80px 30px; text-align: center; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,82,255,0.05); transition: all 0.4s;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 30px 60px rgba(0,82,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 40px rgba(0,82,255,0.05)';">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,82,255,0.05) 0%, transparent 100%);"></div>
+            <div class="en-font" style="font-size: clamp(60px, 8vw, 100px); font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 15px; direction: ltr; position: relative; z-index: 1;">8.4x</div>
+            <div style="font-size: 24px; color: #ddd; font-weight: 800; position: relative; z-index: 1;">متوسط العائد الإعلاني (ROAS)</div>
+        </div>
+        
+    </div>
+</section>
+
+<section class="section-light" style="padding: 120px 0; background-color: #fff; overflow: hidden;" id="s8">
+    
+    
+    <style>
+        .map-canvas-pro {
+            position: relative; 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            height: 600px;
+        }
+        
+        .dotted-continents {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(0,82,255,0.15) 2px, transparent 2px);
+            background-size: 16px 16px;
+            -webkit-mask-image: 
+                radial-gradient(ellipse at 35% 65%, black 15%, transparent 35%),
+                radial-gradient(ellipse at 52% 48%, black 10%, transparent 20%),
+                radial-gradient(circle at 50% 35%, black 6%, transparent 15%),
+                radial-gradient(ellipse at 75% 35%, black 25%, transparent 45%),
+                radial-gradient(ellipse at 45% 20%, black 12%, transparent 25%);
+            mask-image: 
+                radial-gradient(ellipse at 35% 65%, black 15%, transparent 35%),
+                radial-gradient(ellipse at 52% 48%, black 10%, transparent 20%),
+                radial-gradient(circle at 50% 35%, black 6%, transparent 15%),
+                radial-gradient(ellipse at 75% 35%, black 25%, transparent 45%),
+                radial-gradient(ellipse at 45% 20%, black 12%, transparent 25%);
+            z-index: 1;
+        }
+
+        .geo-marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+        }
+        
+        .geo-marker .dot-core {
+            width: 14px; height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0,82,255,0.6);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .geo-marker .dot-core::after {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
+            animation: pulse-light 2s infinite;
+        }
+
+        .geo-marker .marker-label {
+            position: absolute;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,82,255,0.1);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 15px;
+            color: #111;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: default;
+        }
+        
+        .geo-marker .marker-line {
+            position: absolute;
+            right: 7px;
+            width: 13px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+        
+        .geo-marker:hover .marker-label {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 8px 25px rgba(0,82,255,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .map-canvas-pro { height: 400px; }
+            .geo-marker .marker-label { font-size: 12px; padding: 4px 10px; right: 15px; }
+            .geo-marker .marker-line { width: 8px; right: 7px; }
+        }
+    </style>
+
+    <div class="gsap-reveal" style="text-align: center; max-width: 900px; margin: 0 auto 40px auto; padding: 0 20px;">
+        <h2 class="huge-title" style="font-size: clamp(40px, 5vw, 65px); color: #111; margin-bottom: 20px;">أسواق اكتسبنا خبرتها.</h2>
+        <p class="body-text" style="font-size: 20px; color: #555; line-height: 1.8; font-weight: 600;">عملنا مع علامات تجارية في أسواق متنوعة، واكتسبنا خبرة عملية تساعدنا على تصميم استراتيجيات تتوافق مع طبيعة كل سوق وجمهوره.</p>
+    </div>
+
+    <div class="gsap-scale map-canvas-pro">
+        <div class="dotted-continents"></div>
+        
+        <!-- Constellation Layout -->
+        <!-- Center Hub -->
+        <div class="geo-marker" style="top: 50%; left: 55%;">
+            <div class="marker-label" style="border-color: var(--accent); color: var(--accent); font-size: 18px; padding: 8px 24px; box-shadow: 0 10px 20px rgba(0,82,255,0.15);">مصر</div><div class="marker-line" style="opacity: 1; width: 20px;"></div><div class="dot-core" style="transform: scale(1.5);"></div>
+        </div>
+        
+        <!-- Distributed Nodes -->
+        <div class="geo-marker" style="top: 35%; left: 35%;">
+            <div class="marker-label">السعودية</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 25%; left: 65%;">
+            <div class="marker-label">الكويت</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 75%; left: 40%;">
+            <div class="marker-label">الإمارات</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 60%; left: 75%;">
+            <div class="marker-label">قطر</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 20%; left: 85%;">
+            <div class="marker-label">العراق</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 85%; left: 65%;">
+            <div class="marker-label">عُمان</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <div class="geo-marker" style="top: 50%; left: 20%;">
+            <div class="marker-label">الأردن</div><div class="marker-line"></div><div class="dot-core"></div>
+        </div>
+        
+        <!-- Connecting Lines (Visual touch) -->
+        <svg style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
+            <style>
+                .link-line { stroke: rgba(0,82,255,0.15); stroke-width: 1.5; stroke-dasharray: 4 4; animation: dash 20s linear infinite; }
+                @keyframes dash { to { stroke-dashoffset: -100; } }
+            </style>
+            <!-- Center to KSA -->
+            <line x1="55%" y1="50%" x2="35%" y2="35%" class="link-line"/>
+            <!-- Center to Kuwait -->
+            <line x1="55%" y1="50%" x2="65%" y2="25%" class="link-line"/>
+            <!-- Center to UAE -->
+            <line x1="55%" y1="50%" x2="40%" y2="75%" class="link-line"/>
+            <!-- Center to Qatar -->
+            <line x1="55%" y1="50%" x2="75%" y2="60%" class="link-line"/>
+            <!-- Center to Jordan -->
+            <line x1="55%" y1="50%" x2="20%" y2="50%" class="link-line"/>
+            <!-- Center to Iraq -->
+            <line x1="55%" y1="50%" x2="85%" y2="20%" class="link-line"/>
+            <!-- Center to Oman -->
+            <line x1="55%" y1="50%" x2="65%" y2="85%" class="link-line"/>
+        </svg>
+    </div>
+</section>
+
+<section class="section-dark" style="padding: 120px 0; background: #030303;" id="s9">
+    
+    
+    <style>
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 0 6vw;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .ecosystem-card {
+            background: #080808;
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 32px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        
+        .ecosystem-card:hover {
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        
+        .eco-bg-glow {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .ecosystem-card:hover .eco-bg-glow {
+            opacity: 0.3;
+        }
+        
+        .eco-header {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 50px; position: relative; z-index: 1;
+        }
+        
+        .eco-header h3 {
+            font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 1px; font-family: 'Outfit', sans-serif; text-transform: uppercase;
+        }
+        
+        .apps-container {
+            display: flex; flex-wrap: wrap; gap: 25px; position: relative; z-index: 1;
+        }
+        
+        .app-item {
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            width: 85px;
+            cursor: pointer;
+        }
+        
+        .app-icon {
+            width: 70px; height: 70px;
+            border-radius: 20px;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px;
+            box-shadow: inset 0 2px 10px rgba(255,255,255,0.02), 0 10px 20px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .app-item:hover .app-icon {
+            transform: translateY(-8px) scale(1.05);
+            border-color: rgba(255,255,255,0.2);
+            background: #1a1a1a;
+            box-shadow: inset 0 2px 20px rgba(255,255,255,0.05), 0 15px 30px rgba(0,0,0,0.6);
+        }
+        
+        .app-name {
+            font-size: 13px; font-weight: 600; color: #777; font-family: 'Outfit', sans-serif;
+            text-align: center; transition: color 0.4s; letter-spacing: 0.5px;
+        }
+        
+        .app-item:hover .app-name {
+            color: #fff;
+        }
+        
+        .app-adobe-text {
+            font-weight: 900; font-family: sans-serif; font-size: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .ecosystem-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <div class="gsap-reveal" style="max-width: 900px; margin-bottom: 80px; text-align: center; margin-left: auto; margin-right: auto; padding: 0 6vw;">
+        <h2 class="huge-title" style="font-size: clamp(36px, 4vw, 55px); margin-bottom: 30px;">نختار المنصة المناسبة،<br>لا المنصة الأشهر.</h2>
+        <p class="body-text" style="font-size: 20px; color: #999; line-height: 1.8; max-width: 800px; margin: 0 auto;">ندعم كل قرار تسويقي بأقوى الأدوات والمنصات التقنية لضمان دقة التنفيذ وقياس الأداء وتحقيق أفضل النتائج الاستثمارية.</p>
+    </div>
+    
+    <div class="ecosystem-grid">
+        
+        <!-- Advertising -->
+        <div class="ecosystem-card gsap-reveal">
+            <div class="eco-bg-glow" style="background: radial-gradient(circle, #0668E1 0%, transparent 100%);"></div>
+            <div class="eco-header">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #0668E1; box-shadow: 0 0 10px #0668E1;"></div>
+                <h3>Advertising</h3>
+            </div>
+            <div class="apps-container">
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-meta" style="color:#0668E1;"></i></div>
+                    <div class="app-name">Meta Ads</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-google" style="color:#EA4335;"></i></div>
+                    <div class="app-name">Google Ads</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-tiktok" style="color:#fff;"></i></div>
+                    <div class="app-name">TikTok Ads</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-snapchat" style="color:#FFFC00;"></i></div>
+                    <div class="app-name">Snapchat</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-linkedin" style="color:#0A66C2;"></i></div>
+                    <div class="app-name">LinkedIn Ads</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-x-twitter" style="color:#fff;"></i></div>
+                    <div class="app-name">X Ads</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analytics -->
+        <div class="ecosystem-card gsap-reveal">
+            <div class="eco-bg-glow" style="background: radial-gradient(circle, #F4B400 0%, transparent 100%);"></div>
+            <div class="eco-header">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #F4B400; box-shadow: 0 0 10px #F4B400;"></div>
+                <h3>Analytics</h3>
+            </div>
+            <div class="apps-container">
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-solid fa-code" style="color:#0668E1;"></i></div>
+                    <div class="app-name">Meta Pixel</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-facebook" style="color:#0668E1;"></i></div>
+                    <div class="app-name">FB SDK</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon">
+                        <svg viewBox="0 0 24 24" style="width: 32px; height: 32px;">
+                            <path fill="#F4B400" d="M12 11h3v10h-3z"/>
+                            <path fill="#E37400" d="M17 5h3v16h-3z"/>
+                            <path fill="#F29900" d="M7 16h3v5H7z"/>
+                        </svg>
+                    </div>
+                    <div class="app-name">GA4</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-solid fa-tags" style="color:#4285F4;"></i></div>
+                    <div class="app-name">GTM</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-solid fa-magnifying-glass-chart" style="color:#4285F4;"></i></div>
+                    <div class="app-name">Looker Studio</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Creative -->
+        <div class="ecosystem-card gsap-reveal">
+            <div class="eco-bg-glow" style="background: radial-gradient(circle, #EA77FF 0%, transparent 100%);"></div>
+            <div class="eco-header">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #EA77FF; box-shadow: 0 0 10px #EA77FF;"></div>
+                <h3>Creative</h3>
+            </div>
+            <div class="apps-container">
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-brands fa-figma" style="color:#F24E1E;"></i></div>
+                    <div class="app-name">Figma</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#31A8FF;">Ps</span></div>
+                    <div class="app-name">Photoshop</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#FF9A00;">Ai</span></div>
+                    <div class="app-name">Illustrator</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#9999FF;">Ae</span></div>
+                    <div class="app-name">After Effects</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#EA77FF;">Pr</span></div>
+                    <div class="app-name">Premiere</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg" style="width: 32px;" alt="Blender"></div>
+                    <div class="app-name">Blender</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI & Automation -->
+        <div class="ecosystem-card gsap-reveal">
+            <div class="eco-bg-glow" style="background: radial-gradient(circle, #10A37F 0%, transparent 100%);"></div>
+            <div class="eco-header">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #10A37F; box-shadow: 0 0 10px #10A37F;"></div>
+                <h3>AI & Automation</h3>
+            </div>
+            <div class="apps-container">
+                <div class="app-item">
+                    <div class="app-icon">
+                        <svg viewBox="0 0 24 24" fill="#10A37F" style="width: 32px; height: 32px;">
+                            <path d="M22.28 9.82a6 6 0 0 0-.52-4.91 6.05 6.05 0 0 0-6.51-2.9A6.06 6.06 0 0 0 5 4.18a6 6 0 0 0-4 2.9 6.05 6.05 0 0 0 .74 7.1 6 6 0 0 0 .51 4.91 6.05 6.05 0 0 0 6.51 2.9A6 6 0 0 0 13.26 24a6.06 6.06 0 0 0 5.77-4.21 6 6 0 0 0 4-2.9 6.06 6.06 0 0 0-.75-7.07zm-9.02 12.61a4.48 4.48 0 0 1-2.88-1.04l.14-.08 4.78-2.76a.8.8 0 0 0 .39-.68v-6.74l2.02 1.17a.07.07 0 0 1 .04.05v5.58a4.5 4.5 0 0 1-4.49 4.5zm-9.66-4.13a4.47 4.47 0 0 1-.53-3.01l.14.08 4.78 2.76a.77.77 0 0 0 .78 0l5.84-3.37v2.33a.08.08 0 0 1-.03.06l-4.83 2.79a4.5 4.5 0 0 1-6.14-1.64zM2.34 7.9a4.48 4.48 0 0 1 2.37-1.97v5.67a.77.77 0 0 0 .39.68l5.81 3.35-2.02 1.17h-.07l-4.83-2.79A4.5 4.5 0 0 1 2.34 7.9zm16.1 3.86l-5.84-3.37 2.02-1.17h.07l4.83 2.79a4.49 4.49 0 0 1-.68 8.1v-5.68a.79.79 0 0 0-.39-.68zm2.01-3.02l-.14-.09-4.77-2.78a.78.78 0 0 0-.79 0l-5.84 3.37v-2.33a.07.07 0 0 1 .03-.06l4.83-2.79a4.5 4.5 0 0 1 6.68 4.68zM8.31 12.86l-2.02-1.17a.07.07 0 0 1-.04-.06v-5.58a4.5 4.5 0 0 1 7.38-3.45l-.14.08-4.78 2.76a.79.79 0 0 0-.39.68v6.74zm1.09-2.47H14.6v-3.09l-2.6-1.5-2.6 1.5v3.09z"/>
+                        </svg>
+                    </div>
+                    <div class="app-name">ChatGPT</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon">
+                        <svg viewBox="0 0 24 24" fill="#8E24AA" style="width: 32px; height: 32px;">
+                            <path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/>
+                        </svg>
+                    </div>
+                    <div class="app-name">Gemini</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><i class="fa-solid fa-brain" style="color:#D97757;"></i></div>
+                    <div class="app-name">Claude</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#8E24AA; font-weight: 900; font-style: italic;">m.</span></div>
+                    <div class="app-name">Make</div>
+                </div>
+                <div class="app-item">
+                    <div class="app-icon"><span class="app-adobe-text" style="color:#FF6B6B; font-weight: 800; font-size: 20px;">n8n</span></div>
+                    <div class="app-name">n8n</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<section class="section-dark" id="s10" style="background: #000; padding: 120px 0 0 0; border-top: 1px dashed #333;">
+    
+    
+    <div class="gsap-reveal" style="padding: 0 6vw; margin-bottom: 60px;">
+        <h2 class="huge-title" style="font-size: clamp(40px, 6vw, 90px); color: #fff;">خبرات تقود النتائج</h2>
+    </div>
+
+    <style>
+        .team-accordion {
+            display: flex;
+            width: 100%;
+            height: 600px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            direction: rtl;
+        }
+        
+        .acc-slice {
+            flex: 1;
+            border-left: 1px solid rgba(255,255,255,0.1); /* RTL border */
+            position: relative;
+            cursor: pointer;
+            transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1), background 0.7s ease;
+            background: #050505;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .acc-slice:last-child {
+            border-left: none;
+        }
+        
+        .acc-slice:hover {
+            flex: 12;
+            background: #0C0C0C;
+        }
+        
+        /* The closed state vertical text */
+        .acc-vertical {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.02);
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+        
+        .acc-slice:hover .acc-vertical {
+            opacity: 0;
+            background: transparent;
+        }
+        
+        .acc-v-name {
+            font-size: clamp(20px, 2.5vw, 32px);
+            font-weight: 900;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: -1px;
+            transform: rotate(-90deg);
+            transform-origin: center center;
+            transition: transform 0.4s ease;
+        }
+        
+        /* The opened state content */
+        .acc-content {
+            opacity: 0;
+            min-width: 600px;
+            padding: 50px;
+            transform: translateX(30px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .acc-slice:hover .acc-content {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.2s; /* Wait slightly for flex to expand */
+        }
+        
+        .acc-c-name { font-size: 55px; font-weight: 900; color: #fff; margin-bottom: 5px; line-height: 1; letter-spacing: -1px; }
+        .acc-c-title { font-size: 14px; font-weight: 700; color: #0052FF; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
+        
+        .acc-c-desc { font-size: 18px; line-height: 1.8; color: #ddd; margin-bottom: 40px; font-weight: 500; max-width: 500px; border-right: 2px solid #0052FF; padding-right: 20px;}
+        
+        .acc-c-exp { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 30px; max-width: 500px; }
+        
+        .acc-c-tags { display: flex; flex-wrap: wrap; gap: 8px; max-width: 500px; }
+        .acc-c-tag { border: 1px solid rgba(255,255,255,0.1); background: rgba(0,82,255,0.05); padding: 8px 15px; font-size: 12px; font-weight: 700; text-transform: uppercase; font-family: 'Outfit', sans-serif; color: #0052FF; }
+        
+        @media (max-width: 1024px) {
+            .team-accordion { flex-direction: column; height: auto; min-height: 800px; }
+            .acc-slice { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.1); flex-direction: column; }
+            .acc-vertical { position: relative; width: 100%; height: 80px; min-height: 80px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .acc-v-name { transform: none; white-space: normal; text-align: center; }
+            .acc-content { min-width: 100%; padding: 30px; transform: translateY(20px); }
+            .acc-slice:hover .acc-content { transform: translateY(0); }
+        }
+    </style>
+
+    <div class="team-accordion" id="acc-container">
+        <!-- Injected via JS -->
+    </div>
+
+    <script>
+        (function() {
+            const localTeamData = [
+                {
+                    name: 'عمرو مصطفى',
+                    title: 'Marketing Strategist',
+                    desc: 'يقود الاستراتيجية التسويقية، ويطور خطط النمو، ويجمع بين التسويق، والتحليل، والأتمتة، والذكاء الاصطناعي.',
+                    exp: 'أكثر من 12 عامًا من الخبرة في التسويق الرقمي وتطوير الأعمال. حاصل على منحة تنافسية في إدارة المشروعات مقدمة من وزارة الاتصالات وتكنولوجيا المعلومات عام 2020، تقديرًا للتميز المهني، ونُفذت من خلال الأكاديمية العربية للعلوم والتكنولوجيا والنقل البحري ضمن برنامج تدريبي امتد لعامين.',
+                    tags: ['Strategy', 'Automation', 'AI', 'Analytics', 'Growth', 'CRM']
+                },
+                {
+                    name: 'عمر عبد العزيز',
+                    title: 'Performance Marketing Lead',
+                    desc: 'يقود استراتيجيات الأداء التسويقي لبناء حملات إعلانية مدفوعة تحقق أعلى عائد على الاستثمار (ROAS) عبر جميع المنصات الرقمية.',
+                    exp: '• خبرة سابقة في إدارة الحملات الإعلانية لدى Amazon Egypt.<br>• التخطيط الاستراتيجي وإدارة الميزانيات الإعلانية الضخمة.<br>• تحليل البيانات المتقدم لتحسين أداء الحملات بدقة.',
+                    tags: ['Meta Ads', 'Google Ads', 'TikTok', 'ROAS']
+                },
+                {
+                    name: 'براء صلاح',
+                    title: 'Media Buyer',
+                    desc: 'يتولى الإدارة التنفيذية للحملات الإعلانية بمهارة عالية في الاستهداف الدقيق وتحسين مسارات التحويل لضمان تحقيق أهداف المبيعات.',
+                    exp: '• خبرة متعمقة في استهداف أسواق الخليج العربي (GCC).<br>• تقليل تكلفة الاستحواذ على العملاء (CPA) باستمرار.<br>• إدارة حملات إعادة الاستهداف (Retargeting) بنجاح.',
+                    tags: ['Media Buying', 'GCC Markets', 'Conversion', 'Optimization']
+                },
+                {
+                    name: 'عمر شاهين',
+                    title: '3D Artist & Motion Designer',
+                    desc: 'يحول الأفكار الاستراتيجية إلى مشاهد بصرية ثلاثية الأبعاد متحركة، تأسِر انتباه الجمهور المستهدف وتعزز من الهوية البصرية للعلامة التجارية.',
+                    exp: '• احترافية وتمرس عالي في بيئة عمل Blender 3D.<br>• نمذجة وتصميم منتجات وشخصيات ثلاثية الأبعاد.<br>• إنتاج إعلانات مرئية (Motion) عالية الجودة لمنصات التواصل.',
+                    tags: ['Blender', '3D Modeling', 'Motion', 'Animation']
+                },
+                {
+                    name: 'منة أحمد',
+                    title: 'Graphic Designer',
+                    desc: 'تبتكر هويات بصرية وتصميمات رسومية إبداعية تعكس جوهر العلامة التجارية وتخلق تواصلاً بصرياً فعالاً ومستمراً مع الجمهور.',
+                    exp: '• بناء وتطوير الإرشادات البصرية (Brand Guidelines).<br>• تصميم محتوى احترافي وجذاب لمنصات التواصل الاجتماعي.<br>• إجادة تامة لاحترافية أدوات Adobe Creative Suite.',
+                    tags: ['Branding', 'Social Media', 'Typography']
+                },
+                {
+                    name: 'عبد الرحمن ضياء',
+                    title: 'Senior UI/UX Designer',
+                    desc: 'يدمج بين الفن والتجربة لتصميم واجهات مستخدم رقمية خالية من التعقيد، تضمن رحلة مستخدم سلسة وتزيد من معدلات التحويل للمتجر أو الموقع.',
+                    exp: '• أكثر من 10 سنوات من الخبرة الاحترافية في مجال UI/UX.<br>• تخطيط الهياكل (Wireframing) وبناء النماذج الأولية التفاعلية.<br>• إجراء أبحاث تحليل سلوك المستخدمين (UX Research) وتطبيقها.',
+                    tags: ['UX Research', 'UI Design', 'Wireframing']
+                },
+                {
+                    name: 'نوران سامي',
+                    title: 'UI/UX Designer',
+                    desc: 'متخصصة في تصميم تجارب رقمية عصرية توازن بشكل مثالي بين تلبية احتياجات المستخدم الفعلية وتحقيق الأهداف الاستراتيجية للأعمال.',
+                    exp: '• أكثر من 7 سنوات من الخبرة العملية في تصميم الواجهات.<br>• بناء أنظمة التصميم (Design Systems) المتكاملة للمشاريع الضخمة.<br>• تحويل متطلبات النظام والبيانات إلى حلول مرئية جذابة.',
+                    tags: ['User Journeys', 'Figma', 'Design Systems']
+                },
+                {
+                    name: 'عمر مصطفى',
+                    title: 'Content Strategist & SEO Specialist',
+                    desc: 'يمتلك خبرة تمتد لأكثر من 8 سنوات في كتابة المحتوى التسويقي وتحسين محركات البحث، مع التركيز على بناء استراتيجيات محتوى تعزز ظهور العلامات التجارية وتحقق نموًا مستدامًا في نتائج البحث.',
+                    exp: '• 8+ Years في كتابة المحتوى واستراتيجيات SEO.<br>• خبرة في تحسين محركات البحث للمواقع والمتاجر الإلكترونية.<br>• تطوير استراتيجيات محتوى تستهدف زيادة الزيارات العضوية وتحسين معدلات التحويل.',
+                    tags: ['Content Strategy', 'SEO', 'Technical SEO', 'On-Page SEO', 'Keyword Research', 'Copywriting', 'Content Marketing', 'SEO Audit']
+                }
+            ];
+
+            const container = document.getElementById('acc-container');
+            let html = '';
+
+            localTeamData.forEach(person => {
+                // Completely omit the experience block if it doesn't exist
+                const expHtml = person.exp ? `<div class="acc-c-exp">${person.exp}</div>` : '';
+                
+                const tagsHtml = person.tags.map(t => `<div class="acc-c-tag">${t}</div>`).join('');
+
+                html += `
+                <div class="acc-slice">
+                    <div class="acc-vertical">
+                        <div class="acc-v-name">${person.name}</div>
+                    </div>
+                    
+                    <div class="acc-content">
+                        <div class="acc-c-name">${person.name}</div>
+                        <div class="acc-c-title en-font">${person.title}</div>
+                        <div class="acc-c-desc">${person.desc}</div>
+                        ${expHtml}
+                        <div class="acc-c-tags">${tagsHtml}</div>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        })();
+    </script>
+</section>
+
+
+<!-- ============================================== -->
+<!-- SEC 11: MARKETING SERVICES (FULL-WIDTH STACK)  -->
+<!-- ============================================== -->
+<section class="section-dark" id="s11" style="background: #050505; padding: 150px 0 200px 0; border-top: 1px solid rgba(255,255,255,0.05); position: relative;">
+    <div class="s11-container">
+        
+        <!-- INTRO BLOCK (TOP) -->
+        <div class="s11-intro gsap-reveal">
+            
+            <div class="chapter-title en-font" dir="ltr" style="margin-bottom: 20px;">02. SERVICES</div>
+            <h2 class="huge-title" style="font-size: clamp(40px, 5vw, 80px); color: #fff; margin-bottom: 30px; line-height: 1.2; max-width: 1000px;">حلول تسويقية <span style="color: #0052FF;">متكاملة</span> مصممة لتحقيق النمو.</h2>
+            <p style="font-size: 20px; color: #aaa; line-height: 1.8; max-width: 800px; font-weight: 500;">
+                نقدم خدمات متكاملة تبدأ ببناء الاستراتيجية، وتمتد إلى التنفيذ، والتحليل، والتحسين المستمر، لنساعد علامتك التجارية على تحقيق نتائج قابلة للقياس.
+            </p>
+        </div>
+        
+        <!-- CARDS BLOCK (BOTTOM) -->
+        <div class="s11-cards-wrapper" id="services-stack">
+            <!-- Injected via JS -->
+        </div>
+
+    </div>
+
+    <style>
+        .s11-container {
+            display: block;
+            
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .s11-intro {
+            margin-bottom: 120px;
+        }
+        
+        .s11-cards-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 60px; /* Gap between cards before they stack */
+            padding-bottom: 100px;
+        }
+        
+        /* Full-Width Horizontal Stack Card */
+        .stack-card {
+            background: #0B0B0B;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-top: 2px solid rgba(0,82,255,0.3);
+            border-radius: 0;
+            padding: 60px 80px;
+            position: sticky;
+            box-shadow: 0 -30px 50px rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 280px;
+            transition: border-color 0.4s ease;
+            gap: 40px;
+        }
+        
+        .stack-card:hover {
+            border-top-color: #0052FF;
+        }
+        
+        /* Progressive sticky tops for 8 items */
+        .stack-card[data-index="0"] { top: 120px; z-index: 10; }
+        .stack-card[data-index="1"] { top: 140px; z-index: 11; }
+        .stack-card[data-index="2"] { top: 160px; z-index: 12; }
+        .stack-card[data-index="3"] { top: 180px; z-index: 13; }
+        .stack-card[data-index="4"] { top: 200px; z-index: 14; }
+        .stack-card[data-index="5"] { top: 220px; z-index: 15; }
+        .stack-card[data-index="6"] { top: 240px; z-index: 16; }
+        .stack-card[data-index="7"] { top: 260px; z-index: 17; }
+        
+        .sc-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .sc-icon {
+            width: 70px;
+            height: 70px;
+            color: #0052FF;
+            flex-shrink: 0;
+        }
+        
+        .sc-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+        
+        .sc-right {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .sc-desc {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #ccc;
+            font-weight: 500;
+            margin: 0;
+            max-width: 500px;
+            border-right: 2px solid #333;
+            padding-right: 30px;
+        }
+        
+        .sc-num {
+            font-size: 100px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.03);
+            line-height: 1;
+            margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .s11-intro { margin-bottom: 60px; }
+            .stack-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px;
+                position: relative;
+                top: 0 !important;
+                box-shadow: none;
+                gap: 30px;
+            }
+            .sc-left { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .sc-right { flex-direction: column-reverse; align-items: flex-start; gap: 30px; }
+            .sc-desc { border-right: none; padding-right: 0; font-size: 18px; }
+            .sc-num { font-size: 60px; }
+            .s11-cards-wrapper { gap: 30px; padding-bottom: 50px; }
+        }
+    </style>
+
+    <script>
+        (function() {
+            const services = [
+                { num: '01', title: 'الهوية التجارية', desc: 'نبني هوية بصرية واستراتيجية تعكس شخصية علامتك التجارية، وتمنحها حضورًا مميزًا يرسخ في ذهن جمهورك.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>' },
+                { num: '02', title: 'إدارة وسائل التواصل', desc: 'نحوّل حساباتك إلى قنوات تواصل فعّالة تبني الثقة، وتعزز التفاعل، وتدعم نمو أعمالك.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' },
+                { num: '03', title: 'الحملات الإعلانية', desc: 'نخطط وننفذ حملات مدفوعة تستهدف الجمهور المناسب، وتحقق أفضل عائد ممكن على ميزانيتك التسويقية.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' },
+                { num: '04', title: 'المواقع والمتاجر', desc: 'نطور مواقع ومتاجر رقمية سريعة، متوافقة مع جميع الأجهزة، ومصممة لتحويل الزوار إلى عملاء.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg>' },
+                { num: '05', title: 'إنتاج المحتوى', desc: 'ننتج محتوى بصريًا وإبداعيًا يعكس هوية علامتك التجارية، ويجذب الانتباه، ويعزز تأثير حملاتك.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>' },
+                { num: '06', title: 'تحسين محركات البحث', desc: 'نعزز ظهور موقعك في نتائج البحث، ونساعد عملاءك على الوصول إليك في اللحظة التي يبحثون فيها عن خدماتك.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>' },
+                { num: '07', title: 'كتابة المحتوى الإعلاني', desc: 'نكتب رسائل تسويقية مؤثرة تحفّز الجمهور على التفاعل، وتعزز الثقة، وتزيد من معدلات التحويل.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>' },
+                { num: '08', title: 'الاستراتيجية التسويقية', desc: 'نضع استراتيجيات تسويقية مبنية على تحليل السوق، وسلوك الجمهور، وأهداف الأعمال لتحقيق نمو مستدام.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' }
+            ];
+
+            const container = document.getElementById('services-stack');
+            let html = '';
+
+            services.forEach((s, index) => {
+                html += `
+                <div class="stack-card gsap-reveal" data-index="${index}">
+                    <div class="sc-left">
+                        <div class="sc-icon">${s.icon}</div>
+                        <h3 class="sc-title">${s.title}</h3>
+                    </div>
+                    <div class="sc-right">
+                        <p class="sc-desc">${s.desc}</p>
+                        <div class="sc-num en-font">${s.num}</div>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        })();
+    </script>
+</section>
+
+
+
+<!-- CHAPTER 3 -->
+<section class="section-light" id="s19">
+    
+    <div class="chapter-title gsap-reveal en-font" dir="ltr">03. WORK</div>
+    <h2 class="huge-title gsap-reveal">نماذج من أعمالنا</h2>
+    <p class="body-text gsap-reveal" style="margin-bottom: 60px; max-width: 800px; color: #555; line-height: 1.8; font-size: 20px;">نستعرض هنا مجموعة مختارة من إبداعاتنا الرقمية؛ حيث تلتقي الاستراتيجية المدروسة مع التصميم الفني لنصنع الفارق لكل علامة تجارية.</p>
+    
+    <h3 class="gsap-reveal" style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Branding & Identity</h3>
+    <div class="grid-3" style="margin-bottom: 60px;">
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 4/3; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/07/524997743_122098121618962156_552.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Branding & Identity 1">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 4/3; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/07/Screenshot-2026-07-19-155006.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Branding & Identity 2">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 4/3; padding: 30px; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000; display: flex; align-items: center; justify-content: center;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/07/Untitled-2-scaled.png" style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Branding & Identity 3">
+        </div>
+    </div>
+    <h3 class="gsap-reveal" style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Social Media Posts</h3>
+    <div class="grid-3" style="margin-bottom: 60px;">
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/alymwnVD2.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/alymwnVD3.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/alymwnVD1.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/Beauty-on-Your-Terms-ins.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/habta4.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1080/1350; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/Elegance-is-unseen.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post">
+        </div>
+    </div>
+    
+    <div class="grid-3" style="margin-bottom: 60px;">
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1/1; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/RHM.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post Square">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1/1; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/TaxiQ.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post Square">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: 1/1; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000;">
+            
+            <img src="https://nahrdev.com/wp-content/uploads/2026/03/6-oct.webp" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Social Media Post Square">
+        </div>
+    </div>
+    <h3 class="gsap-reveal" style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Ads Campaigns</h3>
+    <div style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px;">
+        <div class="gsap-scale gallery-box" style="position: relative; padding: 40px 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: #080808; text-align: center; aspect-ratio: auto !important; display: block;">
+            
+            <h4 class="en-font" style="color: #aaa; font-size: 16px; font-weight: 800; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase;">Meta Ads Sample</h4>
+            <img src="https://nahrdev.com/wp-content/uploads/2026/07/5643216-2.png" style="max-width: 80%; height: auto; border-radius: 8px; transition: transform 0.5s ease; cursor: pointer; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Ads Campaign 1">
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; padding: 40px 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #fff; text-align: center; aspect-ratio: auto !important; display: block;">
+            
+            <h4 class="en-font" style="color: #333; font-size: 16px; font-weight: 800; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase;">Google Ads Sample</h4>
+            <img src="https://nahrdev.com/wp-content/uploads/2026/07/5643216-1.png" style="max-width: 70%; height: auto; border-radius: 8px; transition: transform 0.5s ease; cursor: pointer; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="Google Ads Sample">
+        </div>
+    </div>
+    <h3 class="gsap-reveal" style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Video Production</h3>
+    <div class="grid-3" style="margin-bottom: 60px; align-items: start;">
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: auto !important; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000; display: block;">
+            
+            <video src="https://nahrdev.com/wp-content/uploads/2026/07/حوّل-غرفة-نومك-إلى-مساحة-تجمع-بين-الراحة،-التكنولوجيا،-والأناقة.📩-تواصل-معنا-الآن-لمعرفة-المقاس.mp4" style="width: 100%; height: auto; display: block; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.play(); this.style.transform='scale(1.02)'" onmouseout="this.pause(); this.style.transform='scale(1)'" loop muted playsinline onclick="this.muted = !this.muted;"></video>
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: auto !important; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000; display: block;">
+            
+            <video src="https://nahrdev.com/wp-content/uploads/2026/07/ولدت-من-البحر.-وصُمّمت-لأجلك-🤍تشكيلتنا-الجديدة-من-اللؤلؤ-الطبيعي-×-فضة-925بخصومات-تصل-الى-70-.mp4" style="width: 100%; height: auto; display: block; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.play(); this.style.transform='scale(1.02)'" onmouseout="this.pause(); this.style.transform='scale(1)'" loop muted playsinline onclick="this.muted = !this.muted;"></video>
+        </div>
+        <div class="gsap-scale gallery-box" style="position: relative; aspect-ratio: auto !important; padding: 0; overflow: hidden; border: none; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: #000; display: block;">
+            
+            <video src="https://nahrdev.com/wp-content/uploads/2026/07/Diamonds-are-forever-and-so-is-your-love.-Celebrate-both-with-ALYMWNDW.Introducing-Lab-created-.mp4" style="width: 100%; height: auto; display: block; transition: transform 0.5s ease; cursor: pointer;" onmouseover="this.play(); this.style.transform='scale(1.02)'" onmouseout="this.pause(); this.style.transform='scale(1)'" loop muted playsinline onclick="this.muted = !this.muted;"></video>
+        </div>
+    </div>
+</section>
+
+
+<!-- CHAPTER 4 -->
+<section class="section-dark" id="s39" style="background: #050505; padding: 150px 0 200px 0; position: relative; z-index: 10;">
+    
+    <div style="padding: 0 6vw;">
+        <h2 class="huge-title gsap-reveal" style="color: #fff; margin-bottom: 20px; line-height: 1.2;">دراسات الحالة</h2>
+        <p class="body-text gsap-reveal" style="margin-bottom: 60px; max-width: 800px;">نلتزم بالحفاظ على سرية البيانات التجارية لعملائنا، لذلك نعرض مؤشرات الأداء (KPIs) التي تعكس أثر استراتيجياتنا دون الإفصاح عن البيانات المالية أو المعلومات الحساسة.</p>
+        
+        <style>
+            .tabs-container {
+                display: grid;
+                grid-template-columns: 350px 1fr;
+                gap: 40px;
+                background: #0C0C0C;
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 20px;
+                padding: 40px;
+            }
+            .tabs-sidebar {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                border-left: 1px solid rgba(255,255,255,0.05);
+                padding-left: 20px;
+            }
+            .tab-btn {
+                background: transparent;
+                border: none;
+                color: #666;
+                text-align: left;
+                font-size: 24px;
+                font-weight: 800;
+                padding: 15px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                direction: ltr;
+            }
+            .tab-btn:hover { color: #fff; background: rgba(255,255,255,0.02); }
+            .tab-btn.active { color: #fff; background: rgba(255,255,255,0.05); }
+            .tab-btn.active i { transform: scale(1.2); }
+            .tab-btn i { transition: all 0.3s ease; }
+            
+            .tab-content { display: none; animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+            .tab-content.active { display: block; }
+            
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+            
+            .tc-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .tc-hero {
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 40px;
+                border-right: 4px solid var(--accent);
+                position: relative;
+                overflow: hidden;
+                grid-column: span 2;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .tc-hero::after {
+                content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%;
+                background: radial-gradient(ellipse at top right, var(--accent-glow), transparent 60%);
+                pointer-events: none; opacity: 0.6;
+            }
+            
+            .tc-kpis {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .tc-kpi-box {
+                background: rgba(0,0,0,0.4);
+                border: 1px solid rgba(255,255,255,0.03);
+                padding: 25px;
+                border-radius: 12px;
+                text-align: center;
+            }
+            .tc-kpi-val { font-size: clamp(28px, 3vw, 45px); font-weight: 900; color: var(--accent); margin-bottom: 5px; line-height: 1; }
+            .tc-kpi-lbl { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+            
+            .tc-story {
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 30px;
+            }
+            .tc-story h4 { color: #fff; font-size: 20px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; display: inline-block; }
+            .tc-story p { color: #999; line-height: 1.8; margin-bottom: 20px; font-size: 15px; }
+            
+            .tc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+            .tc-tag {
+                background: rgba(255,255,255,0.04);
+                color: #bbb;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                border: 1px solid rgba(255,255,255,0.05);
+            }
+            
+            @media (max-width: 1024px) {
+                .tabs-container { grid-template-columns: 1fr; padding: 20px; }
+                .tabs-sidebar { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding-left: 0; padding-bottom: 20px; flex-direction: row; overflow-x: auto; gap: 15px; }
+                .tab-btn { font-size: 16px; padding: 10px 15px; flex: 0 0 auto; }
+                .tab-btn i { display: none; }
+                .tc-grid { grid-template-columns: 1fr; }
+                .tc-hero { grid-column: span 1; flex-direction: column; text-align: center; gap: 20px; }
+                .tc-hero::after { background: radial-gradient(ellipse at top center, var(--accent-glow), transparent 60%); }
+                .tc-kpis { grid-template-columns: 1fr; }
+            }
+        </style>
+
+        <div class="tabs-container gsap-reveal">
+            <div class="tabs-sidebar en-font">
+                <button class="tab-btn active" onclick="openTab('tab1')"><span>ALYMWNDW</span> <span style="font-size: 24px;" title="UAE">🇦🇪</span></button>
+                <button class="tab-btn" onclick="openTab('tab2')"><span>HABTAH</span> <span style="font-size: 24px;" title="Oman">🇴🇲</span></button>
+                <button class="tab-btn" onclick="openTab('tab3')"><span>ASAD</span> <span style="font-size: 24px;" title="Kuwait">🇰🇼</span></button>
+                <button class="tab-btn" onclick="openTab('tab4')"><span>FANOOOS</span> <span style="font-size: 24px;" title="Qatar">🇶🇦</span></button>
+                <button class="tab-btn" onclick="openTab('tab5')"><span>NESBA</span> <span style="font-size: 24px;" title="Kuwait">🇰🇼</span></button>
+                <button class="tab-btn" onclick="openTab('tab6')"><span>SARB</span> <span><span style="font-size: 20px;" title="KSA">🇸🇦</span><span style="font-size: 20px;" title="Egypt">🇪🇬</span><span style="font-size: 20px;" title="Jordan">🇯🇴</span></span></button>
+                <button class="tab-btn" onclick="openTab('tab7')"><span>TRIMLY</span> <span style="font-size: 24px;" title="Egypt">🇪🇬</span></button>
+                <button class="tab-btn" onclick="openTab('tab8')"><span>SHAWARMA ELAK</span> <span style="font-size: 24px;" title="Saudi Arabia">🇸🇦</span></button>
+            </div>
+            
+            <div class="tabs-content">
+                
+                <!-- TAB 1: ALYMWNDW -->
+                <div class="tab-content active" id="tab1" style="--accent: #D4AF37; --accent-glow: rgba(212,175,55,0.2);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Jewelry • UAE</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">ALYMWNDW</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">+420%</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Orders Growth</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>كسر حاجز الخوف لدى العملاء وإقناعهم بشراء مجوهرات ثمينة (ألماس وذهب) عبر الإنترنت بالكامل، في ظل غياب تام لأي فروع فعلية تعزز الثقة المباشرة، مع بناء تجربة مستخدم تعوض غياب التجربة الحسية للمجوهرات.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Performance Marketing</span>
+                                <span class="tc-tag">Social Media Management</span>
+                                <span class="tc-tag">Content Creation</span>
+                                <span class="tc-tag">Marketing Analytics</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">+310%</div>
+                                <div class="tc-kpi-lbl">New Customers</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">8.2x</div>
+                                <div class="tc-kpi-lbl">ROAS</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="color:#EF4444;">-37%</div>
+                                <div class="tc-kpi-lbl">CPA</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">+185%</div>
+                                <div class="tc-kpi-lbl">Conversion</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>نمو مستمر في الاستثمار التسويقي لدعم توسع الأعمال.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تعزيز الحضور الرقمي وزيادة الوعي بالعلامة التجارية في الإمارات.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تتويج النجاح بافتتاح أول فرع فعلي للعلامة التجارية في Fujairah City Centre.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>توسع النشاط ليشمل الذهب والفضة والألماس.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 2: HABTAH -->
+                <div class="tab-content" id="tab2" style="--accent: #10B981; --accent-glow: rgba(16,185,129,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Classified Marketplace • Oman</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">HABTAH</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">+5,000</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Registered Users</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>إطلاق منصة إعلانات مبوبة جديدة في السوق العماني، وبناء قاعدة مستخدمين نشطة في أول 90 يوماً من خلال استراتيجية إطلاق متكاملة ترتكز على الثقة، سهولة الاستخدام، وتحفيز تفاعل البائعين والمشترين بشكل متزامن.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Go-To-Market</span>
+                                <span class="tc-tag">User Acquisition</span>
+                                <span class="tc-tag">Performance Marketing</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Verified</div>
+                                <div class="tc-kpi-lbl">Official Accounts</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Live</div>
+                                <div class="tc-kpi-lbl">Transactions</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Growing</div>
+                                <div class="tc-kpi-lbl">Community</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Success</div>
+                                <div class="tc-kpi-lbl">Platform Launch</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تسجيل أكثر من 5,000 مستخدم جديد خلال أول 90 يوماً من الإطلاق.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تفعيل آلاف الحسابات الموثقة للأنشطة التجارية العمانية.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>إتمام آلاف العمليات الناجحة عبر المنصة في فترة قياسية.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء ثقة مجتمعية قوية حول المنصة لتصبح الخيار الأول محلياً.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 3: ASAD -->
+                <div class="tab-content" id="tab3" style="--accent: #D2B48C; --accent-glow: rgba(210,180,140,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Construction Company • Kuwait</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">ASAD</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">+50</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Projects Covered</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>بناء حضور رقمي قوي لشركة مقاولات ضخمة دون الاعتماد على الإعلانات الممولة. ركزنا على بناء الثقة (Authority) والمصداقية (Social Proof) من خلال تبسيط المحتوى الهندسي المعقد وتسليط الضوء على ضخامة المشاريع المنفذة.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Organic Growth</span>
+                                <span class="tc-tag">Content Strategy</span>
+                                <span class="tc-tag">Brand Authority</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis" style="grid-template-columns: 1fr;">
+                            <div class="tc-kpi-box en-font" style="padding: 40px;">
+                                <div class="tc-kpi-val" style="font-size: 40px;">Organic Content</div>
+                                <div class="tc-kpi-lbl" style="font-size: 16px;">Marketing Strategy</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تغطية إعلامية وتوثيقية احترافية لأكثر من 50 مشروع مقاولات ضخم.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء حضور رقمي يرتكز على الهيبة المؤسسية والموثوقية المطلقة (Brand Authority).</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>هندسة استراتيجية نمو عضوي بحت (Organic Growth) دون أي إنفاق إعلاني.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>صياغة المحتوى الهندسي المعقد وتبسيطه ليكون جذاباً لعملاء القطاع السكني والتجاري.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 4: FANOOOS -->
+                <div class="tab-content" id="tab4" style="--accent: #9E1B32; --accent-glow: rgba(158,27,50,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Smart Furniture • Qatar</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">FANOOOS</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">80K+</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Website Visits</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>تقديم مفهوم "الأثاث الذكي" لأول مرة في السوق السعودي. صممنا هوية بصرية فاخرة، وبنينا متجراً إلكترونياً متطوراً، مع إطلاق حملات أداء مبتكرة لكسر رهبة الأسعار المرتفعة وتعزيز الرغبة بالشراء لدى شريحة عملاء النخبة.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">E-Commerce Dev</span>
+                                <span class="tc-tag">Branding</span>
+                                <span class="tc-tag">Media Buying</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">+120%</div>
+                                <div class="tc-kpi-lbl">Sales Growth</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">1.2M</div>
+                                <div class="tc-kpi-lbl">Impressions</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">32%</div>
+                                <div class="tc-kpi-lbl">Returning</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">5x</div>
+                                <div class="tc-kpi-lbl">ROAS Peak</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تحقيق نمو هائل في المبيعات (+120%) خلال فترة قصيرة جداً من الإطلاق.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>استقطاب أكثر من 80,000 زائر للمتجر بفضل دقة الاستهداف في حملات الأداء.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>الوصول لأقصى عائد من الإنفاق الإعلاني (5x ROAS Peak) في أوقات الذروة.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء ولاء عالي للعلامة التجارية مع نسبة 32% من العملاء العائدين المتكررين.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 5: NESBA -->
+                <div class="tab-content" id="tab5" style="--accent: #0D9488; --accent-glow: rgba(13,148,136,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">EdTech Platform • Kuwait</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">NESBA</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">+1,500</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Students in Year 1</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>إطلاق منصة تعليمية رقمية متكاملة لجميع المراحل الدراسية في سوق شديد التنافسية. قمنا بإدارة عمليات المونتاج الضخمة لآلاف الفيديوهات التعليمية، وأطلقنا حملات إعلانية دقيقة تستهدف الطلاب وأولياء الأمور لكسب الثقة السريعة.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Video Production</span>
+                                <span class="tc-tag">EdTech Marketing</span>
+                                <span class="tc-tag">Lead Gen</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis" style="grid-template-columns: 1fr;">
+                            <div class="tc-kpi-box en-font" style="padding: 40px;">
+                                <div class="tc-kpi-val" style="font-size: 40px;">Video Production</div>
+                                <div class="tc-kpi-lbl" style="font-size: 16px;">Scale & Quality</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>إنتاج ومونتاج آلاف الفيديوهات التعليمية بجودة بصرية سينمائية استثنائية.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>استقطاب 1,500 طالب نشط ومشترك خلال العام الدراسي الأول.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء منظومة تسويقية تعليمية تكسب ثقة أولياء الأمور وتطمئنهم بمدى الجودة.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تأكيد الهيمنة في قطاع التعليم الرقمي من خلال التميز البصري وسرعة إيصال المعلومة.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 6: SARB -->
+                <div class="tab-content" id="tab6" style="--accent: #3B82F6; --accent-glow: rgba(59,130,246,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Logistics B2B • KSA, Egypt, Jordan</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">SARB</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">+1,000</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Merchants</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>صياغة استراتيجية استحواذ (B2B) لشركة شحن وتوصيل، مع بناء الثقة المؤسسية للمتاجر الإلكترونية الكبرى. قمنا بتحليل رحلة العميل بالكامل لخفض تكلفة اكتساب التاجر، وتتويج ذلك بشراكات استراتيجية ضخمة.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">B2B Marketing</span>
+                                <span class="tc-tag">Lead Generation</span>
+                                <span class="tc-tag">Sales Funnels</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">2</div>
+                                <div class="tc-kpi-lbl">Strategic Partners</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val">20K</div>
+                                <div class="tc-kpi-lbl">Shipments</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>استحواذ ناجح على أكثر من 1,000 متجر إلكتروني ضمن نموذج (B2B).</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>إبرام شراكات استراتيجية ضخمة مع كيانات بحجم Alaa El-Din و Alex Express.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>المساهمة في تنفيذ وتسيير أكثر من 20,000 شحنة وتوصيلة بنجاح تام.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>خفض تكلفة اكتساب التاجر (CAC) من خلال تحسين جذري لمسارات المبيعات الرقمية.</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 7: TRIMLY -->
+                <div class="tab-content" id="tab7" style="--accent: #EC4899; --accent-glow: rgba(236,72,153,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Beauty Booking Platform • Egypt</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">TRIMLY</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(50px, 6vw, 80px); font-weight: 900; color: var(--accent); line-height: 1;">GTM</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Product Launch</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>إطلاق هوية علامة تجارية من الصفر لاختراق سوق تجميل مشبع بالتطبيقات المنافسة. نجحنا في حل تحدي الـ (Marketplace) المعقد من خلال استقطاب الصالونات والعملاء بوقت واحد، مع تغيير سلوك الحجز التقليدي إلى نموذج رقمي مسبق الدفع.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Go-To-Market</span>
+                                <span class="tc-tag">Brand Strategy</span>
+                                <span class="tc-tag">Growth Tracking</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Meta Pixel</div>
+                                <div class="tc-kpi-lbl">Integration</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">FB SDK</div>
+                                <div class="tc-kpi-lbl">App Events</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">GA4</div>
+                                <div class="tc-kpi-lbl">Analytics</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Scale</div>
+                                <div class="tc-kpi-lbl">Architecture</div>
+                            </div>
+                        </div>
+                    
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تطوير استراتيجية إطلاق وتوغل متكاملة في سوق شديد التنافسية (Go-to-Market Strategy).</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء منظومة قياس دقيقة جداً ترتكز على Meta Pixel و Facebook SDK و GA4.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>إعداد خطة استحواذ (Customer Acquisition) مزدوجة تستهدف الصالونات والعملاء بوقت واحد.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تأسيس بنية تسويقية ديناميكية قابلة للتوسع السريع (Scalable Architecture).</span>
+                                </li>
+                            </ul>
+                        </div>
+    </div>
+                </div>
+
+                <!-- TAB 8: SHAWARMA ELAK -->
+                <div class="tab-content" id="tab8" style="--accent: #EA580C; --accent-glow: rgba(234,88,12,0.15);">
+                    <div class="tc-grid">
+                        <div class="tc-hero">
+                            <div>
+                                <div class="en-font" style="font-size: 16px; color: #888; font-weight: 600; letter-spacing: 2px; margin-bottom: 10px;">Restaurant • Jeddah, Saudi Arabia</div>
+                                <h3 class="en-font" style="font-size: clamp(30px, 4vw, 50px); font-weight: 900; color: #fff; margin: 0; line-height: 1;">SHAWARMA ELAK</h3>
+                            </div>
+                            <div style="text-align: left;" class="en-font">
+                                <div style="font-size: clamp(40px, 5vw, 60px); font-weight: 900; color: var(--accent); line-height: 1;">Growth</div>
+                                <div style="color: #aaa; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">Performance Marketing</div>
+                            </div>
+                        </div>
+                        <div class="tc-story">
+                            <h4>القصة وراء الأرقام</h4>
+                            <p>بناء حضور رقمي قوي في سوق المطاعم شديد المنافسة بجدة، مع تحويل التفاعل المستمر على منصات التواصل الاجتماعي إلى زيارات فعلية وطلبات شراء، لتعزيز ولاء العملاء وزيادة معدلات الاسترداد والنمو المستدام.</p>
+                            <div class="tc-tags en-font">
+                                <span class="tc-tag">Performance Marketing</span>
+                                <span class="tc-tag">Food Photography</span>
+                                <span class="tc-tag">Video Production</span>
+                            </div>
+                        </div>
+                        <div class="tc-kpis">
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Brand</div>
+                                <div class="tc-kpi-lbl">Awareness</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Sales</div>
+                                <div class="tc-kpi-lbl">Growth</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Content</div>
+                                <div class="tc-kpi-lbl">Production</div>
+                            </div>
+                            <div class="tc-kpi-box en-font">
+                                <div class="tc-kpi-val" style="font-size: 32px;">Loyalty</div>
+                                <div class="tc-kpi-lbl">Retention</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Extended Details -->
+                        <div class="tc-details" style="grid-column: span 2; background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 10px;">
+                            <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-weight: 700;">مؤشرات النجاح والأثر الاستراتيجي</h4>
+                            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>تعزيز الوعي بالعلامة التجارية بشكل ملحوظ داخل السوق المحلي في جدة.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>زيادة التفاعل على منصات التواصل الاجتماعي وتحويله إلى نتائج تجارية.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>دعم نمو الطلبات المباشرة والمبيعات من خلال حملات إعلانية موجهة بدقة.</span>
+                                </li>
+                                <li style="color: #999; font-size: 14px; display: flex; gap: 10px; align-items: flex-start;">
+                                    <i class="fa-solid fa-check" style="color: var(--accent); margin-top: 4px;"></i>
+                                    <span>بناء مكتبة محتوى مرئية احترافية تعكس جودة الطعام وهوية المطعم.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+</section>
+<!-- CHAPTER 5 -->
+
+<section class="section-dark" style="background: #0a0a0a; padding: 120px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);" id="s47">
+    
+    <div style="padding: 0 6vw;">
+        <div class="chapter-title gsap-reveal en-font" dir="ltr">05. CLIENTS</div>
+        <h2 class="huge-title gsap-reveal" style="color: #fff;">خبرات متنوعة. رؤية واحدة.</h2>
+        <p class="body-text gsap-reveal" style="margin-bottom: 80px;">عملنا مع شركات في قطاعات مختلفة، مما منح فريقنا خبرة واسعة في فهم طبيعة كل سوق.</p>
+    </div>
+
+    <style>
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 6vw;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 50px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 150%; height: 150%;
+            background: radial-gradient(circle, var(--glow, rgba(255,255,255,0.1)) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glass-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .glass-card:hover::before {
+            opacity: 0.6;
+        }
+        .glass-content {
+            position: relative;
+            z-index: 1;
+        }
+        .glass-card i {
+            font-size: 50px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 25px;
+            transition: all 0.5s ease;
+        }
+        .glass-card:hover i {
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .glass-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ccc;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+        .glass-card:hover h3 {
+            color: #fff;
+        }
+    </style>
+
+    <div class="glass-grid gsap-reveal" id="s48">
+        <div class="glass-card" style="--glow: rgba(0, 82, 255, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>التقنية</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(255, 184, 0, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h3>التجارة الإلكترونية</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(16, 185, 129, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-building"></i>
+                <h3>المقاولات</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(168, 85, 247, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>الحجوزات</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(239, 68, 68, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-utensils"></i>
+                <h3>المطاعم</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(236, 72, 153, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-briefcase"></i>
+                <h3>الخدمات</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(14, 165, 233, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h3>الصحة</h3>
+            </div>
+        </div>
+        <div class="glass-card" style="--glow: rgba(245, 158, 11, 0.3);">
+            <div class="glass-content">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>التعليم</h3>
+            </div>
+        </div>
+    </div>
+<section class="section-light" id="s49" style="position: relative; overflow: hidden; padding: 120px 6vw; background: #fafafa;">
+    
+    
+    <!-- Title & Intro -->
+    <div style="max-width: 900px; margin: 0 auto 80px auto; text-align: center;">
+        <h2 class="huge-title gsap-reveal" style="margin-bottom: 30px;">كيف نبدأ العمل معًا؟</h2>
+        <p class="body-text gsap-reveal" style="font-size: 20px; line-height: 1.8; color: #555;">لا نقدم حلولًا جاهزة، بل نبني نموذج تعاون يناسب مرحلة عملك وأهدافك. سواء كنت تطلق مشروعًا جديدًا، أو تسعى إلى التوسع، أو تبحث عن شريك تسويقي طويل الأمد، نضع الاستراتيجية المناسبة لتحقيق نتائج قابلة للقياس.</p>
+    </div>
+
+    <!-- Cards Layout -->
+    <div class="grid-3" style="gap: 30px; position: relative; z-index: 2;">
+        
+        <!-- Card 1 -->
+        <div class="gsap-scale" style="background: #fff; padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden; transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.03)';">
+            <div class="en-font" style="font-size: 80px; font-weight: 900; color: #f0f0f0; position: absolute; top: 10px; right: 20px; z-index: 0; line-height: 1;">01</div>
+            <div style="position: relative; z-index: 1;">
+                <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 10px; color: #111;">البداية</h3>
+                <span style="display: inline-block; padding: 8px 16px; background: rgba(0,0,0,0.04); color: #666; font-size: 14px; font-weight: 700; border-radius: 50px; margin-bottom: 30px;">للشركات الناشئة</span>
+                <p class="body-text" style="font-size: 16px; line-height: 1.8; color: #555;">نساعدك على الانطلاق من الأساس الصحيح، بدايةً من دراسة السوق، وتحديد الجمهور المستهدف، وبناء الهوية، ووضع استراتيجية التسويق، وصولًا إلى إطلاق الحملات الأولى وبناء حضور رقمي قوي.</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gsap-scale" style="background: #111; padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.1)';">
+            <div class="en-font" style="font-size: 80px; font-weight: 900; color: #1f1f1f; position: absolute; top: 10px; right: 20px; z-index: 0; line-height: 1;">02</div>
+            <div style="position: relative; z-index: 1;">
+                <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 10px; color: #fff;">النمو</h3>
+                <span style="display: inline-block; padding: 8px 16px; background: rgba(255,255,255,0.1); color: #ccc; font-size: 14px; font-weight: 700; border-radius: 50px; margin-bottom: 30px;">للشركات التي تستهدف التوسع</span>
+                <p class="body-text" style="font-size: 16px; line-height: 1.8; color: #aaa;">نعمل على تطوير الأداء التسويقي من خلال تحسين الحملات، وتحليل البيانات، ورفع معدلات التحويل، وبناء استراتيجيات تساعدك على الوصول إلى أسواق جديدة وتحقيق نمو مستدام.</p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gsap-scale" style="background: #fff; padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden; transition: all 0.4s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 30px 60px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.03)';">
+            <div class="en-font" style="font-size: 80px; font-weight: 900; color: #f0f0f0; position: absolute; top: 10px; right: 20px; z-index: 0; line-height: 1;">03</div>
+            <div style="position: relative; z-index: 1;">
+                <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 10px; color: #111;">الشراكة</h3>
+                <span style="display: inline-block; padding: 8px 16px; background: rgba(0,0,0,0.04); color: #666; font-size: 14px; font-weight: 700; border-radius: 50px; margin-bottom: 30px;">لفرق الأعمال والشركات الطموحة</span>
+                <p class="body-text" style="font-size: 16px; line-height: 1.8; color: #555;">نعمل كامتداد لفريقك الداخلي، ونتولى التخطيط، والتنفيذ، والتحليل، والتطوير المستمر، مع تقارير دورية ومؤشرات أداء واضحة لضمان تحقيق أهدافك التجارية.</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Outro -->
+    <div class="gsap-reveal" style="text-align: center; margin-top: 80px;">
+        <p style="font-size: 22px; font-weight: 800; color: #333;">اختر طريقة التعاون التي تناسب مرحلتك، ودعنا نبني معًا الخطوة التالية في رحلة نمو علامتك التجارية.</p>
+    </div>
+</section>
+
+
+
+<section class="section-dark" style="background: #050505; color: #fff; padding: 150px 6vw 100px 6vw; position: relative;" id="s51">
+    
+    
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+        <!-- Title -->
+        <h2 class="gsap-reveal" style="font-size: clamp(40px, 6vw, 90px); font-weight: 900; line-height: 1.2; margin-bottom: 30px;">
+            النتائج لا تبدأ بالحملات.<br>
+            <span style="color: #777;">تبدأ بالشريك المناسب.</span>
+        </h2>
+        
+        <!-- Subtitle -->
+        <p class="gsap-reveal body-text" style="font-size: 24px; max-width: 800px; margin: 0 auto 80px auto; color: #aaa; line-height: 1.8;">
+            إذا كنت تبحث عن فريق يفكر في النمو قبل الإعلانات، ويقود قراراته بالبيانات قبل التوقعات، فنحن جاهزون لبناء قصة نجاحك القادمة.
+        </p>
+        
+        <!-- Separator -->
+        <div class="gsap-reveal" style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); margin-bottom: 80px;"></div>
+        
+        <!-- Brand Info -->
+        <div class="gsap-reveal" style="margin-bottom: 60px;">
+            <h3 class="en-font" style="font-size: 40px; font-weight: 900; letter-spacing: 4px; margin-bottom: 15px;">NAHR DEVELOPMENT</h3>
+            <p class="en-font" style="font-size: 16px; font-weight: 600; color: #777; letter-spacing: 3px; word-spacing: 10px;">MARKETING • STRATEGY • PERFORMANCE • CREATIVE</p>
+        </div>
+        
+        <!-- Contact Links -->
+        <div class="gsap-reveal en-font" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; align-items: center; margin-bottom: 100px;" dir="ltr">
+            <a href="tel:+201062271119" style="color: #fff; text-decoration: none; font-size: 22px; font-weight: 700; transition: color 0.3s;" onmouseover="this.style.color='#aaa'" onmouseout="this.style.color='#fff'"><i class="fa-solid fa-phone" style="margin-right: 10px; color: #555;"></i> +20 106 227 1119</a>
+            <a href="mailto:Info@nahrdev.com" style="color: #fff; text-decoration: none; font-size: 22px; font-weight: 700; transition: color 0.3s;" onmouseover="this.style.color='#aaa'" onmouseout="this.style.color='#fff'"><i class="fa-regular fa-envelope" style="margin-right: 10px; color: #555;"></i> Info@nahrdev.com</a>
+            <a href="https://www.nahrdev.com" target="_blank" style="color: #fff; text-decoration: none; font-size: 22px; font-weight: 700; transition: color 0.3s;" onmouseover="this.style.color='#aaa'" onmouseout="this.style.color='#fff'"><i class="fa-solid fa-globe" style="margin-right: 10px; color: #555;"></i> www.nahrdev.com</a>
+        </div>
+        
+        <!-- Regional Presence Footer -->
+        <div class="gsap-reveal en-font" style="margin-top: 50px;">
+            <p style="color: #555; font-size: 16px; font-weight: 800; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;">Building Brands Across the Middle East</p>
+            <p style="color: #333; font-size: 14px; font-weight: 600; letter-spacing: 3px; word-spacing: 5px;">EGYPT • SAUDI ARABIA • QATAR • KUWAIT • OMAN</p>
+        </div>
+    </div>
+</section>
+
+    </div> <!-- End Lenis Wrapper -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webgl-fluid"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Hero Ripples
+            try { $('#s1').ripples({ resolution: 512, dropRadius: 30, perturbance: 0.08 }); } catch(e) {}
+
+            // Fluid Cursor
+            try {
+                WebGLFluid(document.querySelector('canvas#fluid-canvas'), {
+                    IMMEDIATE: true, TRIGGER: 'hover', SIM_RESOLUTION: 128, DYE_RESOLUTION: 512, DENSITY_DISSIPATION: 0.95,
+                    VELOCITY_DISSIPATION: 0.98, PRESSURE_DISSIPATION: 0.8, PRESSURE_ITERATIONS: 20, CURL: 30, SPLAT_RADIUS: 0.05,
+                    SPLAT_FORCE: 3000, SHADING: true, COLORFUL: true, COLOR_UPDATE_SPEED: 5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 },
+                    TRANSPARENT: true, BLOOM: true, BLOOM_ITERATIONS: 4, BLOOM_RESOLUTION: 256, BLOOM_INTENSITY: 0.2,
+                    BLOOM_THRESHOLD: 0.6, BLOOM_SOFT_KNEE: 0.7, SUNRAYS: true, SUNRAYS_RESOLUTION: 196, SUNRAYS_WEIGHT: 1.0,
+                });
+            } catch(e) {
+                console.error("WebGLFluid Error: ", e);
+            }
+
+            // Event proxy for Fluid Canvas
+            window.addEventListener('mousemove', (e) => {
+                const canvas = document.getElementById('fluid-canvas');
+                if (canvas && canvas.style.opacity !== '0') {
+                    const event = new MouseEvent('mousemove', {
+                        clientX: e.clientX,
+                        clientY: e.clientY,
+                        bubbles: false,
+                        cancelable: false
+                    });
+                    canvas.dispatchEvent(event);
+                }
+            });
+            window.addEventListener('mousedown', (e) => {
+                const canvas = document.getElementById('fluid-canvas');
+                if (canvas && canvas.style.opacity !== '0') {
+                    const event = new MouseEvent('mousedown', {
+                        clientX: e.clientX,
+                        clientY: e.clientY,
+                        button: e.button,
+                        bubbles: false,
+                        cancelable: false
+                    });
+                    canvas.dispatchEvent(event);
+                }
+            });
+            window.addEventListener('mouseup', (e) => {
+                const canvas = document.getElementById('fluid-canvas');
+                if (canvas && canvas.style.opacity !== '0') {
+                    const event = new MouseEvent('mouseup', {
+                        clientX: e.clientX,
+                        clientY: e.clientY,
+                        button: e.button,
+                        bubbles: false,
+                        cancelable: false
+                    });
+                    canvas.dispatchEvent(event);
+                }
+            });
+
+
+
+
+            // Smooth Scroll
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+            // Toggle Fluid Canvas using Lenis scroll
+            lenis.on('scroll', (e) => {
+                const canvas = document.getElementById('fluid-canvas');
+                if (canvas) {
+                    if (e.scroll > window.innerHeight * 0.5) {
+                        canvas.style.opacity = '0.12';
+                    } else {
+                        canvas.style.opacity = '0';
+                    }
+                }
+            });
+            // Initial check
+            const canvas = document.getElementById('fluid-canvas');
+            if (canvas && window.scrollY > window.innerHeight * 0.5) {
+                canvas.style.opacity = '0.12';
+            }
+
+            function raf(time) { lenis.raf(time); ScrollTrigger.update(); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+
+            
+            // Tabs Logic
+            window.openTab = function(tabId) {
+                // Update Buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                event.currentTarget.classList.add('active');
+                
+                // Update Content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            };
+
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.utils.toArray('.gsap-reveal').forEach(elem => {
+                gsap.to(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%" },
+                    opacity: 1, y: 0, duration: 1, ease: "power3.out"
+                });
+            });
+
+
+            gsap.utils.toArray('.gsap-reveal-left').forEach(elem => {
+                gsap.to(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%" },
+                    opacity: 1, x: 0, duration: 1.2, ease: "power3.out"
+                });
+            });
+            gsap.utils.toArray('.gsap-reveal-right').forEach(elem => {
+                gsap.to(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%" },
+                    opacity: 1, x: 0, duration: 1.2, ease: "power3.out"
+                });
+            });
+            gsap.utils.toArray('.gsap-reveal-up').forEach(elem => {
+                gsap.to(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%" },
+                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out"
+                });
+            });
+
+            gsap.utils.toArray('.gsap-scale').forEach(elem => {
+                gsap.to(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%" },
+                    opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

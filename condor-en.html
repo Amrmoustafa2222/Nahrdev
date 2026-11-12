@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condor Egypt | Sovereign Digital Commerce & HVAC Climate Engineering Platform | Nahr Development</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Unbounded:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- GSAP & WebGL Fluid -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webgl-fluid"></script>
+    <style>
+
+        :root {
+            /* Nahr Corporate Brand Palette (Signature Royal Blue) */
+            --accent: #0B5FFF;
+            --accent-light: #2563EB;
+            --accent-sky: #38BDF8;
+            --accent-cyan: #06B6D4;
+            --accent-tint: #EFF6FF;
+            --accent-glow: rgba(11, 95, 255, 0.14);
+            
+            /* Executive Slate & Obsidian Palette */
+            --ink: #0F172A;
+            --charcoal: #1E293B;
+            --text-dark: #0A0F1D;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            --bg-alabaster: #F8FAFC;
+            --bg-white: #FFFFFF;
+            --obsidian: #060A12;
+            --obsidian-card: #0D1424;
+            --obsidian-border: #1E293B;
+
+            /* Functional Badges */
+            --emerald: #10B981;
+            --emerald-tint: #ECFDF5;
+            --warm-orange: #F59E0B;
+            --warm-tint: #FFFBEB;
+            --condor-red: #E11D48;
+            --condor-tint: #FFF1F2;
+
+            /* Fonts */
+            --font-ar: 'Outfit', sans-serif;
+            --font-body: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+            --font-num: 'Outfit', sans-serif;
+            --font-en: 'Outfit', sans-serif;
+
+            --card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+            --card-shadow-hover: 0 20px 40px -10px rgba(11, 95, 255, 0.12), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-alabaster);
+            color: var(--ink);
+            overflow-x: hidden;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* Typography Utilities */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-ar);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.35;
+        }
+
+        .num-font { font-family: var(--font-num); }
+        .en-font { font-family: var(--font-en); }
+
+        /* GPU Compositing for Butter-smooth Scroll */
+        .luxury-card, .spec-card, .metric-card, .dark-card, .tab-btn {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Hardware-Accelerated WebGL Fluid Canvas (Subtle smoke trailing mouse - 8fayno signature) */
+        canvas#fluid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.65;
+        }
+        @media (max-width: 768px) {
+            canvas#fluid-canvas {
+                display: none !important;
+            }
+        }
+
+        /* Sections Layout - Sovereign Keynote Slides Standard */
+        .section-light, .section-pure, .section-dark {
+            position: relative;
+            min-height: 100vh;
+            padding: clamp(50px, 6.5vh, 85px) 6vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-light {
+            background-color: var(--bg-alabaster);
+            color: var(--text-dark);
+        }
+
+        .section-pure {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .section-dark {
+            background-color: var(--obsidian);
+            color: #FFFFFF;
+            border-bottom: 1px solid var(--obsidian-border);
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sec-header {
+            max-width: 980px;
+            margin-bottom: clamp(18px, 2.4vh, 26px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .sec-marker { 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px; 
+            font-weight: 800; 
+            color: var(--accent); 
+            letter-spacing: 1.5px; 
+            border: 1px solid rgba(11, 95, 255, 0.25); 
+            padding: 5px 16px; 
+            border-radius: 999px; 
+            direction: ltr; 
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 12px;
+        }
+        .section-dark .sec-marker {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--accent-sky);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .chapter-title {
+            font-family: var(--font-num);
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .section-dark .chapter-title { color: var(--accent-sky); }
+
+        .huge-title { 
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(20px, 2vw, 28px); 
+            font-weight: 800; 
+            line-height: 1.38; 
+            margin-bottom: 10px; 
+            position: relative; 
+            z-index: 1; 
+            color: var(--ink);
+        }
+        .section-dark .huge-title { color: #FFFFFF; }
+
+        .sub-title { 
+            font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(13px, 1vw, 15px); 
+            font-weight: 500; 
+            line-height: 1.7; 
+            color: var(--text-muted); 
+            max-width: 860px;
+        }
+        .body-text { 
+            font-size: 13.5px; 
+            line-height: 1.72; 
+            color: #475569; 
+            font-weight: 500; 
+        }
+        .section-dark .body-text { color: #94A3B8; }
+        
+        /* GSAP Initial States */
+        /* .gsap-reveal handled by JS safely */
+        /* .gsap-scale handled by JS safely */
+
+        /* Responsive Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+        
+        /* Hero Section - Sovereign 100vh Cover Slide */
+        .hero { 
+            position: relative; 
+            height: 100vh;
+            min-height: 700px;
+            width: 100vw; 
+            background: radial-gradient(circle at 50% 18%, #FFFFFF 0%, #F8FAFC 55%, #F1F5F9 100%);
+            overflow: hidden; 
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .hero-overlay { 
+            position: absolute; 
+            inset: 0; 
+            background: radial-gradient(circle at 50% 80%, rgba(11, 95, 255, 0.04) 0%, transparent 60%); 
+            z-index: 1; 
+        }
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+            width: 100%; 
+            height: 100%;
+            padding: clamp(22px, 3.2vh, 38px) 6vw; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            box-sizing: border-box;
+        }
+        
+        .hero-partner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .hero-partner-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+        .hero-brand-watermark {
+            position: absolute;
+            bottom: 3%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Unbounded', 'Outfit', sans-serif;
+            font-size: clamp(50px, 12vw, 150px);
+            font-weight: 900;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(11, 95, 255, 0.06);
+            text-transform: uppercase;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            letter-spacing: 4px;
+        }
+
+        .hero-feature-pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 3;
+        }
+        .h-pill {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 7px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.25s ease;
+        }
+        .h-pill:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(11, 95, 255, 0.1);
+        }
+
+        /* Buttons */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14.5px;
+            padding: 13px 30px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-decoration: none;
+        }
+        .btn-nahr-blue {
+            background: var(--accent);
+            color: #FFFFFF;
+            border: 1.5px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(11, 95, 255, 0.25);
+        }
+        .btn-nahr-blue:hover {
+            background: #094ecc;
+            border-color: #094ecc;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(11, 95, 255, 0.35);
+        }
+        .btn-dark {
+            background: var(--ink);
+            color: #FFFFFF;
+            border: 1.5px solid var(--ink);
+        }
+        .btn-dark:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+        }
+
+        /* Luxury Cards (Exact 8fayno Luxury Standard) */
+        .luxury-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: clamp(18px, 2.2vw, 26px);
+            box-shadow: 0 4px 20px -4px rgba(11, 26, 64, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .luxury-card:hover {
+            border-color: rgba(11, 95, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(11, 95, 255, 0.12), 0 0 0 1px rgba(11, 95, 255, 0.18);
+        }
+        .luxury-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .luxury-card:hover::before {
+            opacity: 1;
+        }
+
+        .dark-card {
+            background: var(--obsidian-card);
+            border: 1px solid var(--obsidian-border);
+            border-radius: 22px;
+            padding: clamp(18px, 2.2vw, 26px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+        .dark-card:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            transform: translateY(-5px);
+            box-shadow: 0 24px 50px -10px rgba(11, 95, 255, 0.25), 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+        .dark-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2.5px;
+            background: linear-gradient(90deg, transparent, var(--accent-sky), transparent);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .dark-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Matrix Card */
+        .matrix-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: clamp(18px, 2.2vw, 26px);
+            box-shadow: 0 4px 20px -4px rgba(11, 26, 64, 0.05);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .matrix-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(11, 95, 255, 0.12);
+        }
+        .matrix-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        /* Decorative Elements */
+        .crosshair {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            opacity: 0.3;
+        }
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+        }
+        .crosshair::before { top: 6px; left: 0; width: 14px; height: 2px; }
+        .crosshair::after { top: 0; left: 6px; width: 2px; height: 14px; }
+
+        /* Icon Boxes */
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .luxury-card:hover .icon-box,
+        .dark-card:hover .icon-box,
+        .matrix-card:hover .icon-box {
+            transform: scale(1.1) rotate(4deg);
+        }
+        .icon-box.blue { background: var(--accent-tint); color: var(--accent); }
+        .icon-box.emerald { background: var(--emerald-tint); color: var(--emerald); }
+        .icon-box.orange { background: var(--warm-tint); color: var(--warm-orange); }
+        .icon-box.purple { background: rgba(168, 85, 247, 0.1); color: #9333EA; }
+        .icon-box.cyan { background: rgba(6, 182, 212, 0.1); color: #06B6D4; }
+        .icon-box.dark { background: rgba(255, 255, 255, 0.08); color: var(--accent-sky); }
+        .icon-box.red { background: var(--condor-tint); color: var(--condor-red); }
+
+        /* Interactive Tabs */
+        .tab-btn {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 11px 22px;
+            border-radius: 999px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn:hover { border-color: var(--accent); }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #FFFFFF;
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(11, 95, 255, 0.25);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Clean Table */
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #FFFFFF;
+            font-size: 14px;
+        }
+        .custom-table th {
+            background: #F1F5F9;
+            color: var(--ink);
+            font-weight: 800;
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .custom-table td {
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border-light);
+            color: #334155;
+            vertical-align: middle;
+        }
+        .custom-table tr:last-child td { border-bottom: none; }
+        .custom-table tr:hover td { background: #F8FAFC; }
+
+        .check-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .check-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: #475569; }
+        .check-list li i { margin-top: 4px; font-size: 13px; color: var(--accent); flex-shrink: 0; }
+
+        /* Unified Horizontal Dark Metric Ribbon (Obsidian Executive Cockpit) */
+        .dark-metric-ribbon {
+            background: linear-gradient(165deg, #0D1424 0%, #050811 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: clamp(24px, 3vh, 34px) clamp(22px, 2.8vw, 38px);
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            margin-top: 24px;
+        }
+        .dark-metric-ribbon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(56, 189, 248, 0.35) 25%, 
+                rgba(16, 185, 129, 0.35) 50%, 
+                rgba(245, 158, 11, 0.35) 75%, 
+                transparent 100%);
+            pointer-events: none;
+        }
+        .dark-ribbon-col {
+            padding: 6px 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.25s ease;
+            border-radius: 14px;
+        }
+        .dark-ribbon-col:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.15) 20%, 
+                rgba(255, 255, 255, 0.15) 80%, 
+                transparent 100%);
+            pointer-events: none;
+        }
+        .dark-ribbon-col:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .dark-ribbon-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .dark-ribbon-tag .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dark-ribbon-num {
+            font-family: 'Unbounded', 'Outfit', sans-serif;
+            font-size: clamp(30px, 3.2vw, 40px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 6px;
+            direction: ltr;
+            text-align: left;
+            letter-spacing: -0.5px;
+        }
+        .dark-ribbon-title {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+        .dark-ribbon-desc {
+            font-size: 12.5px;
+            color: #94A3B8;
+            line-height: 1.55;
+            margin: 0;
+        }
+        @media (max-width: 1024px) {
+            .dark-metric-ribbon {
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+                padding: 22px;
+            }
+            .dark-ribbon-col {
+                padding: 8px 12px;
+            }
+            .dark-ribbon-col:not(:last-child)::after {
+                display: none;
+            }
+            .dark-ribbon-col:nth-child(odd) {
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .dark-ribbon-col:nth-child(-n+2) {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 14px;
+            }
+        }
+        @media (max-width: 640px) {
+            .dark-metric-ribbon {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .dark-ribbon-col {
+                border-right: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 10px 0;
+            }
+            .dark-ribbon-col:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* UI Mockups Preview Styles - Clean Luxury White Edition */
+        .ui-mockup-wrapper {
+            background: #FFFFFF;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px -5px rgba(11, 26, 64, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+        .luxury-card:hover .ui-mockup-wrapper {
+            border-color: rgba(11, 95, 255, 0.3);
+            box-shadow: 0 15px 30px -5px rgba(11, 95, 255, 0.12);
+        }
+        .ui-mockup-bar {
+            height: 30px;
+            background: #F8FAFC;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            direction: ltr;
+        }
+        .ui-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+        @media (max-width: 1024px) {
+            .grid-4, .grid-5 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; }
+            .section-light, .section-pure, .section-dark { padding: 55px 5vw; }
+        }
+    
+    </style>
+</head>
+<body>
+
+<!-- Signature 0-100% Preloader Counter -->
+<style>
+@keyframes autoDismissCondorPreloader {
+    0%, 75% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-100%); pointer-events: none; visibility: hidden; }
+}
+#preloader {
+    animation: autoDismissCondorPreloader 0.6s cubic-bezier(0.77, 0, 0.175, 1) 2.2s forwards;
+    cursor: pointer;
+}
+</style>
+<div id="preloader" onclick="dismissCondorPreloader()" title="Click to skip loading screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #060A12; z-index: 999999; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease; direction: ltr;">
+    <div id="loader-counter" class="num-font" style="position: absolute; font-size: clamp(120px, 20vw, 300px); font-weight: 900; color: rgba(255,255,255,0.035); line-height: 1; text-align: center; width: 100%; top: 50%; transform: translateY(-50%); font-variant-numeric: tabular-nums; pointer-events: none; user-select: none; z-index: 1;">0%</div>
+    <div style="position: relative; z-index: 10; text-align: center; width: 100%; padding: 0 20px; pointer-events: none;">
+        <h2 id="loader-text" class="num-font" style="font-size: clamp(22px, 4.8vw, 60px); font-weight: 900; letter-spacing: 2px; margin: 0; 
+            color: transparent; 
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+            background-image: linear-gradient(to right, #0B5FFF 0%, transparent 0%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;">
+            NAHR × CONDOR EGYPT
+        </h2>
+    </div>
+    <div style="position: absolute; bottom: 28px; font-size: 11.5px; color: rgba(255,255,255,0.4); font-family: 'Outfit', sans-serif; pointer-events: auto; letter-spacing: 0.5px;">
+        Click anywhere to skip • Esc
+    </div>
+</div>
+
+<script>
+function dismissCondorPreloader() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.style.transform = 'translateY(-100%)';
+        preloader.style.opacity = '0';
+        preloader.style.pointerEvents = 'none';
+        setTimeout(() => { if (preloader.parentNode) preloader.parentNode.removeChild(preloader); }, 800);
+    }
+}
+
+(function() {
+    let counter = 0;
+    const counterElement = document.getElementById('loader-counter');
+    const textElement = document.getElementById('loader-text');
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+    
+    const interval = setInterval(() => {
+        counter += Math.floor(Math.random() * 6) + 4;
+        if (counter >= 100) {
+            counter = 100;
+            clearInterval(interval);
+            if (counterElement) counterElement.innerText = "100%";
+            if (textElement) {
+                textElement.style.backgroundImage = "linear-gradient(to right, #0B5FFF 100%, transparent 100%)";
+                textElement.style.webkitTextStroke = "1.5px #0B5FFF";
+            }
+            setTimeout(dismissCondorPreloader, 280);
+        } else {
+            if (counterElement) counterElement.innerText = counter + "%";
+            if (textElement) textElement.style.backgroundImage = "linear-gradient(to right, #0B5FFF " + counter + "%, transparent " + counter + "%)";
+        }
+    }, 15);
+    
+    setTimeout(() => {
+        clearInterval(interval);
+        dismissCondorPreloader();
+    }, 1400);
+})();
+
+window.addEventListener('load', dismissCondorPreloader);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' || e.key === ' ') dismissCondorPreloader(); });
+</script>
+
+<!-- ============================================== -->
+<!-- HERO COVER (CHAPTER 00)                        -->
+<!-- ============================================== -->
+<section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div style="position: absolute; top: 18%; left: 8%;"><div class="crosshair"></div></div>
+        <div style="position: absolute; top: 72%; right: 10%;"><div class="crosshair"></div></div>
+
+        <!-- Top Metadata Pill -->
+        <div style="padding-top: 6px;" class="gsap-reveal">
+            <div class="hero-partner-badge">
+                <span class="en-font" style="font-weight:900; color:var(--accent);">NAHR DEV</span>
+                <span class="dot"></span>
+                <span style="color:var(--ink); font-weight:800;">CONDOR EGYPT OFFICIAL PLATFORM</span>
+            </div>
+        </div>
+
+        <!-- Center Value Proposition -->
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; flex: 1; padding: 2vh 0; position: relative; z-index: 2;">
+            <div class="gsap-reveal" style="max-width: 1000px;">
+                <h1 style="font-size: clamp(24px, 3.2vw, 42px); font-weight: 900; line-height: 1.3; color: var(--ink); margin-bottom: 14px;">
+                    Unified Sovereign Digital Platform for Condor Egypt <br>
+                    <span style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Corporate Showcase, B2C E-Commerce &amp; HVAC Engineering</span>
+                </h1>
+                <p style="font-size: clamp(13.5px, 1.15vw, 16px); color: var(--text-muted); font-weight: 500; line-height: 1.7; max-width: 860px; margin: 0 auto 20px;">
+                    The official digital headquarters for Condor in Egypt: Integrating direct-to-consumer home appliance sales (B2C), enterprise dealer &amp; distributor portal (B2B), and a dedicated engineering consulting hub for commercial climate solutions (HVAC), seamlessly synchronized in real time with Odoo ERP.
+                </p>
+            </div>
+
+            <!-- Action Pill Row -->
+            <div class="hero-feature-pills-row gsap-reveal" style="margin-bottom: 20px;">
+                <div class="h-pill"><i class="fa-solid fa-cart-shopping" style="color: var(--accent);"></i> B2C Retail Store, Installments &amp; Heavy Logistics</div>
+                <div class="h-pill"><i class="fa-solid fa-building-columns" style="color: var(--warm-orange);"></i> B2B Dealer Portal &amp; Wholesale RFQ Engine</div>
+                <div class="h-pill"><i class="fa-solid fa-fan" style="color: var(--accent-cyan);"></i> Central HVAC Engineering &amp; Climate Solutions</div>
+                <div class="h-pill"><i class="fa-solid fa-share-nodes" style="color: #A855F7;"></i> Performance Affiliate &amp; Partner Network</div>
+                <div class="h-pill"><i class="fa-solid fa-database" style="color: var(--emerald);"></i> Real-Time Bi-Directional Odoo ERP Sync</div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="gsap-reveal" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;">
+                <a href="#understanding" class="btn-action btn-nahr-blue">
+                    <span>Explore Strategic Vision &amp; Architecture</span>
+                    <i class="fa-solid fa-arrow-down" style="font-size: 13px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Giant Ambient Watermark -->
+        <div class="hero-brand-watermark" style="bottom: 10%;">CONDOR EGYPT</div>
+
+        <!-- Hero Bottom Action Strip (Sovereign Presentation Footer) -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-bottom: 12px; border-top: 1px solid var(--border); padding-top: 16px; position: relative; z-index: 3;" class="gsap-reveal">
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); font-weight: 600;">
+                <span><i class="fa-solid fa-code" style="color: var(--accent); margin-right: 6px;"></i> 100% Sovereign Code Owned by Condor Egypt</span>
+                <span><i class="fa-solid fa-shield-halved" style="color: var(--emerald); margin-right: 6px;"></i> Bi-Directional Odoo ERP Integration</span>
+                <span><i class="fa-solid fa-calendar-check" style="color: var(--warm-orange); margin-right: 6px;"></i> Phased 49-Working-Day Delivery</span>
+                <span><i class="fa-solid fa-layer-group" style="color: #A855F7; margin-right: 6px;"></i> Unified 4-in-1 Architecture</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--text-muted);"><i class="fa-solid fa-arrow-down" style="color: var(--accent); margin-right: 5px;"></i> Scroll down for technical architecture</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 01: UNDERSTANDING                      -->
+<!-- ============================================== -->
+<section class="section-light" id="understanding" style="padding: clamp(40px, 5.5vh, 65px) 6vw; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;">
+    <div style="max-width: 1400px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; justify-content: space-between; flex: 1; gap: clamp(20px, 2.8vh, 32px);">
+        
+        <!-- Header row with CHAPTER 01 and 01. UNDERSTANDING on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">01. UNDERSTANDING</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 01</div>
+        </div>
+        
+        <!-- Hero Strategic Card in Bespoke White / Crisp Light Styling -->
+        <div class="gsap-reveal grid-2" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 24px; padding: clamp(28px, 3.5vh, 44px) clamp(24px, 3vw, 42px); align-items: center; position: relative; overflow: hidden; box-shadow: var(--card-shadow); flex: 1; display: grid;">
+            <div style="position: absolute; top: -40%; left: -15%; width: 450px; height: 450px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); filter: blur(50px); pointer-events: none;"></div>
+            
+            <div style="position: relative; z-index: 2;">
+                <div class="en-font" style="color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; font-size: 12.5px;">Strategic Mission</div>
+                <h2 class="huge-title" style="margin-bottom: 16px; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.4;">You are not simply building a website; you are establishing the sovereign digital headquarters for Condor in Egypt.</h2>
+                <div style="width: 50px; height: 3px; background: var(--accent); margin-bottom: 16px; border-radius: 2px;"></div>
+                <p class="body-text" style="color: var(--accent); font-weight: 700; font-size: 14px; line-height: 1.65; margin: 0;">
+                    "We are not simply publishing a catalog. We are building the sovereign digital ecosystem that establishes Condor as Egypt's definitive authority in home appliances and climate solutions."
+                </p>
+            </div>
+            <div style="position: relative; z-index: 2; border-left: 2px solid var(--border); padding-left: clamp(18px, 2.5vw, 36px);">
+                <p class="body-text" style="color: var(--ink); font-size: 14.5px; line-height: 1.75; margin-bottom: 12px; font-weight: 700;">
+                    Current State: Condor's digital presence currently operates as a static, limited informational brochure with no direct-to-consumer sales capabilities, under-representing the brand's industrial weight and diverse commercial divisions in the Egyptian market.
+                </p>
+                <p class="body-text" style="color: var(--text-muted); font-size: 13.5px; margin-bottom: 16px; line-height: 1.7;">
+                    The New Direction: Launching an integrated 4-in-1 sovereign platform serving retail consumers (B2C), commercial distributors (B2B), HVAC engineering projects, and corporate brand authority with post-sales service, seamlessly synchronized in real time with Odoo ERP without operational friction.
+                </p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; font-weight: 700; color: var(--accent);">
+                    <span style="background: var(--accent-tint); padding: 5px 12px; border-radius: 999px;"><i class="fa-solid fa-check"></i> Segmented User Journeys</span>
+                    <span style="background: var(--accent-tint); padding: 5px 12px; border-radius: 999px;"><i class="fa-solid fa-check"></i> Real-Time Odoo ERP Sync</span>
+                    <span style="background: var(--accent-tint); padding: 5px 12px; border-radius: 999px;"><i class="fa-solid fa-check"></i> Heavy Appliance Logistics</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Unified Horizontal Dark Metric Card (Obsidian Executive Cockpit) -->
+        <div class="dark-metric-ribbon gsap-scale" style="display: grid; grid-template-columns: repeat(4, 1fr); background: #0A101D; border-radius: 16px; padding: 22px 28px; border: 1px solid rgba(255,255,255,0.08); gap: 20px;">
+            <!-- 01: 100% Sovereignty & Code Ownership -->
+            <div class="dark-ribbon-col">
+                <div class="dark-ribbon-tag en-font" style="color: #38BDF8; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <span class="dot" style="width: 6px; height: 6px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 8px #38BDF8;"></span> OWNERSHIP &amp; CODE
+                </div>
+                <div class="dark-ribbon-num num-font" style="font-size: 36px; font-weight: 900; color: #38BDF8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.25); line-height: 1; margin-bottom: 6px;">100%</div>
+                <div class="dark-ribbon-title" style="color: #FFFFFF; font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Code &amp; Data Ownership</div>
+                <p class="dark-ribbon-desc" style="color: #94A3B8; font-size: 12px; line-height: 1.5; margin: 0;">Complete enterprise sovereignty for Condor with zero recurring vendor licenses or proprietary platform locks.</p>
+            </div>
+            
+            <!-- 02: 0% ERP Conflict -->
+            <div class="dark-ribbon-col">
+                <div class="dark-ribbon-tag en-font" style="color: #34D399; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <span class="dot" style="width: 6px; height: 6px; border-radius: 50%; background: #34D399; box-shadow: 0 0 8px #34D399;"></span> ODOO ERP SYNC
+                </div>
+                <div class="dark-ribbon-num num-font" style="font-size: 36px; font-weight: 900; color: #34D399; text-shadow: 0 0 20px rgba(52, 211, 153, 0.25); line-height: 1; margin-bottom: 6px;">0%</div>
+                <div class="dark-ribbon-title" style="color: #FFFFFF; font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Odoo Inventory Conflict</div>
+                <p class="dark-ribbon-desc" style="color: #94A3B8; font-size: 12px; line-height: 1.5; margin: 0;">Intelligent real-time reservation preventing double-selling between central warehouses and digital channels.</p>
+            </div>
+            
+            <!-- 03: 49D Agile Timeline -->
+            <div class="dark-ribbon-col">
+                <div class="dark-ribbon-tag en-font" style="color: #FBBF24; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <span class="dot" style="width: 6px; height: 6px; border-radius: 50%; background: #FBBF24; box-shadow: 0 0 8px #FBBF24;"></span> AGILE TIMELINE
+                </div>
+                <div class="dark-ribbon-num num-font" style="font-size: 36px; font-weight: 900; color: #FBBF24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.25); line-height: 1; margin-bottom: 6px;">49D</div>
+                <div class="dark-ribbon-title" style="color: #FFFFFF; font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Working Days to Launch</div>
+                <p class="dark-ribbon-desc" style="color: #94A3B8; font-size: 12px; line-height: 1.5; margin: 0;">Structured agile roadmap divided into 5 clearly audited and approved delivery milestones.</p>
+            </div>
+            
+            <!-- 04: 12M Free SLA & Warranty -->
+            <div class="dark-ribbon-col">
+                <div class="dark-ribbon-tag en-font" style="color: #C084FC; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+                    <span class="dot" style="width: 6px; height: 6px; border-radius: 50%; background: #C084FC; box-shadow: 0 0 8px #C084FC;"></span> SLA &amp; WARRANTY
+                </div>
+                <div class="dark-ribbon-num num-font" style="font-size: 36px; font-weight: 900; color: #C084FC; text-shadow: 0 0 20px rgba(192, 132, 252, 0.25); line-height: 1; margin-bottom: 6px;">12M</div>
+                <div class="dark-ribbon-title" style="color: #FFFFFF; font-size: 14.5px; font-weight: 800; margin-bottom: 6px;">Comprehensive Warranty &amp; SLA</div>
+                <p class="dark-ribbon-desc" style="color: #94A3B8; font-size: 12px; line-height: 1.5; margin: 0;">Dedicated rapid-response technical support and active monitoring guaranteed for 12 months complimentary.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 02: STRATEGIC VALUE & ROI               -->
+<!-- ============================================== -->
+<section class="section-pure" id="vision">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 02 and 02. BUSINESS VALUE & STRATEGIC ROI on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">02. BUSINESS VALUE &amp; STRATEGIC ROI</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 02</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Strategic ROI: Brand Sovereignty &amp; Omnichannel Revenue Acceleration</h2>
+            <p class="sub-title">How the platform establishes Condor's market dominance in Egypt, lowers customer acquisition costs, and guarantees real-time harmony with enterprise supply chains and warehousing.</p>
+        </div>
+
+        <div class="grid-3">
+            <!-- ROI 1 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-medal"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Direct Brand Authority
+                </h3>
+                <p class="body-text" style="font-size: 13.5px; margin-bottom: 14px;">
+                    Selling direct-to-consumer through Condor's official platform solidifies buyer trust in acquiring genuine products with authorized warranties, significantly increasing direct retail profit margins compared to third-party marketplaces that deduct high commissions.
+                </p>
+                <div style="font-size: 12px; color: var(--accent); font-weight: 700;">
+                    <i class="fa-solid fa-arrow-up-right-dots" style="margin-right: 6px;"></i> Maximizing direct gross margins while protecting market pricing integrity.
+                </div>
+            </div>
+
+            <!-- ROI 2 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Corporate Lead Acceleration (B2B)
+                </h3>
+                <p class="body-text" style="font-size: 13.5px; margin-bottom: 14px;">
+                    An automated digital pipeline that captures, validates, and routes corporate wholesale inquiries and distributor RFQs directly into Odoo CRM in real time, eliminating manual WhatsApp chaos and accelerating deal closure cycles.
+                </p>
+                <div style="font-size: 12px; color: var(--warm-orange); font-weight: 700;">
+                    <i class="fa-solid fa-bolt" style="margin-right: 6px;"></i> Rapid-response SLA for commercial tenders and enterprise sales governance.
+                </div>
+            </div>
+
+            <!-- ROI 3 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-arrows-spin"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Real-Time ERP Harmony (Odoo Integration)
+                </h3>
+                <p class="body-text" style="font-size: 13.5px; margin-bottom: 14px;">
+                    Deep two-way integration with Condor's existing Odoo ERP, fortified by an intelligent inventory locking algorithm that synchronizes stock levels across physical and digital channels, seamlessly directing orders into automated accounting workflows.
+                </p>
+                <div style="font-size: 12px; color: var(--emerald); font-weight: 700;">
+                    <i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Absolute accounting reconciliation and instant automated waybill generation.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 03: PLATFORM ECOSYSTEM                 -->
+<!-- ============================================== -->
+<section class="section-dark" id="ecosystem">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 03 and 03. SOVEREIGN PLATFORM ECOSYSTEM on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">03. SOVEREIGN PLATFORM ECOSYSTEM</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 03</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Sovereign Single-Seller Brand Ecosystem for Condor Egypt</h2>
+            <p class="sub-title">Our architecture is planned as a dedicated, sovereign digital commerce platform exclusively for Condor Egypt (Single-Seller) rather than an open marketplace; ensuring absolute brand authority, centralized pricing and warranty governance, and tailored user journeys for each customer segment.</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 10px;">
+            <!-- Entity 1: Corporate & Brand -->
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-building"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    1. Corporate Brand Showcase
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 12px; color: #94A3B8;">
+                    Cementing consumer and partner trust by narrating Condor's industrial heritage, global manufacturing standards, product catalogs, and certified service center network.
+                </p>
+                <div style="font-size: 12px; color: var(--accent-sky);">
+                    Value: Solidifying the official digital headquarters of Condor in Egypt.
+                </div>
+            </div>
+
+            <!-- Entity 2: B2C Buyers -->
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-cart-shopping"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    2. B2C Retail E-Commerce
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 12px; color: #94A3B8;">
+                    Frictionless shopping journey for major home appliances, smart TVs, and air conditioning, complete with flexible consumer financing and certified installation terms.
+                </p>
+                <div style="font-size: 12px; color: #34D399;">
+                    Value: Maximizing direct-to-consumer sales at premium profit margins.
+                </div>
+            </div>
+
+            <!-- Entity 3: HVAC Solutions -->
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.15); color: #38BDF8;"><i class="fa-solid fa-fan"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    3. HVAC Climate Engineering Hub
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 12px; color: #94A3B8;">
+                    Showcasing commercial cooling systems, VRF solutions, chillers, project blueprint upload engines, and tender inquiry pipelines.
+                </p>
+                <div style="font-size: 12px; color: #38BDF8;">
+                    Value: Converting engineering consultants and contractors into qualified Odoo CRM leads.
+                </div>
+            </div>
+
+            <!-- Entity 4: B2B Corporate Hub -->
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-handshake"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    4. B2B Corporate &amp; Dealer Portal
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 12px; color: #94A3B8;">
+                    Capturing and vetting high-volume wholesale requests, merchant credentials, and commercial projects, automatically routed to Odoo CRM.
+                </p>
+                <div style="font-size: 12px; color: var(--warm-orange);">
+                    Value: Streamlining distributor accounts and institutional wholesale orders.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 04: CORPORATE & BRAND EXPERIENCE        -->
+<!-- ============================================== -->
+<section class="section-light" id="corporate-brand">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 04 and 04. CORPORATE & BRAND EXPERIENCE on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">04. CORPORATE &amp; BRAND EXPERIENCE</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 04</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Brand Experience: Establishing Enterprise Authority Ahead of Purchase</h2>
+            <p class="sub-title">The platform serves as the official corporate headquarters for Condor in Egypt, highlighting industrial depth, international quality certifications, and authorized service centers that inspire enduring loyalty.</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+            <!-- Card 1: Brand Story & Technology -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-medal"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Brand Heritage &amp; Technology Showcase
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Highlighting Condor's advanced manufacturing philosophy, international certifications, and proprietary innovations in inverter climate engineering, refrigeration, and smart displays to solidify market prominence.
+                </p>
+            </div>
+
+            <!-- Card 2: Catalogs & Manuals -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-book-open"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Digital Catalogs &amp; User Manuals
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    An organized digital repository enabling visitors and engineers to instantly download product brochures, technical datasheets, operating manuals, and energy efficiency labels in high-resolution PDF format.
+                </p>
+            </div>
+
+            <!-- Card 3: Warranty & After-Sales -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Warranty &amp; Authorized After-Sales Support
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Transparent presentation of official factory warranty terms, product coverage periods, and preventive maintenance guides to provide complete psychological safety and eliminate purchase hesitation.
+                </p>
+            </div>
+
+            <!-- Card 4: Service Centers Directory -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Authorized Service Centers Directory
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    An interactive, geographically indexed directory of certified repair centers across all Egyptian governorates, strictly verified with official Condor Egypt contact details to curb unauthorized workshops.
+                </p>
+            </div>
+
+            <!-- Card 5: Buying Guides -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.1); color: #0EA5E9;"><i class="fa-solid fa-compass"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Smart Buying &amp; Sizing Guides
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Educational guidance helping consumers select optimal refrigerator capacities (liters/cu.ft.), display sizes matched to room dimensions, and air conditioning tonnage calculated from ambient thermal load.
+                </p>
+            </div>
+
+            <!-- Card 6: News & Releases -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-bullhorn"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Corporate News &amp; Model Releases
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    A dynamic media newsroom covering the latest Condor product launches, trade exhibitions, industrial expansions, and official announcements across the Egyptian market.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 05: B2C CONSUMER JOURNEY               -->
+<!-- ============================================== -->
+<section class="section-light" id="b2c-journey">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 05 and 05. B2C E-COMMERCE & APPLIANCE EXPERIENCE on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">05. B2C E-COMMERCE &amp; APPLIANCE EXPERIENCE</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 05</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Major Appliance Consumer Journey: Seamless Retail from Discovery to Installation</h2>
+            <p class="sub-title">Purchasing major household appliances demands rigorous trust; our architecture guarantees total clarity around technical specifications, energy consumption, consumer installment plans, and certified white-glove installation.</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+            <!-- Card 1: Category Browsing -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Smart Category Navigation &amp; Faceted Filtering
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Intuitive catalog filtering engineered specifically for Egyptian home needs: sizing by refrigerator liters, washing machine kilograms, TV panel dimensions, and AC cooling capacity (1.5 HP, 2.25 HP, 3 HP) with Inverter toggles.
+                </p>
+            </div>
+
+            <!-- Card 2: Detailed Specs & Efficiency -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Technical Specs &amp; Energy Efficiency Cards
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Dedicated tabs for technical data, refrigerant types, ambient operating temperatures, noise decibels, and official energy efficiency class ratings to resolve buyer hesitation before checkout.
+                </p>
+            </div>
+
+            <!-- Card 3: Financing & Installments -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-credit-card"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Integrated Consumer Financing &amp; Installments
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    An instant installment simulator on every product card detailing monthly commitments across verified payment gateways and consumer finance providers, driving higher conversion on premium tiers.
+                </p>
+            </div>
+
+            <!-- Card 4: Heavy Logistics -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Specialized Heavy Appliance Logistics
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Logistics routing optimized for fragile and heavy goods (refrigerators, washers, AC outdoor units), incorporating delivery zone calculations, floor stair-carry terms, and automated shipping fee logic.
+                </p>
+            </div>
+
+            <!-- Card 5: Certified Installation -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.1); color: #0EA5E9;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Certified Home Installation Scheduling
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    An integrated booking step allowing buyers to bundle certified factory installation with delivery, automatically generating scheduled service tickets for Condor's certified HVAC and appliance technicians.
+                </p>
+            </div>
+
+            <!-- Card 6: Order Tracking -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-bell"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Live Tracking &amp; Proactive Order Alerts
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Real-time status updates via SMS and WhatsApp detailing warehouse dispatch, driver proximity, and installation team arrival, backed by self-service tracking portals to reduce call center volume.
+                </p>
+            </div>
+        </div>
+
+        <!-- Post-Purchase Retention Strip -->
+        <div class="luxury-card gsap-reveal" style="background: #FFFFFF; border: 1px solid var(--border); padding: 18px 24px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="icon-box purple" style="width: 36px; height: 36px; font-size: 15px; margin: 0;"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div>
+                    <h4 style="font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px 0;">Automated Cart Recovery &amp; Re-engagement</h4>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Smart, scheduled email and WhatsApp reminders encouraging shoppers to complete pending appliance orders with installment options.</p>
+                </div>
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #9333EA; background: #FAF5FF; padding: 6px 14px; border-radius: 999px;">
+                Higher Retention &amp; Conversion Velocity
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 06: DEDICATED HVAC ENGINEERING HUB    -->
+<!-- ============================================== -->
+<section class="section-pure" id="hvac-solutions">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 06 and 06. HVAC SOLUTIONS & CLIMATE ENGINEERING on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">06. HVAC SOLUTIONS &amp; CLIMATE ENGINEERING</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 06</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Commercial &amp; Central HVAC Engineering Hub: Serving Projects &amp; Consultants</h2>
+            <p class="sub-title">A specialized engineering environment presenting Condor's commercial climate systems, serving MEP engineering consultants and developers with technical datasheets, tender blueprint upload engines, and direct Odoo CRM routing.</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+            <!-- HVAC 1: Certified Systems Portfolio -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.1); color: #0EA5E9;"><i class="fa-solid fa-fan"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Approved Commercial Systems Catalog
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Curated technical presentation of Condor's VRF solutions, air-cooled chillers, concealed ducted units, and rooftop packages, strictly maintaining product taxonomy aligned with enterprise manufacturing lines.
+                </p>
+            </div>
+
+            <!-- HVAC 2: Technical Submittals -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-file-pdf"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Engineering Submittals &amp; CAD Libraries
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Instant access to technical submittal packages, airflow CFM charts, acoustic decibel ratings, electrical schematics, and dimensional CAD files required by consulting engineers for tender compliance.
+                </p>
+            </div>
+
+            <!-- HVAC 3: Load Calculator -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-calculator"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Smart Cooling Tonnage &amp; Load Estimator
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    An interactive thermal load calculator matching floor area, room height, window exposure, and occupancy to recommended cooling tonnage (BTU/hr), guiding customers toward appropriate system classes.
+                </p>
+            </div>
+
+            <!-- HVAC 4: Blueprint Upload -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Project Blueprint &amp; Tender Upload Portal
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Secure file upload gateway supporting DWG, PDF, and ZIP tender documents, capturing project location, estimated tonnage, and contractor details for instantaneous dispatch into Odoo CRM.
+                </p>
+            </div>
+
+            <!-- HVAC 5: Case Studies -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-city"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Reference Projects &amp; Installed Case Studies
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Showcasing landmark commercial installations across administrative complexes, hospitals, and educational facilities to prove Condor's engineering reliability and industrial scale.
+                </p>
+            </div>
+
+            <!-- HVAC 6: Consultation Booking -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-user-tie"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Dedicated Engineering Consultation Booking
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Direct scheduling portal connecting developers with Condor's senior climate engineering team for site surveys, heat load verifications, and value-engineering discussions.
+                </p>
+            </div>
+        </div>
+
+        <!-- HVAC Pipeline Governance Strip -->
+        <div class="luxury-card gsap-reveal" style="background: #F8FAFC; border: 1px solid var(--border); padding: 18px 24px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="icon-box cyan" style="width: 36px; height: 36px; font-size: 15px; margin: 0; background: rgba(14, 165, 233, 0.1); color: #0EA5E9;"><i class="fa-solid fa-diagram-project"></i></div>
+                <div>
+                    <h4 style="font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px 0;">Institutional Lead Acceleration Pipeline</h4>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Tender inquiries and technical specifications are automatically qualified and pushed to Condor's commercial sales team in Odoo CRM within minutes.</p>
+                </div>
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #0284C7; background: #E0F2FE; padding: 6px 14px; border-radius: 999px;">
+                Immediate Enterprise Sales Action
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 07: B2B CORPORATE BUSINESS SOLUTIONS    -->
+<!-- ============================================== -->
+<section class="section-light" id="b2b-portal">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 07 and 07. B2B & CORPORATE BUSINESS SOLUTIONS on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">07. B2B &amp; CORPORATE BUSINESS SOLUTIONS</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 07</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Corporate Portal &amp; RFQ Engine: Empowering Wholesale &amp; Institutional Sales</h2>
+            <p class="sub-title">An automated digital gateway capturing and vetting high-volume wholesale requests, dealer onboarding, and commercial tenders, automatically structured and dispatched into Odoo CRM pipelines.</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+            <!-- B2B 1: RFQ Engine -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-file-invoice"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Wholesale Inquiries &amp; Bulk RFQ Engine
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Structured inquiry builder allowing commercial buyers to specify quantities, requested delivery timelines, and project locations, generating official quotes without back-and-forth manual delays.
+                </p>
+            </div>
+
+            <!-- B2B 2: Dealer Onboarding -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-building-circle-check"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Authorized Dealer &amp; Distributor Portal
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Dedicated registration pipeline for new appliance retailers and distributors, capturing commercial registries, tax credentials, and showroom footprints for rapid onboarding.
+                </p>
+            </div>
+
+            <!-- B2B 3: Tiered Pricing Governance -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-tags"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Tiered Volume Pricing Governance
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Dynamic wholesale price matrices tied to verified order volumes and merchant credit profiles, maintaining market price discipline while incentivizing larger volume commitments.
+                </p>
+            </div>
+
+            <!-- B2B 4: Developer & Hotel Procurement -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-hotel"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Direct Developer &amp; Hospitality Procurement
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Tailored procurement packages for real estate developers, hotels, and furnished residential compounds seeking unified packages of refrigerators, washers, and smart TVs with project-rate warranties.
+                </p>
+            </div>
+
+            <!-- B2B 5: Compliance Vetting -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.1); color: #0EA5E9;"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Account Verification &amp; Tax Compliance Vetting
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Automated pre-qualification workflows verifying tax cards, commercial registries, and credit terms before unlocking corporate discounts or wholesale purchasing capabilities.
+                </p>
+            </div>
+
+            <!-- B2B 6: Odoo Lead Routing -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-arrows-to-dot"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Real-Time Odoo CRM Deal Routing
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Every verified corporate opportunity is assigned directly to the appropriate regional sales director in Odoo CRM, complete with uploaded attachments, requested quantities, and delivery milestones.
+                </p>
+            </div>
+        </div>
+
+        <!-- B2B Commercial Velocity Strip -->
+        <div class="luxury-card gsap-reveal" style="background: #FFFFFF; border: 1px solid var(--border); padding: 18px 24px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="icon-box orange" style="width: 36px; height: 36px; font-size: 15px; margin: 0;"><i class="fa-solid fa-briefcase"></i></div>
+                <div>
+                    <h4 style="font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px 0;">Commercial Velocity &amp; Tender Governance</h4>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Eliminating informal communication hurdles and empowering Condor Egypt with an enterprise sales pipeline that handles multi-million pound tenders efficiently.</p>
+                </div>
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #D97706; background: #FFFBEB; padding: 6px 14px; border-radius: 999px;">
+                Audited Enterprise Pipeline
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 08: AFFILIATE MARKETING SYSTEM         -->
+<!-- ============================================== -->
+<section class="section-pure" id="affiliate">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 08 and 08. AFFILIATE & STRATEGIC PARTNERSHIPS on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">08. AFFILIATE &amp; STRATEGIC PARTNERSHIPS</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 08</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Performance Affiliate Engine: Scaling Sales via Reviewers &amp; Strategic Partners</h2>
+            <p class="sub-title">A complete affiliate network designed to incentivize technology reviewers and home lifestyle creators, fortified by smart margin-protection rules that prevent profit erosion.</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 24px;">
+            <!-- Affiliate 1: Dedicated Dashboard -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-chart-pie"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Dedicated Partner Dashboard
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Self-service analytics cockpit for influencers and publishers to generate deep tracking links, monitor click conversions, and view earned payouts transparently in real time.
+                </p>
+            </div>
+
+            <!-- Affiliate 2: Dynamic Margin Matrix -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-sliders"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Margin-Protected Commission Tiers
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Granular commission controls configured by product category (e.g., differentiated rates between high-margin small appliances vs competitive AC inverter units) to safeguard Condor's profitability.
+                </p>
+            </div>
+
+            <!-- Affiliate 3: Financial Settlement -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Automated Monthly Financial Reconciliation
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Commission validation holding periods tied to completed return/exchange windows, ensuring commissions are credited only on verified, non-returned completed customer orders.
+                </p>
+            </div>
+
+            <!-- Affiliate 4: Creative Library -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-photo-film"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Official Media &amp; Banner Asset Hub
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Central repository supplying partners with approved high-res lifestyle product banners, promotional campaign badges, and brand guidelines to protect visual identity across external channels.
+                </p>
+            </div>
+        </div>
+
+        <!-- Affiliate Operational Strip -->
+        <div class="luxury-card gsap-reveal" style="background: #F8FAFC; border: 1px solid var(--border); padding: 18px 24px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="icon-box purple" style="width: 36px; height: 36px; font-size: 15px; margin: 0;"><i class="fa-solid fa-share-nodes"></i></div>
+                <div>
+                    <h4 style="font-size: 14.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px 0;">Zero Friction Cookie &amp; Promo Code Attribution</h4>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Multi-touch attribution tracking both custom referral links and personalized influencer discount coupons seamlessly during checkout.</p>
+                </div>
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #7E22CE; background: #FAF5FF; padding: 6px 14px; border-radius: 999px;">
+                Attribution Integrity
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 09: INTEGRATIONS & CONNECTIVITY        -->
+<!-- ============================================== -->
+<section class="section-light" id="integrations">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 09 and 09. INTEGRATIONS & BUSINESS CONNECTIVITY on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">09. INTEGRATIONS &amp; BUSINESS CONNECTIVITY</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 09</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Comprehensive Operational Integration: Real-Time Harmony with Odoo, Payments &amp; Logistics</h2>
+            <p class="sub-title">The platform's enterprise power lies in deep orchestration with Condor Egypt's existing operational infrastructure and Odoo ERP, guaranteeing fluid data flow and zero operational duplication.</p>
+        </div>
+
+        <!-- Tabs Bar -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;">
+            <button class="tab-btn active" onclick="openTab('tab-odoo', this)"><i class="fa-solid fa-database"></i> 1. Odoo ERP Integration</button>
+            <button class="tab-btn" onclick="openTab('tab-payment', this)"><i class="fa-solid fa-credit-card"></i> 2. Payments &amp; Installments</button>
+            <button class="tab-btn" onclick="openTab('tab-shipping', this)"><i class="fa-solid fa-truck-ramp-box"></i> 3. Shipping &amp; Logistics</button>
+            <button class="tab-btn" onclick="openTab('tab-marketing', this)"><i class="fa-solid fa-chart-pie"></i> 4. Marketing &amp; Analytics</button>
+        </div>
+
+        <!-- Tab 1: Odoo -->
+        <div class="tab-content active" id="tab-odoo">
+            <div class="grid-2">
+                <div class="luxury-card" style="grid-column: 1 / -1;">
+                    <div class="icon-box blue"><i class="fa-solid fa-arrows-rotate"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Bi-Directional Real-Time Inventory &amp; Pricing Synchronization</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Instant two-way synchronization of appliance stock levels and price matrices between Odoo ERP and the digital storefront. Upon order checkout, stock is locked immediately with high-concurrency safety to eliminate double-selling of constrained inventory.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Payments -->
+        <div class="tab-content" id="tab-payment">
+            <div class="grid-2">
+                <div class="luxury-card">
+                    <div class="icon-box emerald"><i class="fa-solid fa-wallet"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Integrated Payment Gateway (Cards &amp; Wallets)</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Comprehensive acceptance of Visa, Mastercard, Meeza, and mobile wallets (Vodafone Cash, Orange Money, InstaPay) with automated settlement and instant financial reconciliation.</p>
+                </div>
+                <div class="luxury-card">
+                    <div class="icon-box emerald"><i class="fa-solid fa-percent"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Consumer Financing Integration (Valu, Souhoola, Aman)</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Zero-down-payment consumer installment programs via Egypt's leading NBFS financing providers, driving high-ticket appliance conversions through frictionless checkout credit approval.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Shipping -->
+        <div class="tab-content" id="tab-shipping">
+            <div class="grid-2">
+                <div class="luxury-card">
+                    <div class="icon-box orange"><i class="fa-solid fa-box-open"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Automated Courier Waybill Generation</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Instant airway bill generation, tracking number assignment, and courier dispatch APIs upon order fulfillment, allowing customers to monitor delivery vehicles in real time.</p>
+                </div>
+                <div class="luxury-card">
+                    <div class="icon-box orange"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Heavy Freight &amp; Multi-Zone Routing</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Specialized routing for bulk appliances (refrigerators, deep freezers, HVAC outdoor condensers) with stair-carry handling terms and governorate-tier logistics pricing.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Marketing -->
+        <div class="tab-content" id="tab-marketing">
+            <div class="grid-2">
+                <div class="luxury-card">
+                    <div class="icon-box purple"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Advanced Conversion Tracking (GA4 &amp; Meta CAPI)</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Server-side tracking via Meta Conversions API and Google Analytics 4, safeguarding data accuracy against ad-blockers and optimizing customer acquisition costs across digital ad campaigns.</p>
+                </div>
+                <div class="luxury-card">
+                    <div class="icon-box purple"><i class="fa-solid fa-comment-sms"></i></div>
+                    <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px;">Automated Customer Engagement (WhatsApp Business API)</h4>
+                    <p class="body-text" style="font-size: 13.5px;">Automated transactional messaging for invoice delivery, delivery dispatch status, and installation appointment reminders via verified official WhatsApp enterprise channels.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 10: AI & SMART PLATFORM ENGINE         -->
+<!-- ============================================== -->
+<section class="section-light" id="ai-engine">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 10 and 10. AI & SMART PLATFORM ENGINE on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">10. AI &amp; SMART PLATFORM ENGINE</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 10</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Artificial Intelligence: Recommendation Engine, 24/7 Concierge &amp; Smart Diagnostics</h2>
+            <p class="sub-title">Deploying machine learning models to deliver personalized consumer shopping journeys, instant HVAC error diagnostics, 24/7 automated support, and intelligent qualification for commercial tenders.</p>
+        </div>
+
+        <div class="grid-4">
+            <!-- AI Feature 1 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Smart Recommendation Engine
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 14px;">
+                    Intelligent evaluation of room square footage, thermal insulation, and ambient sun exposure to recommend ideal AC tonnage (1.5, 2.25, 3 HP Inverter) and complementary appliances, lifting average order value (AOV).
+                </p>
+                <div style="font-size: 12px; color: var(--accent); font-weight: 700;">
+                    <i class="fa-solid fa-check" style="margin-right: 6px;"></i> Smart capacity sizing &amp; energy savings calculator
+                </div>
+            </div>
+
+            <!-- AI Feature 2 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-comments"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    24/7 AI Concierge &amp; Customer Support
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 14px;">
+                    An AI conversational agent trained exclusively on Condor's official catalogs, instantly answering inquiries in Egyptian Arabic and English regarding specs, warranty coverage, and shipping timelines without human delay.
+                </p>
+                <div style="font-size: 12px; color: var(--emerald); font-weight: 700;">
+                    <i class="fa-solid fa-bolt" style="margin-right: 6px;"></i> Instant resolution for 70%+ of front-line inquiries
+                </div>
+            </div>
+
+            <!-- AI Feature 3 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    AI Diagnostics &amp; Fault Code Engine
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 10px; line-height: 1.6;">
+                    An interactive troubleshooting engine where customers or technicians enter error codes from the unit's digital display (e.g., <code>E1</code> room sensor, <code>E4</code> compressor thermal/pressure, <code>E6</code> unit communication, or <code>EC</code> PCB fault) to receive instant root-cause clarity.
+                </p>
+                <!-- Live Diagnostic Logic Example Box -->
+                <div style="background: rgba(245, 158, 11, 0.06); border: 1px dashed rgba(245, 158, 11, 0.35); border-radius: 8px; padding: 8px 11px; font-size: 11px; margin-bottom: 12px; color: #78350F; line-height: 1.55;">
+                    <span style="font-weight: 800; color: var(--warm-orange);"><i class="fa-solid fa-code" style="margin-right: 4px;"></i> Live Diagnostic Logic:</span>
+                    Input Code <code>E4</code> ➔ Compressor Protection &amp; Freon Check ➔ Automatically generates an authorized service ticket with pre-allocated replacement parts.
+                </div>
+                <div style="font-size: 12px; color: var(--warm-orange); font-weight: 700;">
+                    <i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Direct dispatch to certified after-sales engineers
+                </div>
+            </div>
+
+            <!-- AI Feature 4 -->
+            <div class="luxury-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-brain"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #9333EA; margin-bottom: 8px;">
+                    B2B Lead Scoring &amp; Tender Qualification
+                </h3>
+                <p class="body-text" style="font-size: 13px; margin-bottom: 14px;">
+                    Automated parsing of commercial tax documents and project blueprints uploaded by corporate clients, estimating deal volume and prioritizing high-yield tenders before real-time dispatch into Odoo CRM.
+                </p>
+                <div style="font-size: 12px; color: #9333EA; font-weight: 700;">
+                    <i class="fa-solid fa-network-wired" style="margin-right: 6px;"></i> Intelligent pre-scoring &amp; automated Odoo routing
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 11: SEARCH INTELLIGENCE & MARKET DEMAND -->
+<!-- ============================================== -->
+<section class="section-pure" id="search-intelligence">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 11 and 11. SEARCH INTELLIGENCE & MARKET DEMAND on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">11. SEARCH INTELLIGENCE &amp; MARKET DEMAND</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 11</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(20px, 2.6vh, 28px);">
+            <h2 class="huge-title">Search Intent Intelligence &amp; Data-Driven Information Architecture</h2>
+            <p class="sub-title">Engineering platform user journeys around verified consumer demand across Egypt's appliance landscape, scientifically distinguishing between raw traffic volume and commercial conversion value.</p>
+        </div>
+
+        <!-- 1. The Core Strategic Anchor Statement -->
+        <div class="luxury-card gsap-reveal" style="background: linear-gradient(135deg, rgba(11, 95, 255, 0.04) 0%, rgba(56, 189, 248, 0.02) 100%); border: 1px solid rgba(11, 95, 255, 0.22); border-left: 5px solid var(--accent); padding: clamp(20px, 2.5vw, 30px); margin-bottom: 30px; border-radius: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <span class="dot" style="background: var(--accent); box-shadow: 0 0 8px var(--accent);"></span>
+                <span style="font-size: 12.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;" class="en-font">CORE STRATEGIC FOUNDATION</span>
+            </div>
+            <h3 style="font-size: clamp(18.5px, 2.2vw, 24px); font-weight: 900; color: var(--ink); margin-bottom: 14px; line-height: 1.4;">
+                Engineering the Platform Around Genuine Egyptian Market Demand
+            </h3>
+            <p class="body-text" style="font-size: 14.5px; line-height: 1.8; color: var(--text-dark); margin-bottom: 12px;">
+                We did not construct our platform vision around queries tied to the Condor brand name alone; rather, we initiated from a broader macroeconomic map of digital demand across Egypt's home appliance landscape. This encompasses millions of potential search opportunities spanning Air Conditioning, Refrigerators, Washing Machines, Smart Displays, and Small Domestic Appliances—extending from pricing, technical specs, and comparisons to consumer financing, installation, and after-sales service.
+            </p>
+            <p class="body-text" style="font-size: 13.5px; line-height: 1.75; color: var(--text-muted); margin-bottom: 0;">
+                By analyzing search volumes and user intent depth, product catalog taxonomies, marketing content, and post-sales portals will be prioritized strategically to intercept consumers precisely at their point of intent, channeling this demand into verified sales for Condor.
+            </p>
+        </div>
+
+        <!-- 2. What Egyptian Consumers Search For (The 6 Commercial Clusters) -->
+        <div style="margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;">
+                <div>
+                    <h3 style="font-size: clamp(17px, 2vw, 21px); font-weight: 800; color: var(--ink); margin-bottom: 4px;">
+                        1. What Egyptian Consumers Search For (The 6 Commercial Clusters)
+                    </h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                        Demand clusters categorized by strategic priority and commercial value to Condor's portfolio:
+                    </p>
+                </div>
+                <div class="sec-marker en-font" style="margin: 0; font-size: 11px;">6 PRODUCT CLUSTERS</div>
+            </div>
+
+            <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+                <!-- Cluster 01: Air Conditioning -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid var(--accent); padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.5px;">CLUSTER 01</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">01. Air Conditioning &amp; Pricing</h4>
+                        </div>
+                        <span style="background: rgba(11, 95, 255, 0.1); color: var(--accent); font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">P1 Highest Priority</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Air Conditioning – Purchase Intent</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC prices in Egypt</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">1.5 HP AC price</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">2.25 HP AC</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Best AC in Egypt</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Cool &amp; Heat AC</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Inverter AC</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Energy-saving AC</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC price comparison</span>
+                    </div>
+                </div>
+
+                <!-- Cluster 02: Major Home Appliances -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid #10B981; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: #10B981; letter-spacing: 0.5px;">CLUSTER 02</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">02. Refrigerators &amp; Washers</h4>
+                        </div>
+                        <span style="background: rgba(16, 185, 129, 0.1); color: #059669; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">P1 Highest Priority</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Major Home Appliances</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Refrigerator prices Egypt</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">No-Frost refrigerator</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Best refrigerator Egypt</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Automatic washer prices</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Top-load washer</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Best automatic washer</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Deep freezer prices</span>
+                    </div>
+                </div>
+
+                <!-- Cluster 03: TV & Electronics -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid #8B5CF6; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: #8B5CF6; letter-spacing: 0.5px;">CLUSTER 03</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">03. Smart TVs &amp; Displays</h4>
+                        </div>
+                        <span style="background: rgba(139, 92, 246, 0.1); color: #7C3AED; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">Comparison &amp; Buy</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">TV &amp; Consumer Electronics</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">TV prices in Egypt</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">43 inch smart TV</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">55 inch 4K TV</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Best smart display</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Television prices</span>
+                    </div>
+                </div>
+
+                <!-- Cluster 04: Home Setup & Appliances -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid #F59E0B; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: #F59E0B; letter-spacing: 0.5px;">CLUSTER 04</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">04. Home Setup &amp; Cooking</h4>
+                        </div>
+                        <span style="background: rgba(245, 158, 11, 0.1); color: #B45309; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">Bridal Setup</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Home Setup &amp; Small Appliances</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Home appliances prices</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Best home appliances</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Cooker/range prices</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Dishwasher prices</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Bridal appliance package</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Bridal appliance checklist</span>
+                    </div>
+                </div>
+
+                <!-- Cluster 05: Service & Maintenance -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid #0284C7; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: #0284C7; letter-spacing: 0.5px;">CLUSTER 05</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">05. Maintenance &amp; Repair</h4>
+                        </div>
+                        <span style="background: rgba(2, 132, 199, 0.1); color: #0369A1; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">Retention &amp; Trust</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Service &amp; Maintenance Intent</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC maintenance</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC installation</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC not cooling</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC cleaning</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Fridge &amp; washer repair</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Appliance spare parts</span>
+                    </div>
+                </div>
+
+                <!-- Cluster 06: Financing & Offers -->
+                <div class="luxury-card gsap-reveal" style="border-top: 3px solid #EC4899; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <span class="en-font" style="font-size: 11px; font-weight: 800; color: #EC4899; letter-spacing: 0.5px;">CLUSTER 06</span>
+                            <h4 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin: 3px 0 0 0;">06. Financing &amp; Deals</h4>
+                        </div>
+                        <span style="background: rgba(236, 72, 153, 0.1); color: #BE185D; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">Instant Conversion</span>
+                    </div>
+                    <div class="en-font" style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Financing &amp; Promotional Intent</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Appliances on installment</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">AC on installment</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Zero interest installment</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Appliance discounts</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Installment prices</span>
+                        <span style="font-size: 11px; font-weight: 600; background: #F1F5F9; color: #0F172A; padding: 2px 7px; border-radius: 5px; border: 1px solid #E2E8F0;">Valu &amp; Aman financing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Crucial Principle: Volume vs Intent Commercial Value -->
+        <div class="luxury-card gsap-reveal" style="background: #FFFFFF; border: 1px solid var(--border); padding: 24px; margin-bottom: 30px; border-radius: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="icon-box purple" style="width: 36px; height: 36px; font-size: 15px;"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 style="font-size: clamp(17px, 2vw, 20px); font-weight: 800; color: var(--ink); margin: 0;">
+                        2. The Governing Principle: Never Equate «Search Volume» with «Search Value»
+                    </h3>
+                </div>
+                <div style="background: rgba(147, 51, 234, 0.08); color: #7E22CE; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">
+                    Commercial ROI Formula
+                </div>
+            </div>
+
+            <p class="body-text" style="font-size: 13.5px; line-height: 1.7; color: var(--text-dark); margin-bottom: 16px;">
+                Not every 10,000 search queries hold equal economic weight. Broad queries often represent passive discovery, whereas specific queries reflect buyers with credit cards ready or consumers in urgent need of certified maintenance.
+            </p>
+
+            <!-- Comparative Table: Intent vs Value -->
+            <div style="overflow-x: auto; margin-bottom: 18px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; min-width: 600px;">
+                    <thead>
+                        <tr style="background: #F8FAFC; border-bottom: 2px solid var(--border);">
+                            <th style="padding: 10px 14px; font-weight: 800; color: var(--ink);">Search Intent Type</th>
+                            <th style="padding: 10px 14px; font-weight: 800; color: var(--ink);">Sample Query</th>
+                            <th style="padding: 10px 14px; font-weight: 800; color: var(--ink);">Funnel Stage</th>
+                            <th style="padding: 10px 14px; font-weight: 800; color: var(--ink);">Commercial Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-compass" style="color: #94A3B8; margin-right: 6px;"></i> General Exploratory</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: #475569;">Air Conditioners</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Initial Demand Discovery</td>
+                            <td style="padding: 10px 14px;"><span style="background: #F1F5F9; color: #475569; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11.5px;">Brand Discovery &amp; Awareness</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-tag" style="color: var(--accent); margin-right: 6px;"></i> Price &amp; Sizing Query</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: var(--accent);">1.5 HP AC prices</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Budget Sizing &amp; Purchase Intent</td>
+                            <td style="padding: 10px 14px;"><span style="background: rgba(11, 95, 255, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11.5px;">High (Direct Sales Target)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-microchip" style="color: #0284C7; margin-right: 6px;"></i> Technology &amp; Specs</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: #0284C7;">Inverter AC cool &amp; heat</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Technical Preference &amp; Efficiency</td>
+                            <td style="padding: 10px 14px;"><span style="background: rgba(2, 132, 199, 0.1); color: #0369A1; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11.5px;">High (Inverter Premium Margin)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-scale-balanced" style="color: #D97706; margin-right: 6px;"></i> Comparative Review</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: #D97706;">Best AC in Egypt</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Brand Evaluation &amp; Choice</td>
+                            <td style="padding: 10px 14px;"><span style="background: rgba(217, 119, 6, 0.1); color: #B45309; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11.5px;">High (Capturing Market Share)</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-credit-card" style="color: #EC4899; margin-right: 6px;"></i> Financing &amp; Deals</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: #EC4899;">AC on installment / 0% interest</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Purchase Tied to Payment Plan</td>
+                            <td style="padding: 10px 14px;"><span style="background: rgba(236, 72, 153, 0.1); color: #BE185D; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11.5px;">Very High (Instant Conversion)</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 14px; font-weight: 700; color: var(--text-dark);"><i class="fa-solid fa-wrench" style="color: #059669; margin-right: 6px;"></i> Service &amp; Support</td>
+                            <td style="padding: 10px 14px; font-family: monospace; color: #059669;">AC repair / error codes</td>
+                            <td style="padding: 10px 14px; color: var(--text-muted);">Urgent Breakdown / Spare Parts</td>
+                            <td style="padding: 10px 14px;"><span style="background: rgba(16, 185, 129, 0.1); color: #047857; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11.5px;">Retention &amp; Service Lifetime Value</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mathematical Core Formula Banner -->
+            <div style="background: #F8FAFC; border: 1px dashed var(--border); border-radius: 8px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                <div style="font-size: 13px; font-weight: 800; color: var(--ink);">
+                    <i class="fa-solid fa-bullseye" style="color: var(--accent); margin-right: 6px;"></i> Platform Hierarchy Rule:
+                </div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--accent); background: #FFFFFF; padding: 6px 14px; border-radius: 6px; border: 1px solid #E2E8F0;">
+                    Platform Architecture Priority = Search Demand × Purchase Intent × Condor Fulfillment Capability
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted);">
+                    Our objective is not gathering vanity traffic, but maximizing revenue velocity and capturing high-intent buyers.
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Real Market Data, Indicators & Measured Samples in Egypt -->
+        <div class="luxury-card gsap-reveal" style="background: #F8FAFC; border: 1px solid var(--border); padding: 22px 26px; margin-bottom: 30px; border-radius: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <i class="fa-solid fa-microscope" style="color: var(--accent); font-size: 16px;"></i>
+                <h3 style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0;">
+                    3. Data Transparency &amp; Digital Governance: Measured Market Indicators in Egypt
+                </h3>
+            </div>
+            <p class="body-text" style="font-size: 13px; line-height: 1.7; color: var(--text-dark); margin-bottom: 14px;">
+                In line with engineering rigor and consultative integrity, we avoid unverified inflated claims; rather, we anchor our architecture in published search samples and commercial demand shares in the Egyptian market:
+            </p>
+            <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 14px;">
+                <div style="background: #FFFFFF; padding: 14px 16px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">Single Keyword Query Samples (Google Search)</div>
+                    <div style="font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 4px;">«Automatic Washer»: ~6,600 searches/mo</div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--text-muted);">«Clothes Washer»: ~2,400 searches/mo</div>
+                    <div style="font-size: 11px; color: #64748B; margin-top: 6px; line-height: 1.4;">(Examples of individual queries; grouped variants are compiled programmatically).</div>
+                </div>
+
+                <div style="background: #FFFFFF; padding: 14px 16px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px;">Commercial Demand Share (Market Share Tracking)</div>
+                    <div style="font-size: 13.5px; font-weight: 800; color: var(--ink); margin-bottom: 4px;">AC Category: Accounted for ~21% of demand</div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--text-muted);">Washing Machines: Accounted for ~18.9%</div>
+                    <div style="font-size: 11px; color: #64748B; margin-top: 6px; line-height: 1.4;">(From total tracked demand across key Egyptian appliance categories).</div>
+                </div>
+
+                <div style="background: #FFFFFF; padding: 14px 16px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                    <div style="font-size: 11px; font-weight: 700; color: #059669; margin-bottom: 4px;">Continuous Measurement Methodology</div>
+                    <div style="font-size: 13.5px; font-weight: 800; color: #059669; margin-bottom: 4px;">Operational Data Verification</div>
+                    <div style="font-size: 11.5px; color: var(--text-dark); line-height: 1.5;">Continuous measurement and auditing of search volumes via Google Search Console and competitive intelligence tools during live operations.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Strategic Research & Priority Matrix Table for Condor -->
+        <div class="luxury-card gsap-reveal" style="background: #FFFFFF; border: 1px solid var(--border); padding: 24px; border-radius: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+                <div>
+                    <h3 style="font-size: clamp(17px, 2vw, 20px); font-weight: 800; color: var(--ink); margin-bottom: 3px;">
+                        4. Strategic Priorities &amp; Platform Architecture Matrix for Condor
+                    </h3>
+                    <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">
+                        Organizing page hierarchies, navigation menus, and marketing campaigns based on search intent and commercial value:
+                    </p>
+                </div>
+                <div class="sec-marker en-font" style="margin: 0; font-size: 11px;">EXECUTION MATRIX</div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; min-width: 720px;">
+                    <thead>
+                        <tr style="background: #0B1220; color: #FFFFFF;">
+                            <th style="padding: 12px 14px; font-weight: 800; border-top-left-radius: 8px;">Cluster Category</th>
+                            <th style="padding: 12px 14px; font-weight: 800;">Target Search Queries</th>
+                            <th style="padding: 12px 14px; font-weight: 800;">Demand &amp; Volume Indicator</th>
+                            <th style="padding: 12px 14px; font-weight: 800;">Intent Type</th>
+                            <th style="padding: 12px 14px; font-weight: 800;">Condor Priority</th>
+                            <th style="padding: 12px 14px; font-weight: 800; border-top-right-radius: 8px;">Platform Architecture Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border); background: rgba(11, 95, 255, 0.02);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-snowflake" style="color: var(--accent); margin-right: 6px;"></i> Air Conditioning
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">Prices, 1.5 &amp; 2.25 HP, Inverter, Best AC</td>
+                            <td style="padding: 12px 14px; color: var(--accent); font-weight: 700;">Demand share ~21% (Audited continuously)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(11, 95, 255, 0.1); color: var(--accent); padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Purchase &amp; Sizing</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #FEF2F2; color: #DC2626; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">P1 Highest Priority</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Homepage hero position, smart cooling tonnage calculator, Inverter energy toggle.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-cube" style="color: #10B981; margin-right: 6px;"></i> Refrigerators
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">Fridge prices, No-Frost, Deep freezer, Liters</td>
+                            <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Stable year-round demand (Continuous auditing)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(16, 185, 129, 0.1); color: #059669; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Purchase &amp; Specs</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #FEF2F2; color: #DC2626; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">P1 Highest Priority</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Capacity selector (Liters &amp; Cu.Ft), No-Frost technology callout, energy rating cards.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border); background: rgba(16, 185, 129, 0.02);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-soap" style="color: #059669; margin-right: 6px;"></i> Washing Machines
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">Automatic, Top-Load, Capacity in Kg</td>
+                            <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Demand share ~18.9% (Samples 6.6K &amp; 2.4K)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(16, 185, 129, 0.1); color: #059669; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Purchase &amp; Sizing</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #EFF6FF; color: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">P2 Major Focus</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Clear comparison between front-load and top-load, faceted filter by kilogram capacity.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-tv" style="color: #8B5CF6; margin-right: 6px;"></i> Smart Displays
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">43 inch, 55 inch 4K, Smart OS, Televisions</td>
+                            <td style="padding: 12px 14px; color: #7C3AED; font-weight: 700;">Entertainment &amp; review queries (Audited)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(139, 92, 246, 0.1); color: #7C3AED; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Comparison &amp; Buy</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #EFF6FF; color: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">P2 Commercial Goal</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Display resolution and Smart OS filters, highlighting top-selling sizes (43" and 55").</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border); background: rgba(245, 158, 11, 0.02);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-ring" style="color: #D97706; margin-right: 6px;"></i> Bridal &amp; Home Setup
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">Cookers, small appliances, bridal checklist</td>
+                            <td style="padding: 12px 14px; color: #D97706; font-weight: 700;">Multi-item basket queries (Audited)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(245, 158, 11, 0.1); color: #B45309; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Package Setup</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">AOV Expansion</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Dedicated Bridal Package landing page with bundle discounts and unified financing.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-screwdriver-wrench" style="color: #0284C7; margin-right: 6px;"></i> Maintenance &amp; Parts
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">Service, error codes (E1, E4, E6, EC), install</td>
+                            <td style="padding: 12px 14px; color: #0284C7; font-weight: 700;">Critical high-intent queries (Audited)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(2, 132, 199, 0.1); color: #0284C7; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Urgent Support</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #F0FDF4; color: #166534; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">Brand Defense</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Interactive AI error code diagnostics, technician booking, and genuine factory spare parts.</td>
+                        </tr>
+                        <tr style="background: rgba(236, 72, 153, 0.03);">
+                            <td style="padding: 12px 14px; font-weight: 800; color: var(--ink);">
+                                <i class="fa-solid fa-credit-card" style="color: #EC4899; margin-right: 6px;"></i> Installments &amp; Deals
+                            </td>
+                            <td style="padding: 12px 14px; color: var(--text-dark); font-size: 12px;">0% interest, Valu, Aman, banks, no deposit</td>
+                            <td style="padding: 12px 14px; color: #BE185D; font-weight: 700;">Key purchasing driver in Egypt (Audited)</td>
+                            <td style="padding: 12px 14px;"><span style="background: rgba(236, 72, 153, 0.1); color: #BE185D; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 11px;">Purchase Trigger</span></td>
+                            <td style="padding: 12px 14px;"><span style="background: #FCE7F3; color: #9D174D; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 11px;">Conversion (CRO)</span></td>
+                            <td style="padding: 12px 14px; color: var(--text-muted); font-size: 11.5px;">Instant installment calculator in product cards, highlighting verified financing options.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 12: UI/UX & CREATIVE DIRECTION         -->
+<!-- ============================================== -->
+<section class="section-pure" id="uiux">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 12 and 12. UI/UX & CREATIVE DIRECTION on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">12. UI/UX &amp; CREATIVE DIRECTION</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 12</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Enterprise Software Architecture &amp; Cloud Reliability</h2>
+            <p class="sub-title">Selection of nopCommerce powered by ASP.NET Core 9 and C#, fortified with isolated staging environments and enterprise security standards to safeguard Condor Egypt's mission-critical operations.</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 25px;">
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-brands fa-microsoft"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    nopCommerce + .NET Core 9
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Open-source enterprise architecture granting Condor 100% intellectual property ownership with zero recurring vendor licenses and lightning-fast throughput tailored for enterprise commerce.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-database"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Microsoft SQL Server
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Enterprise relational database engine guaranteeing high-concurrency transaction processing across thousands of simultaneous orders with seamless accounting reconciliation.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-lock"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Enterprise Security &amp; Encryption
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    End-to-end protection against SQL Injection and XSS, encrypted corporate tender data, hardened session management, and modern TLS/SSL security certificates.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box cyan" style="background: rgba(14, 165, 233, 0.15); color: #38BDF8;"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Dual-Environment Topology (Live &amp; Staging)
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    An isolated staging replica to thoroughly test new model releases, pricing updates, and firmware downloads prior to live production rollout, preventing operational disruptions.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-hard-drive"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Automated Off-Site Backups
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Scheduled automated snapshots of transactional databases and technical submittals stored in geodiverse cloud vaults, ensuring immediate disaster recovery and business continuity.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-cloud"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Global Content Delivery &amp; Edge WAF (CDN)
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Global edge CDN network accelerating high-res product renders and technical PDF submittals, paired with automated Web Application Firewall rules to block DDoS attacks.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 13: TECHNICAL ARCHITECTURE & CLOUD ENGINE -->
+<!-- ============================================== -->
+<section class="section-dark" id="tech-stack">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 13 and 13. TECHNICAL ARCHITECTURE & CLOUD ENGINE on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">13. TECHNICAL ARCHITECTURE &amp; CLOUD ENGINE</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 13</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Enterprise Cloud Architecture &amp; Sovereign Core</h2>
+            <p class="sub-title">Deploying nopCommerce (.NET 9) with high-availability cloud infrastructure and localized performance caching for optimal response times across Egypt.</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-cube"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    nopCommerce (.NET 9 Core)
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    High-performance e-commerce framework with enterprise modular architecture, delivering banking-grade security and modular plugin scalability.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box orange"><i class="fa-solid fa-code"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    100% Code &amp; IP Ownership
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    The entire codebase is 100% owned by Condor Egypt, free from recurring platform revenue cuts, arbitrary lock-ins, or third-party subscription penalties.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-database"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Enterprise SQL Database
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Optimized indexing and connection pooling capable of processing millions of concurrent transactions with bi-directional Odoo ERP data consistency.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box purple"><i class="fa-solid fa-vial"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Isolated Staging Pipeline
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Dedicated pre-production sandbox allowing internal marketing and operations teams to test promotional campaigns, bundles, and firmware updates safely.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box emerald"><i class="fa-solid fa-hard-drive"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Disaster Recovery &amp; Backups
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Point-in-time database recovery, encrypted daily off-site snapshots, and automated health checks ensuring instantaneous business restoration.
+                </p>
+            </div>
+
+            <div class="dark-card gsap-reveal">
+                <div class="icon-box blue"><i class="fa-solid fa-cloud"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                    Cloudflare Enterprise Edge
+                </h3>
+                <p class="body-text" style="font-size: 13px; color: #94A3B8;">
+                    Localized caching in Cairo points-of-presence (PoP) ensuring sub-second page loads across mobile networks, paired with enterprise DDoS scrubbing.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- CHAPTER 14: ROADMAP, QA & SLA PARTNERSHIP       -->
+<!-- ============================================== -->
+<section class="section-pure" id="roadmap">
+    <div class="section-container">
+        <!-- Header row with CHAPTER 14 and 14. ROADMAP, QA & SLA PARTNERSHIP on the exact same line -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(14px, 2vh, 22px);">
+            <div class="chapter-title gsap-reveal en-font" dir="ltr" style="font-size: clamp(22px, 3vw, 38px); line-height: 1; margin: 0; white-space: nowrap;">14. ROADMAP, QA &amp; SLA PARTNERSHIP</div>
+            <div class="sec-marker en-font" style="margin: 0;">CHAPTER 14</div>
+        </div>
+        <div class="sec-header" style="margin-bottom: clamp(18px, 2.4vh, 26px);">
+            <h2 class="huge-title">Delivery Roadmap &amp; Quality Assurance: 49 Working Days to Launch</h2>
+            <p class="sub-title">A battle-tested agile methodology structured into 5 approved delivery milestones, followed by 12 months of comprehensive warranty and rapid-response enterprise support.</p>
+        </div>
+
+        <!-- Sprints Timeline -->
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px;">
+            <!-- Sprint 1 -->
+            <div class="luxury-card gsap-reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 18px;">
+                    <div class="num-font" style="font-size: 20px; font-weight: 900; color: var(--accent); background: var(--accent-tint); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">01</div>
+                    <div>
+                        <h4 style="font-size: 15.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px 0;">Phase 1: Architecture, Legacy URL Mapping &amp; UI/UX Prototyping</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Defining catalog taxonomy, auditing all existing Condor Egypt web URLs to prevent SEO index decay, and delivering interactive high-fidelity Figma prototypes for executive sign-off.</p>
+                    </div>
+                </div>
+                <div class="en-font" style="background: #F1F5F9; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; color: var(--ink);">
+                    Working Days 1 - 10 (10 Days)
+                </div>
+            </div>
+
+            <!-- Sprint 2 -->
+            <div class="luxury-card gsap-reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 18px;">
+                    <div class="num-font" style="font-size: 20px; font-weight: 900; color: var(--accent); background: var(--accent-tint); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">02</div>
+                    <div>
+                        <h4 style="font-size: 15.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px 0;">Phase 2: Core Storefront &amp; B2B Corporate RFQ Engine</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Deploying nopCommerce, building direct consumer checkout, installment calculator widgets, and commercial wholesale inquiry builders.</p>
+                    </div>
+                </div>
+                <div class="en-font" style="background: #F1F5F9; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; color: var(--ink);">
+                    Working Days 11 - 24 (14 Days)
+                </div>
+            </div>
+
+            <!-- Sprint 3 -->
+            <div class="luxury-card gsap-reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 18px;">
+                    <div class="num-font" style="font-size: 20px; font-weight: 900; color: var(--accent); background: var(--accent-tint); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">03</div>
+                    <div>
+                        <h4 style="font-size: 15.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px 0;">Phase 3: HVAC Engineering Hub &amp; Consultant Submittals Portal</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Developing commercial HVAC classifications, smart cooling load estimator, project blueprint upload engine, and technical PDF submittal library.</p>
+                    </div>
+                </div>
+                <div class="en-font" style="background: #F1F5F9; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; color: var(--ink);">
+                    Working Days 25 - 35 (11 Days)
+                </div>
+            </div>
+
+            <!-- Sprint 4 -->
+            <div class="luxury-card gsap-reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 18px;">
+                    <div class="num-font" style="font-size: 20px; font-weight: 900; color: var(--accent); background: var(--accent-tint); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">04</div>
+                    <div>
+                        <h4 style="font-size: 15.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px 0;">Phase 4: Operational Integration (Odoo ERP, Paymob &amp; Bosta)</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Configuring two-way APIs with Odoo inventory and invoices, integrating Paymob credit card/wallet gateways, and configuring automated Bosta waybills.</p>
+                    </div>
+                </div>
+                <div class="en-font" style="background: #F1F5F9; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; color: var(--ink);">
+                    Working Days 36 - 42 (7 Days)
+                </div>
+            </div>
+
+            <!-- Sprint 5 -->
+            <div class="luxury-card gsap-reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 18px;">
+                    <div class="num-font" style="font-size: 20px; font-weight: 900; color: var(--emerald); background: var(--emerald-tint); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">05</div>
+                    <div>
+                        <h4 style="font-size: 15.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px 0;">Phase 5: Comprehensive QA, Technical SEO, 301 Redirects &amp; Go-Live</h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Executing permanent 301 redirect maps to preserve Google index authority, schema markup, penetration testing, load stress testing, staff training, and official deployment.</p>
+                    </div>
+                </div>
+                <div class="en-font" style="background: var(--emerald-tint); color: var(--emerald); padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 800;">
+                    Working Days 43 - 49 (7 Days)
+                </div>
+            </div>
+        </div>
+
+        <!-- QA & SLA Section Cards -->
+        <div class="grid-3">
+            <div class="luxury-card gsap-reveal" style="border-top: 3px solid var(--emerald);">
+                <div class="icon-box emerald"><i class="fa-solid fa-award"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    12 Months Complimentary Warranty
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Immediate remediation of any unexpected bugs, functional anomalies, or security vulnerabilities at zero additional cost for 12 months post-launch.
+                </p>
+            </div>
+
+            <div class="luxury-card gsap-reveal" style="border-top: 3px solid var(--accent);">
+                <div class="icon-box blue"><i class="fa-solid fa-headset"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Enterprise SLA &amp; Support Contract
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Direct priority escalation channel dedicated to Condor management with guaranteed rapid-response SLAs for mission-critical operations.
+                </p>
+            </div>
+
+            <div class="luxury-card gsap-reveal" style="border-top: 3px solid var(--warm-orange);">
+                <div class="icon-box orange"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3 style="font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">
+                    Hands-On Training &amp; Full Documentation
+                </h3>
+                <p class="body-text" style="font-size: 13px;">
+                    Hands-on practical training workshops for Condor's sales, catalog, and warehouse teams, accompanied by recorded step-by-step digital operating manuals.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================== -->
+<!-- EXECUTIVE CLOSING (CHAPTER 15)                  -->
+<!-- ============================================== -->
+<section class="section-dark" id="closing" style="min-height: 85vh; padding: clamp(60px, 8vh, 100px) 6vw; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-sizing: border-box;">
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div class="sec-marker en-font" style="margin-bottom: 18px;"><i class="fa-solid fa-star"></i> EXECUTIVE PARTNERSHIP</div>
+        <h2 style="font-family: 'Outfit', sans-serif; font-size: clamp(24px, 3vw, 40px); font-weight: 900; line-height: 1.35; color: #FFFFFF; margin-bottom: 18px;">
+            Looking Forward to a Transformative Strategic Partnership with <span style="color: var(--accent-sky);">Condor Egypt</span>
+        </h2>
+        <p class="body-text" style="font-size: 15px; color: #94A3B8; line-height: 1.8; max-width: 780px; margin: 0 auto 28px;">
+            Modern nopCommerce architecture (.NET 9), real-time Odoo ERP integration, and segmented user journeys for retail consumers, corporate buyers, and central climate engineering establish a sovereign digital platform worthy of Condor's industrial authority and market leadership in Egypt.
+        </p>
+        <div style="margin: 30px auto 0; width: 70px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-sky), transparent);"></div>
+        <div style="margin-top: 24px; font-size: 13px; color: #64748B;">
+            Nahr Software Development (Nahr Dev) • Your Strategic Partners in Sovereign Digital Commerce Infrastructure
+        </div>
+    </div>
+</section>
+
+<!-- Interactive WebGL Fluid Canvas (Subtle smoke trailing mouse) -->
+<canvas id="fluid-canvas"></canvas>
+
+<script>
+// 1. WebGL Fluid Simulation (Signature Interactive Mouse Smoke - 8fayno Standard)
+try {
+    if (typeof WebGLFluid !== 'undefined') {
+        WebGLFluid(document.querySelector('canvas#fluid-canvas'), {
+            IMMEDIATE: true, 
+            TRIGGER: 'hover', 
+            SIM_RESOLUTION: 128, 
+            DYE_RESOLUTION: 512, 
+            DENSITY_DISSIPATION: 0.96,
+            VELOCITY_DISSIPATION: 0.98, 
+            PRESSURE_DISSIPATION: 0.8, 
+            PRESSURE_ITERATIONS: 20, 
+            CURL: 25, 
+            SPLAT_RADIUS: 0.045,
+            SPLAT_FORCE: 2800, 
+            SHADING: true, 
+            COLORFUL: true, 
+            COLOR_UPDATE_SPEED: 4, 
+            PAUSED: false, 
+            BACK_COLOR: { r: 248, g: 250, b: 252 },
+            TRANSPARENT: true, 
+            BLOOM: true, 
+            BLOOM_ITERATIONS: 4, 
+            BLOOM_RESOLUTION: 256, 
+            BLOOM_INTENSITY: 0.15, 
+            BLOOM_THRESHOLD: 0.65, 
+            BLOOM_SOFT_KNEE: 0.7, 
+            SUNRAYS: false
+        });
+    }
+} catch(e) {
+    console.warn("Fluid canvas notice: ", e);
+}
+
+// Mouse event proxy to ensure fluid canvas receives mouse events smoothly
+window.addEventListener('mousemove', (e) => {
+    const canvas = document.getElementById('fluid-canvas');
+    if (canvas) {
+        const event = new MouseEvent('mousemove', {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: false,
+            cancelable: false
+        });
+        canvas.dispatchEvent(event);
+    }
+});
+
+// 2. GSAP Reveal Animations with Smooth Easing Curves
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.gsap-reveal').forEach((elem) => {
+        gsap.fromTo(elem, 
+            { opacity: 0, y: 24 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.85, 
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    });
+
+    gsap.utils.toArray('.gsap-scale').forEach((elem) => {
+        gsap.fromTo(elem, 
+            { opacity: 0, scale: 0.95 },
+            { 
+                opacity: 1, 
+                scale: 1, 
+                duration: 0.85, 
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 92%",
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    });
+}
+
+// Interactive Tab Switching
+function openTab(tabId, btn) {
+    const section = btn.closest('section');
+    if (!section) return;
+    const tabs = section.querySelectorAll('.tab-content');
+    const btns = section.querySelectorAll('.tab-btn');
+    
+    tabs.forEach(t => t.classList.remove('active'));
+    btns.forEach(b => b.classList.remove('active'));
+    
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.add('active');
+    btn.classList.add('active');
+}
+</script>
+</body>
+</html>

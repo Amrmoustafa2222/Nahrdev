@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -1760,30 +1760,56 @@
 </div>
 
 <script>
-window.addEventListener('DOMContentLoaded', () => {
+function startLoader() {
     let counter = 0;
     const counterElement = document.getElementById('loader-counter');
     const textElement = document.getElementById('loader-text');
     const preloader = document.getElementById('preloader');
+    if (!preloader || preloader.dataset.started) return;
+    preloader.dataset.started = 'true';
     
     let interval = setInterval(() => {
         counter += Math.floor(Math.random() * 4) + 2;
         if(counter >= 100) {
             counter = 100;
             clearInterval(interval);
-            counterElement.innerText = "100%";
-            textElement.style.backgroundImage = `linear-gradient(to right, #0B5FFF 100%, transparent 100%)`;
-            textElement.style.webkitTextStroke = "1.5px #0B5FFF";
+            if (counterElement) counterElement.innerText = "100%";
+            if (textElement) {
+                textElement.style.backgroundImage = "linear-gradient(to right, #0B5FFF 100%, transparent 100%)";
+                textElement.style.webkitTextStroke = "1.5px #0B5FFF";
+            }
             
             setTimeout(() => {
-                preloader.style.transform = "translateY(-100%)";
-                setTimeout(() => preloader.remove(), 1200);
+                if (preloader) preloader.style.transform = "translateY(-100%)";
+                setTimeout(() => { if (preloader && preloader.parentNode) preloader.remove(); }, 1200);
             }, 380);
         } else {
-            counterElement.innerText = counter + "%";
-            textElement.style.backgroundImage = `linear-gradient(to right, #0B5FFF ${counter}%, transparent ${counter}%)`;
+            if (counterElement) counterElement.innerText = counter + "%";
+            if (textElement) textElement.style.backgroundImage = "linear-gradient(to right, #0B5FFF " + counter + "%, transparent " + counter + "%)";
         }
     }, 18);
+    
+    // Safety fallback: maximum 2.5 seconds guarantee
+    setTimeout(() => {
+        clearInterval(interval);
+        if (preloader && preloader.parentNode) {
+            preloader.style.transform = "translateY(-100%)";
+            setTimeout(() => { if (preloader && preloader.parentNode) preloader.remove(); }, 800);
+        }
+    }, 2500);
+}
+
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', startLoader);
+} else {
+    startLoader();
+}
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader && preloader.parentNode) {
+        preloader.style.transform = "translateY(-100%)";
+        setTimeout(() => { if (preloader && preloader.parentNode) preloader.remove(); }, 800);
+    }
 });
 </script>
 
@@ -2841,6 +2867,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <div class="marquee-track-clean marquee-left-clean">
                 <!-- 10 Logos Doubled -->
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/Unicef.svg" alt="Unicef" loading="lazy" /></div>
+                <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/%D9%85%D9%8A%D9%86%D8%A7%D8%A1-%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D9%87-%D8%A7%D9%84%D8%AC%D9%88%D9%8A.svg" alt="ميناء القاهرة الجوي" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/وزارة-الثقافة.svg" alt="وزارة الثقافة" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/شركة-المياة-القابضة.svg" alt="شركة المياة القابضة" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/Fanooos.svg" alt="Fanooos" loading="lazy" /></div>
@@ -2852,6 +2879,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/01/صحتنا.svg" alt="صحتنا" loading="lazy" /></div>
                 <!-- Duplicate for seamless infinite loop -->
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/Unicef.svg" alt="Unicef" loading="lazy" /></div>
+                <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/%D9%85%D9%8A%D9%86%D8%A7%D8%A1-%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D9%87-%D8%A7%D9%84%D8%AC%D9%88%D9%8A.svg" alt="ميناء القاهرة الجوي" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/وزارة-الثقافة.svg" alt="وزارة الثقافة" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/شركة-المياة-القابضة.svg" alt="شركة المياة القابضة" loading="lazy" /></div>
                 <div class="logo-item-clean"><img src="https://nahrdev.com/wp-content/uploads/2026/02/Fanooos.svg" alt="Fanooos" loading="lazy" /></div>
@@ -4599,7 +4627,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <div style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; flex: 1; padding: 4vh 0 2vh; position: relative; z-index: 2;">
             <div class="gsap-reveal" style="max-width: 980px;">
                 <h1 style="font-size: clamp(30px, 4.5vw, 56px); font-weight: 900; line-height: 1.35; color: var(--ink); margin-bottom: 16px;">
-                    منظومة مصر سيلز للتجارة الإلكترونية والماركت بليس الهجين
+                    منظومة مصر سيلز للتجارة الإلكترونية والماركت بليس المتكامل
                 </h1>
                 <p class="en-font" style="font-size: clamp(15px, 2vw, 22px); color: var(--accent); font-weight: 800; letter-spacing: 0.5px; margin-bottom: 16px; direction: ltr;">
                     Misr Sales E-commerce Marketplace • Website Redesign & Business Integration
@@ -4649,7 +4677,7 @@ window.addEventListener('DOMContentLoaded', () => {
             
             <div style="position: relative; z-index: 2;">
                 <div class="en-font" style="color: var(--accent); font-weight: 800; letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; direction: ltr; text-align: right; font-size: 13.5px;">Strategic Mission</div>
-                <h2 class="huge-title" style="margin-bottom: 16px; font-size: clamp(24px, 2.8vw, 38px); line-height: 1.4;">أنتم لا تبنون موقعاً جديداً، بل تؤسسون محرك نمو هجين.</h2>
+                <h2 class="huge-title" style="margin-bottom: 16px; font-size: clamp(24px, 2.8vw, 38px); line-height: 1.4;">أنتم لا تبنون موقعاً جديداً، بل تؤسسون محرك نمو تجاري متكامل.</h2>
                 <div style="width: 60px; height: 4px; background: var(--accent); margin-bottom: 18px; border-radius: 2px;"></div>
                 <p class="body-text" style="color: var(--accent); font-weight: 800; font-size: 16px; line-height: 1.65; margin: 0;">
                     "We are not just rebuilding your website. We are building the digital commerce ecosystem that will power your next stage of growth."
@@ -4877,11 +4905,11 @@ window.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="eco-node-title">1. العملاء والمشترون</div>
                         <p class="eco-node-text">
-                            تصفح هجين سلس، ومحرك بحث ذكي بفلاتر متقدمة، مع سلة شراء موحدة تجمع منتجات تجار متعددين في طلب واحد مع خيارات التقسيط الفوري وتتبع حي للشحنات.
+                            تصفح ذكي وسلس، ومحرك بحث متطور بفلاتر متقدمة، مع سلة شراء موحدة تجمع منتجات تجار متعددين في طلب واحد مع خيارات التقسيط الفوري وتتبع حي للشحنات.
                         </p>
                     </div>
                     <div class="eco-feature-tags">
-                        <span class="eco-feature-tag"><i class="fa-solid fa-cart-shopping" style="color: var(--accent);"></i> سلة شراء هجينة موحدة</span>
+                        <span class="eco-feature-tag"><i class="fa-solid fa-cart-shopping" style="color: var(--accent);"></i> سلة شراء موحدة</span>
                         <span class="eco-feature-tag"><i class="fa-solid fa-bolt" style="color: #F59E0B;"></i> تقسيط فوري (Valu)</span>
                         <span class="eco-feature-tag"><i class="fa-solid fa-route" style="color: var(--emerald);"></i> تتبع مسار الشحنات</span>
                     </div>
@@ -5442,7 +5470,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <!-- Tab 1: ERP -->
         <div class="tab-content active" id="tab-odoo">
             <div class="grid-2" style="gap: 20px;">
-                <div class="luxury-card" style="padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="luxury-card" style="grid-column: 1 / -1; padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
                             <div class="icon-box blue"><i class="fa-solid fa-arrows-rotate"></i></div>
@@ -5460,24 +5488,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         <span class="en-font" style="color: var(--ink); background: #F1F5F9; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">REAL-TIME SYNC</span>
                     </div>
                 </div>
-                <div class="luxury-card" style="padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
-                            <div class="icon-box blue"><i class="fa-solid fa-shield-virus"></i></div>
-                            <span class="en-font" style="font-size: 11px; font-weight: 800; background: rgba(11,95,255,0.08); color: var(--accent); padding: 4px 10px; border-radius: 999px; letter-spacing: 0.5px;">STOCK LOCKING & BUFFER</span>
-                        </div>
-                        <h4 style="font-size: 17.5px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">حماية المخزون وعزل المستودعات المركزية</h4>
-                        <p class="body-text" style="font-size: 14px; margin-bottom: 14px; line-height: 1.6;">خوارزمية حجز لحظي تمنع بيع نفس القطعة على منصة مصر سيلز ومنافذ البيع المتعددة في نفس التوقيت عبر المستودعات المركزية.</p>
-                        <ul class="check-list" style="margin-bottom: 0;">
-                            <li><i class="fa-solid fa-check"></i> حجز القطعة فور دخول مرحلة الدفع لمدة محددة لمنع تضارب الطلبات.</li>
-                            <li><i class="fa-solid fa-check"></i> استمرار عمل المتجر وتخزين الطلبات حتى في حال بطء سيرفر Odoo.</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); font-weight: 600;">
-                        <span><i class="fa-solid fa-circle-check" style="color: var(--accent); margin-left: 6px;"></i> عزل المخزون التام</span>
-                        <span class="en-font" style="color: var(--ink); background: #F1F5F9; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">ZERO OVERSOLD</span>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -5851,7 +5862,7 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
             <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; padding: 32px;" class="gsap-reveal">
                 <div class="icon-box emerald" style="background: rgba(16,185,129,0.15); color: var(--emerald);"><i class="fa-solid fa-database"></i></div>
-                <h3 style="font-size: 18px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">Microsoft SQL Server 2022</h3>
+                <h3 style="font-size: 18px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">Microsoft SQL Server 2025</h3>
                 <p class="body-text" style="font-size: 14px; color: #94A3B8; line-height: 1.65;">قاعدة بيانات علائقية متقدمة تضمن معالجة متوازية لآلاف المعاملات وأوامر الشراء المتزامنة دون أي تعليق أو تلف في سجلات المخزون.</p>
             </div>
             <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; padding: 32px;" class="gsap-reveal">
@@ -6126,7 +6137,7 @@ window.addEventListener('DOMContentLoaded', () => {
         
         <div style="padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; gap: 8px;">
             <div style="font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px;">
-                نهر لتطوير البرمجيات <span class="en-font" style="color: var(--accent-sky);">(Nahr Development)</span>
+                نهر للتطوير البرمجي <span class="en-font" style="color: var(--accent-sky);">(Nahr Development)</span>
             </div>
             <div style="font-size: 13px; color: #64748B;">
                 شركاؤكم في بناء البنى التحتية والتجارة الرقمية الحديثة
